@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Productivity Tool",
+    "description": "Page Indexer and To do list",
+    "version": "0.0.1",
+    "permissions": [
+        "storage",
+        "unlimitedStorage"
+    ],
+    "action": {
+        "default_icon": "assets/placeholder.png"
+    }
+  }
