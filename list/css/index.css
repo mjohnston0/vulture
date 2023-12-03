@@ -1,0 +1,837 @@
+body > div{margin-right:auto;margin-left:auto; }
+body{font-family: "microsoft yahei", '宋体';}
+body,div,ul,ol,ul,li,ol,dl,dd,dt,form,span,p,textarea{margin:0;padding:0;list-style:none;}
+address,caption,cite,code,dfn,th,var{font-style:normal;font-weight:normal;}
+h1,h2,h3,h4,h5,h6{margin:0;padding:0;}
+input{padding-top:0;padding-bottom:0;}
+input::-moz-focus-inner{border:none;padding:0;}
+select,input{vertical-align:middle;}
+select,input,textarea{font-size:12px;margin:0;}
+input[type="text"],input[type="password"],textarea{outline-style:none;-webkit-appearance:none;}
+textarea{resize:none;}
+table{border-collapse:collapse;border-spacing:0;}
+img,a img{border:0;margin:0;padding:0;}
+img{border:none;}
+a{outline-style:none;color:#000;text-decoration:none}
+
+.main{
+    width: 100%;
+    max-width: 1850px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+.main .header{
+    width: 100%;
+    height: 50px;
+}
+.main .header p{
+    width: 250px;
+    height: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #fff9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    -ms-border-radius: 10px 10px 0 0;
+    -o-border-radius: 10px 10px 0 0;
+    box-shadow:2px 0px 0px 0px #e5e5e5,-2px 0px 0px 0px #e5e5e5;
+    margin-left: 3px;
+}
+.main .con{
+    width: 100%;
+    height: auto;
+    padding-bottom: 100px;
+    background: #fff9f9;
+    box-shadow:2px 0px 0px 0px #e5e5e5,-2px 0px 0px 0px #e5e5e5,0px 3px 0px 0px #e5e5e5;
+    padding-top: 40px;
+}
+.main .con .nbox{
+    width: 1550px;
+    margin: 0 auto;
+}
+.main .con .prebox{
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
+    height: 32px;
+    align-items: center;
+}
+.main .con .prebox p{
+    display: flex;
+    align-items: center;
+    height: 32px;
+}
+.main .con .prebox p::after{
+    content: '';
+    width: 32px;
+    height: 32px;
+    background: url(../images/preicon.png);
+    background-size: 100%;
+    margin-left: 3px;
+}
+.main .con .listbox{
+    width: 100%;
+    background: #f5f5f5;
+    margin-top: 55px;
+    border-radius: 20px;
+    box-shadow:0px -5px 0px 4px #c7c7c7,5px 0px 5px 0px #c7c7c7,-5px 0px 0px 0px #c7c7c7;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding-top: 34px;
+}
+.main .con .listbox .top{
+    display: flex;
+    padding: 0 36px;
+    box-sizing: border-box;
+}
+.main .con .listbox .top .title{
+    font-size: 30px;
+    font-weight: bold;
+}
+.main .con .listbox .top .chobox{
+    flex: 1;
+    margin-left: 85px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+    font-size: 20px;
+}
+.main .con .listbox .top .chobox .item{
+    display: flex;
+    align-items: center;
+    height: 35px;
+}
+.main .con .listbox .top .chobox .tag{
+    width: 190px;
+    background: #fff;
+    margin-left: 10px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    font-size: 13px;
+    justify-content: space-between;
+    position: relative;
+}
+.main .con .listbox .top .chobox .tag p{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.main .con .listbox .top .chobox .tag::after{
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: url(../images/sjxicon.png);
+    background-size: 100%;
+}
+.main .con .listbox .top .chobox .tags{
+    width: 100%;
+    position: absolute;
+    top: 32px;
+    left: 0;
+    background: #fff;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    display: none;
+}
+.main .con .listbox .top .chobox .tags.on{
+    display: block;
+}
+.main .con .listbox .top .chobox .tags p{
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+}
+.main .con .listbox .top .chobox .tags span{
+    width: 16px;
+    height: 16px;
+    background: #00a6db;
+    border-radius: 99px;
+    -webkit-border-radius: 99px;
+    -moz-border-radius: 99px;
+    -ms-border-radius: 99px;
+    -o-border-radius: 99px;
+    margin-left: 8px;
+}
+.main .con .listbox .top .chobox .tags .tag2 span{
+    background: #db8300;
+}
+.main .con .listbox .top .chobox .tags .tag3 span{
+    background: #afdb00;
+}
+.main .con .listbox .top .chobox .tags p.on::after{
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: url(../images/tagonicon.png);
+    background-size: 100%;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8px;
+}
+.main .con .listbox .top .chobox .tsbox p{
+    justify-content: flex-start;
+}
+.main .con .listbox .top .chobox .tsbox p::after{
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: url(../images/addicon.png);
+    background-size: 100%;
+    margin-left: 10px;
+}
+.main .con .listbox .top .chobox .tsbox.on{
+    display: none;
+}
+.main .con .listbox .top .chobox .addipt {
+    display: none;
+}
+.main .con .listbox .top .chobox .addipt.on{
+    display: block;
+}
+.main .con .listbox .top .chobox .addipt input{
+    width: 30px;
+    height: 30px;
+    display: block;
+    font-size: 16px;
+    flex: 1;
+    border: none;
+}
+.main .con .listbox .top .ipt{
+    width: 225px;
+    height: 34px;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    background: #fff;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+.main .con .listbox .top .ipt input{
+    width: 100%;
+    height: 100%;
+    border: none;;
+    background: none;
+    flex: 1;
+}
+.main .con .listbox .top .timebox .ipt::after{
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: url(../images/dataicon.png);
+    background-size: 100%;
+}
+.main .con .listbox .timebox{
+    position: relative;
+}
+.schedule-box {
+    width: 320px;
+    margin: 0 auto;
+    padding: 35px 20px;
+    font-size: 13px;
+    position: absolute;
+    z-index: 100;
+    top: 35px;
+    display: none;
+    background: #fff;
+}
+#schedule-box2{
+    z-index: 1000;
+    left: 102px;
+    width: 330px;
+    top: 45px;
+}
+.schedule-box.on{
+    display: block;
+}
+.schedule-hd {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    align-items: center;
+}
+.today {
+    flex: 1;
+    text-align: center;
+    font-size: 20px;
+    color: #00C2B1;
+}
+.ul-box {
+    overflow: hidden;
+}
+.ul-box>li {
+    float: left;
+    width: 14.28%;
+    text-align: center;
+    padding: 5px 0;
+}
+.other-month {
+    color: #999999;
+}
+.disabled {
+    pointer-events: none;
+    background-color: #eeeeee;
+    color: #999999;
+}
+.current-month {
+    color: #333333;
+}
+.today-style {
+    border-radius: 50%;
+    background: #58d321;
+}
+.arrow {
+    cursor: pointer;
+}
+.dayStyle {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    cursor: pointer;
+}
+.current-month>.dayStyle:hover {
+    background: #00BDFF;
+    color: #ffffff;
+}
+.today-flag {
+    background: #00C2B1;
+    color: #fff;
+}
+.boxshaw {
+    box-shadow: 2px 2px 15px 2px #e3e3e3;
+}
+.selected-style {
+    background-color: #ffba5a;
+    color: #ffffff;
+}
+.active-style {
+    background: #00BDFF;
+    color: #ffffff;
+}
+
+.listbox .content{
+    width: 100%;
+    margin-top: 40px;
+}
+.listbox .content .table{
+    width: 100%;
+    display: flex;
+    box-shadow: 0px -2px 1px 0px #d5d5d5, 0px 5px 3px 0px #d5d5d5;;
+}
+.listbox .content .table p{
+    box-sizing: border-box;
+    padding: 0 10px;
+    font-size: 20px;
+    font-weight: bold;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-left: 3px solid #cacaca;
+    justify-content: space-between;
+    box-sizing: border-box  ;
+}
+.listbox .content .table p.drop::after{
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: url(../images/sjxicon.png);
+    background-size: 100%;
+}
+.listbox .content .table p:nth-child(1){
+    border-left:none;
+    width: 12%
+}
+.listbox .content .table p:nth-child(2){
+    width: 40%;
+}
+.listbox .content .table p:nth-child(3){
+    width: 18%;
+}
+.listbox .content .table p:nth-child(4){
+    width: 8%;
+}
+.listbox .content .table p:nth-child(5){
+    width: 7%;
+}
+.listbox .content .table p:nth-child(6){
+    width: 10%;
+}
+.listbox .content .list{
+    background: #fff;
+    padding-bottom: 150px;
+    border-radius:0 0 25px 25px;
+    -webkit-border-radius:0 0 25px 25px;
+    -moz-border-radius:0 0 25px 25px;
+    -ms-border-radius:0 0 25px 25px;
+    -o-border-radius:0 0 25px 25px;
+    margin-top: 5px;
+    min-height: 900px;
+}
+.listbox .content .list .item{
+    display: flex;
+    height: 64px;
+    align-items: center;
+    font-size: 20px;
+    background: #f5f5f5;
+}
+.listbox .content .list .item p{
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.listbox .content .list .item .title{
+    width: 12%
+}
+.listbox .content .list .item .des{
+    width: 40%
+}
+.listbox .content .list .item .due{
+    width: 18%
+}
+.listbox .content .list .item .tag{
+    width: 8%
+}
+.listbox .content .list .item .edit{
+    width: 7%;
+    display: flex;
+    height: 62px;
+    align-items: center;
+}
+.listbox .content .list .item .status{
+    width: 10%
+}
+.listbox .content .list .item .tag span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 82px;
+    height: 38px;
+    background: #00a6db;
+    border-radius: 99px;
+    -webkit-border-radius: 99px;
+    -moz-border-radius: 99px;
+    -ms-border-radius: 99px;
+    -o-border-radius: 99px;
+    color: #fff;
+    font-size: 16px;
+}
+.listbox .content .list .item .tag2 span{
+    background: #db8300;
+}
+.listbox .content .list .item .edit span{
+    width: 32px;
+    height: 32px;
+    background: url(../images/more.png);
+    background-size: 100%;
+    margin-left: 6px;
+    cursor: pointer;
+}
+.editbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: none;
+}
+.editbox.on{
+    display: flex;
+}
+.editbox .box{
+    width: 650px;
+    background: #fff;
+    box-shadow: 1px 5px 5px 4px #aba9a9;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    box-sizing: border-box;
+    padding: 25px 55px;
+}
+.editbox .box p.tit{
+    text-align: center;
+    font-size: 24px;
+}
+.editbox .box .fitem{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+.editbox .box .fitem .name{
+    width: 100px;
+}
+.editbox .box .fitem .ipt{
+    width: 250px;
+    height: 40px;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    padding: 0 10px;
+}
+.editbox .box .fitem .ipt input{
+    border: none;
+    background: none;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+}
+
+.editbox .box .fitem .tagipt{
+    width: 190px !important;
+    background: #fff;
+    margin-left: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    font-size: 13px;
+    justify-content: space-between;
+    position: relative;
+}
+.editbox .box .fitem .tagipt .ipt{
+    display: flex;
+    align-items: center;
+}
+.editbox .box .fitem .tagipt .ipt::after{
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: url(../images/sjxicon.png);
+    background-size: 100%;
+}
+.editbox .box .fitem .tagipt .tags{
+    width: 100%;
+    position: absolute;
+    top: 37px;
+    left: 0;
+    background: #fff;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    display: none;
+}
+.editbox .box .fitem .tagipt .tags.on{
+    display: block;
+}
+.editbox .box .fitem .tagipt .tags p{
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+}
+.editbox .box .fitem .tagipt .tags span{
+    width: 16px;
+    height: 16px;
+    background: #00a6db;
+    border-radius: 99px;
+    -webkit-border-radius: 99px;
+    -moz-border-radius: 99px;
+    -ms-border-radius: 99px;
+    -o-border-radius: 99px;
+    margin-left: 8px;
+}
+.editbox .box .fitem .tagipt .tags .tag2 span{
+    background: #db8300;
+}
+.editbox .box .fitem .tagipt .tags .tag3 span{
+    background: #afdb00;
+}
+.editbox .box .fitem .tagipt .tags p.on::after{
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: url(../images/tagonicon.png);
+    background-size: 100%;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8px;
+}
+.editbox .box .fitem .tagipt .addipt {
+    display: none;
+}
+.editbox .box .fitem .tagipt .addipt.on{
+    display: block;
+}
+.editbox .box .fitem .tagipt .addipt input{
+    width: 30px;
+    height: 30px;
+    display: block;
+    font-size: 16px;
+    flex: 1;
+    border: none;
+}
+.editbox .box .fitem .tagipt .tsbox p{
+    justify-content: flex-start;
+}
+.editbox .box .fitem .tagipt .tsbox.on{
+    display: none;
+}
+.editbox .box .fitem .tagipt .tsbox p::after{
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: url(../images/addicon.png);
+    background-size: 100%;
+    margin-left: 10px;
+}
+.editbox .box .fitem2{
+    height: auto;
+    display: flex;
+    align-items: flex-start;
+}
+.editbox .box .fitem .textbox{
+    width: 350px;
+    height: 150px;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    padding: 10px ;
+    box-sizing: border-box;
+}
+.editbox .box .fitem .textbox textarea{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    font-size: 16px;
+    resize: none;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+.editbox .box .fitem3{
+    position: relative;
+}
+.editbox .box .fitem3 .ipt{
+    width: 350px;
+    display: flex;
+    align-items: center;
+}
+.editbox .box .fitem3 .ipt::after{
+    content: '';
+    width: 25px;
+    height: 25px;
+    background: url(../images/dataicon.png);
+    background-size: 100%;
+}
+.editbox .btnbox{
+    width: 345px;
+    margin: 0 auto;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+.editbox .btnbox a{
+    width: 150px;
+    height: 55px;
+    background: #97da80;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    color: #fff;
+    font-size: 20px;
+}
+.editbox .btnbox a:nth-child(2){
+    background: #e87979;
+}
+.listbox .content .list .item .status{
+    display: flex;
+}
+.listbox .content .list .item .status span{
+    width: 58px;
+    height: 30px;
+    background: #98e265;
+    border-radius: 99px;
+    -webkit-border-radius: 99px;
+    -moz-border-radius: 99px;
+    -ms-border-radius: 99px;
+    -o-border-radius: 99px;
+    margin-right: 3px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    cursor: pointer;
+}
+.listbox .content .list .item .status span:hover{
+    background: #a291cf;
+}
+.listbox .content .list .item .status span::before{
+    content: '';
+    width: 28px;
+    height: 28px;
+    background: #fff url(../images/tagonicon.png) center;
+    background-size: 75%;
+    border-radius:99px;
+    -webkit-border-radius:99px;
+    -moz-border-radius:99px;
+    -ms-border-radius:99px;
+    -o-border-radius:99px;
+    position: absolute;
+    left: 29px;
+    transition: all .1s;
+    -webkit-transition: all .1s;
+    -moz-transition: all .1s;
+    -ms-transition: all .1s;
+    -o-transition: all .1s;
+}
+.listbox .content .list .item .status.ina span{
+    background: #674fa5;
+}
+.listbox .content .list .item .status.ina span::before{
+    background: #674fa5;
+    background: #fff url(../images/cloceicon.png) center no-repeat;
+    background-size: 65%;
+    left: 1px;
+}
+.listbox .content .list .item .delete span{
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url(../images/deleticon.png);
+    background-size: 100%;
+    cursor: pointer;
+}
+.main .con2 .nbox{
+    width: 1780px;
+}
+.con2 .title2{
+    font-size: 30px;
+    font-weight: bold;
+}
+.main .con2 .listbox{
+    padding-top: 0;
+    margin-top: 25px;
+}
+.con2 .listbox .content .table p:nth-child(1){
+    width: 60%;
+}
+.con2 .listbox .content .table p:nth-child(2){
+    width: 30%;
+}
+.con2 .listbox .content .table p:nth-child(3){
+    width: 10%;
+}
+.con2 .listbox .content .list .item{
+    width: 100%;
+    border-bottom: 3px solid #bdbdbd;
+}
+.con2 .listbox .content .list .item .allow{
+    width: 55.5%;
+}
+.con2 .listbox .content .list .item .type{
+    width: 28.5%;
+}
+.con2 .listbox .content .list .item .enable{
+    width: 10%;
+}
+.con2 .listbox .content .list .item .type p{
+    width: 190px;
+    background: #fff;
+    margin-left: 10px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    font-size: 13px;
+    justify-content: space-between;
+}
+.con2 .listbox .content .list .item .type p::after{
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: url(../images/sjxicon.png);
+    background-size: 100%;
+}
+.con2 .listbox .content .list .item.add .allow{
+    color: #999;
+}
+.con2 .listbox .content .list .item.add .delete span{
+    background: url(../images/addicon.png);
+    background-size: 100%;
+}
+.main .con2 .prebox p{
+    margin-right: 160px;
+}
+.main .con2 .prebox p::after{
+    background: url(../images/listicon.png);
+    background-size: 100%;
+}
