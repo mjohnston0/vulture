@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preference</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/font_234130_nem7eskcrkpdgqfr.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <p>Preference</p>
+        </div>
+        <div class="con con2">
+            <div class="nbox">
+                <div class="prebox">
+                    <a href="./index.html">
+                        <p>Todo List</p>
+                    </a>
+                </div>
+                <p class="title2">Allow list</p>
+                <div class="listbox">
+                    <div class="content">
+                        <div class="table">
+                            <p class="drop">Allow Value</p>
+                            <p>Type</p>
+                            <p>Enable</p>
+                            <p>Delete</p>
+                        </div>
+                        <div class="list">
+                            <div class="item">
+                                <p class="title allow">www.siteurl.com</p>
+                                <div class="des type">
+                                    <p>URL</p>
+                                </div>
+                                <p class="status enable"><span></span></p>
+                                <p class="delete"><span></span></p>
+                            </div>
+                            <div class="item">
+                                <p class="title allow">Bank</p>
+                                <div class="des type">
+                                    <p>Keyword</p>
+                                </div>
+                                <p class="status enable"><span></span></p>
+                                <p class="delete"><span></span></p>
+                            </div>
+                            <div class="item">
+                                <p class="title allow">A(?!\b(?:;paylbank)b).</p>
+                                <div class="des type">
+                                    <p>Regex</p>
+                                </div>
+                                <p class="status enable"><span></span></p>
+                                <p class="delete"><span></span></p>
+                            </div>
+                            <div class="item add">
+                                <p class="title allow">Add new allow condition</p>
+                                <div class="des type"></div>
+                                <p class="status enable"></p>
+                                <p class="delete"><span></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const statusbtn = document.querySelectorAll('.status')
+    for (let i = 0; i < statusbtn.length; i++) {
+        statusbtn[i].addEventListener('click', function () {
+            this.classList.toggle('ina')
+        })
+    }
+    const deletebtn = document.querySelectorAll('.listbox .content .list .item .delete span')
+
+    for (let i = 0; i < deletebtn.length; i++) {
+        deletebtn[i].addEventListener('click', function () {
+            this.parentElement.parentElement.remove()
+        })
+    }
+</script>
+
+</html>
