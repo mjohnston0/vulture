@@ -25,85 +25,79 @@ function includes(todo, keyword) {
 }
 
 function sameDate(date1, date2) {
-    let day1 = date1.getDay();
-    let month1 = date1.getMonth();
-    let year1 = date1.getFullYear();
+    let d1 = new Date(date1);
+    let day1 = d1.getDay();
+    let month1 = d1.getMonth();
+    let year1 = d1.getFullYear();
 
-    let day2 = date2.getDay();
-    let month2 = date2.getMonth();
-    let year2 = date2.getFullYear();
+    let d2 = new Date(date2)
+    let day2 = d2.getDay();
+    let month2 = d2.getMonth();
+    let year2 = d2.getFullYear();
 
     return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true: false;
 }
 
-function queryTodo(todos, keyword = null, doneOnly = false, date = undefined) {
-    var qtodos = []
+// document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
 
-    console.log(doneOnly, keyword);
+function getTodos(query=undefined, doneOnly=false, date=undefined, evt) {
+    let todos = []
 
-    for (todo of todos) {
-        
-        if (keyword && !includes(todo, keyword)) continue;
+    chrome.storage.local.get(['todos'], result => {
 
-        if (doneOnly && todo.status) continue;
+        for (todo of result['todos']) {
 
-        if (date && !sameDate(todo.date, date)) continue;
+            if (query && !includes(todo, query)) continue;
 
-        qtodos.push(todo);
-    }
+            if (doneOnly && todo.status) continue;
 
-    return qtodos;
+            if (date && !sameDate(todo.date, date)) continue;
+
+            todos.push(todo);
+        }
+
+        sortTodoList(todos);
+
+        for (todo of todos) {
+            console.log(todo.title, todo.date);
+        }
+
+        // display(todos);
+    })
 }
-
 
 // ----------------------------------------------- TEST -----------------------------------------------------------
 
-class ToDo {
-    title = '';
-    description = '';
-    date = Date();
-    tag = '';
-    status = false; // inactive or done
+// document.getElementById('save').addEventListener('click', addTodos)
 
-    constructor(title, description, date, tag, status) {
-        this.title = title;
-        this.description = description;
-        this.date = date;
-        this.tag = tag;
-        this.status = status;
+function addTodos() {
+    class ToDo {
+        title = '';
+        description = '';
+        date = '';
+        tag = '';
+        status = false; // inactive or done
+    
+        constructor(title, description, date, tag, status) {
+            this.title = title;
+            this.description = description;
+            this.date = date;
+            this.tag = tag;
+            this.status = status;
+        }
     }
+    
+    let t1 = new ToDo('abce', 'j', '2024-01-04', 'lplp', false);
+    
+    let t2 = new ToDo('aako', 'ojo', '2024-01-04', 'lplp', true);
+    let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
+    let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
+    let t5 = new ToDo('aakop', 'ojo', '2003-06-13', 'lplp', false);
+    let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', false);
+    
+    let todos = [t1, t2, t3, t4, t5, t6];
+
+    chrome.storage.local.set({'todos': todos}, () => {
+        console.log(typeof(todos));
+    });
 }
-
-let t1 = new ToDo('abce', 'j', new Date(), 'lplp', false);
-
-let t2 = new ToDo('aako', 'ojo', new Date(), 'lplp', true);
-let t3 = new ToDo('polo', 'j', new Date('06/21/2022'), 'lplp', false);
-let t4 = new ToDo('bbce', 'ojo', new Date('06/21/2022'), 'lplp', false);
-let t5 = new ToDo('aakop', 'ojo', new Date('06/12/2003'), 'lplp', true);
-let t6 = new ToDo('bari', 'ojo', new Date('06/10/2024'), 'lplp', false);
-
-var todos = [t1, t2, t3, t4, t5, t6];
-
-// for (todo of todos) {
-//     console.log(todo.title);
-// }
-
-// sortTodoList(todos, 'date')
-
-// console.log('\n');
-
-// for (todo of todos) {
-//     console.log(todo.title, todo.date);
-// }
-
-var qtodos = queryTodo(todos, 'aa', true, new Date('06/12/2003'));
-
-for (todo of qtodos) {
-    console.log(todo.title, todo.date);
-}
-
-// function sortTodoList(todos) {
-//     todos.sort((todo1, todo2) =>
-//         todo1.title.localeCompare(todo2.title) || new Date(todo1.date).getTime() - new Date(todo2.date).getTime()
-//     );
-// }
