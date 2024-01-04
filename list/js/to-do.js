@@ -1,23 +1,12 @@
-function compareByDate(todo1, todo2) {
-    date1 = new Date(todo1.date).getTime();
-    date2 = new Date(todo2.date).getTime();
-
-    if (date1 < date2) return -1;
-
-    if (date1 > date2) return 1;
-
-    return 0;
-};
-
 function sortTodoList(todos, by) {
     if (by === 'title') {
         todos.sort((todo1, todo2) =>
-            todo1.title.localeCompare(todo2.title)
+            todo2.status - todo1.status || todo1.title.localeCompare(todo2.title)
         );
 
     } else if (by === 'date') {
         todos.sort((todo1, todo2) =>
-            new Date(todo1.date).getTime() - new Date(todo2.date).getTime() || todo1.title.localeCompare(todo2.title)
+            todo2.status - todo1.status || new Date(todo1.date).getTime() - new Date(todo2.date).getTime() || todo1.title.localeCompare(todo2.title)
         );
     }
 }
@@ -40,16 +29,18 @@ function sameDate(date1, date2) {
     return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true : false;
 }
 
+// *** cannot be used - need to fix some code in index.html file in order to run this line of code ***
 // document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
 
-function getTodos(query = undefined, doneOnly = false, date = undefined, evt) {
+function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) {
+    // todos - store list of the todo that match with keyword and date defined, or when need only done object to be included
     let todos = []
 
     chrome.storage.local.get(['todos'], result => {
 
         for (todo of result['todos']) {
 
-            if (query && !includes(todo, query)) continue;
+            if (keyword && !includes(todo, keyword)) continue;
 
             if (doneOnly && todo.status) continue;
 
@@ -58,18 +49,24 @@ function getTodos(query = undefined, doneOnly = false, date = undefined, evt) {
             todos.push(todo);
         }
 
-        sortTodoList(todos);
+        sortTodoList(todos, 'title');
 
+        // *** use to test if this work (can be removed) ***
         for (todo of todos) {
-            console.log(todo.title, todo.date);
+            console.log(todo.title, todo.date, todo.status);
         }
 
-        // display(todos);
+        // *** Call function for display todo list - EXAMPLE ***
+        // *** display(todos); ***
     })
 }
 
-// ----------------------------------------------- TEST -----------------------------------------------------------
+// **** ----------------------------------------------- TEST ----------------------------------------------------------- ****
 
+
+// *** use to test if the getTodos function work - need to be rewrite to make it works when add only one todo per time. ***
+
+// *** cannot be used - need to fix some code in index.html file in order to run this line of code ***
 // document.getElementById('save').addEventListener('click', addTodos)
 
 function addTodos() {
@@ -95,7 +92,7 @@ function addTodos() {
     let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
     let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
     let t5 = new ToDo('aakop', 'ojo', '2003-06-13', 'lplp', false);
-    let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', false);
+    let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', true);
 
     let todos = [t1, t2, t3, t4, t5, t6];
 
