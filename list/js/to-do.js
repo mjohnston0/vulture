@@ -16,12 +16,14 @@ function sortTodoList(todos, by) {
         );
 
     } else if (by === 'date') {
-        todos.sort(compareByDate);
+        todos.sort((todo1, todo2) =>
+            new Date(todo1.date).getTime() - new Date(todo2.date).getTime() || todo1.title.localeCompare(todo2.title)
+        );
     }
 }
 
 function includes(todo, keyword) {
-    return (todo.title.includes(keyword) || todo.description.includes(keyword)) ? true: false;
+    return (todo.title.includes(keyword) || todo.description.includes(keyword)) ? true : false;
 }
 
 function sameDate(date1, date2) {
@@ -35,12 +37,12 @@ function sameDate(date1, date2) {
     let month2 = d2.getMonth();
     let year2 = d2.getFullYear();
 
-    return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true: false;
+    return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true : false;
 }
 
 // document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
 
-function getTodos(query=undefined, doneOnly=false, date=undefined, evt) {
+function getTodos(query = undefined, doneOnly = false, date = undefined, evt) {
     let todos = []
 
     chrome.storage.local.get(['todos'], result => {
@@ -77,7 +79,7 @@ function addTodos() {
         date = '';
         tag = '';
         status = false; // inactive or done
-    
+
         constructor(title, description, date, tag, status) {
             this.title = title;
             this.description = description;
@@ -86,18 +88,18 @@ function addTodos() {
             this.status = status;
         }
     }
-    
+
     let t1 = new ToDo('abce', 'j', '2024-01-04', 'lplp', false);
-    
+
     let t2 = new ToDo('aako', 'ojo', '2024-01-04', 'lplp', true);
     let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
     let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
     let t5 = new ToDo('aakop', 'ojo', '2003-06-13', 'lplp', false);
     let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', false);
-    
+
     let todos = [t1, t2, t3, t4, t5, t6];
 
-    chrome.storage.local.set({'todos': todos}, () => {
-        console.log(typeof(todos));
+    chrome.storage.local.set({ 'todos': todos }, () => {
+        console.log(typeof (todos));
     });
 }
