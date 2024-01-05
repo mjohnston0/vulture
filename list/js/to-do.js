@@ -29,7 +29,7 @@ function sameDate(date1, date2) {
     return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true : false;
 }
 
-// *** cannot be used - need to fix some code in index.html file in order to run this line of code ***
+// *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
 // document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
 
 function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) {
@@ -64,9 +64,9 @@ function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) 
 // **** ----------------------------------------------- TEST ----------------------------------------------------------- ****
 
 
-// *** use to test if the getTodos function work - need to be rewrite to make it works when add only one todo per time. ***
+// *** use for testing if the getTodos function work - need to be rewrite to make it works when add only one todo per time. ***
 
-// *** cannot be used - need to fix some code in index.html file in order to run this line of code ***
+// *** for testing and run addTodos and getTodos - need to edit some code in index.html file in order to run the following line of code***
 // document.getElementById('save').addEventListener('click', addTodos)
 
 function addTodos() {
