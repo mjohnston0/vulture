@@ -12,7 +12,7 @@ function sortTodoList(todos, by) {
 }
 
 function includes(todo, keyword) {
-    return (todo.title.includes(keyword) || todo.description.includes(keyword)) ? true : false;
+    return (todo.title.toLowerCase().includes(keyword.toLowerCase()) || todo.description.toLowerCase().includes(keyword.toLowerCase())) ? true : false;
 }
 
 function sameDate(date1, date2) {
@@ -30,7 +30,7 @@ function sameDate(date1, date2) {
 }
 
 // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
-// document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
+document.getElementById('close').addEventListener('click', (evt) => getTodos("B", false));
 
 function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) {
     // todos - store list of the todo that match with keyword and date defined, or when need only done object to be included
@@ -67,7 +67,7 @@ function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) 
 // *** use for testing if the getTodos function work - need to be rewrite to make it works when add only one todo per time. ***
 
 // *** for testing and run addTodos and getTodos - need to edit some code in index.html file in order to run the following line of code***
-// document.getElementById('save').addEventListener('click', addTodos)
+document.getElementById('save').addEventListener('click', addTodos)
 
 function addTodos() {
     class ToDo {
@@ -88,7 +88,7 @@ function addTodos() {
 
     let t1 = new ToDo('abce', 'j', '2024-01-04', 'lplp', false);
 
-    let t2 = new ToDo('aako', 'ojo', '2024-01-04', 'lplp', true);
+    let t2 = new ToDo('Aako', 'ojo', '2024-01-04', 'lplp', true);
     let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
     let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
     let t5 = new ToDo('aakop', 'ojo', '2003-06-13', 'lplp', false);
