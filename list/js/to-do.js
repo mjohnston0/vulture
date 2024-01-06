@@ -6,7 +6,7 @@ function sortTodoList(todos, by) {
 
     } else if (by === 'date') {
         todos.sort((todo1, todo2) =>
-            todo2.status - todo1.status || new Date(todo1.date).getTime() - new Date(todo2.date).getTime() || todo1.title.localeCompare(todo2.title)
+            todo2.status - todo1.status || new Date(todo1.date).getTime() - new Date(todo2.date).getTime() || todo1.title.localeCompare(todo2.title, undefined, {sensitivity: 'accent'})
         );
     }
 }
@@ -30,7 +30,7 @@ function sameDate(date1, date2) {
 }
 
 // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
-document.getElementById('close').addEventListener('click', (evt) => getTodos("B", false));
+document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
 
 function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) {
     // todos - store list of the todo that match with keyword and date defined, or when need only done object to be included
@@ -88,10 +88,10 @@ function addTodos() {
 
     let t1 = new ToDo('abce', 'j', '2024-01-04', 'lplp', false);
 
-    let t2 = new ToDo('Aako', 'ojo', '2024-01-04', 'lplp', true);
+    let t2 = new ToDo('aako', 'ojo', '2024-01-04', 'lplp', true);
     let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
     let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
-    let t5 = new ToDo('aakop', 'ojo', '2003-06-13', 'lplp', false);
+    let t5 = new ToDo('AAkop', 'ojo', '2003-06-13', 'lplp', true);
     let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', true);
 
     let todos = [t1, t2, t3, t4, t5, t6];
