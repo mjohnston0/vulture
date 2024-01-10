@@ -6,7 +6,8 @@
     "permissions": [
         "storage",
         "unlimitedStorage",
-        "notifications"
+        "notifications",
+        "alarms"
     ],
     "action": {
         "default_icon": "assets/placeholder.png",
