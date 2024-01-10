@@ -1,4 +1,5 @@
 function renderTable(todoList){
+    var table = document.getElementById("todo_table")
     for (var i = 0; i < todoList.length; i++) {
         var entry = todoList[i]
         var row = table.insertRow()
@@ -18,7 +19,6 @@ function renderTable(todoList){
 }
 
 function addSavedEntries(){
-    var table = document.getElementById("todo_table")
     var todoList = chrome.storage.local.get(["todoList"])
 
     renderTable(todoList)
