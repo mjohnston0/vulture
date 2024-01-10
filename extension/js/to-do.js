@@ -19,6 +19,7 @@ function addSavedEntries(){
         deleteCell.innerHTML = '<img src="../images/closeicon.png">'
     }
 }
+addSavedEntries()
 
 function sortTodoList(todos, by) {
     if (by === 'title') {
