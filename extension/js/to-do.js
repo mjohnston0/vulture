@@ -1,3 +1,25 @@
+function addSavedEntries(){
+    var table = document.getElementById("todo_table")
+    var todoList = chrome.storage.local.get(["todoList"])
+
+    for (var i = 0; i < todoList.length; i++) {
+        var entry = todoList[i]
+        var row = table.insertRow()
+        var titleCell = row.insertCell()
+        titleCell.innerHTML = entry.TITLE
+        var descCell = row.insertCell()
+        descCell.innerHTML = entry.DESCRIPTION
+        var timeCell = row.insertCell()
+        timeCell.innerHTML = entry.TIME
+        var editCell = row.insertCell()
+        editCell.innerHTML = "EDIT"
+        var statusCell = row.insertCell()
+        statusCell.innerHTML = entry.STATUS
+        var deleteCell = row.insertCell()
+        deleteCell.innerHTML = '<img src="../images/closeicon.png">'
+    }
+}
+
 function sortTodoList(todos, by) {
     if (by === 'title') {
         todos.sort((todo1, todo2) =>
