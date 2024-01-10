@@ -67,6 +67,7 @@ document.getElementById("add_todo").addEventListener("click", function () {
         console.log("---");
         let todo = result.todo;
         task_id = result.todo.count + 1;
+        result.todo.count++;
         todo.tasks[task_id] = {TITLE: `test${task_id}`, DESCRIPTION: "test", TIME: "test", STATUS: false };
         chrome.storage.local.set({ todo: todo });
         renderTable(todo);
