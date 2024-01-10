@@ -19,8 +19,13 @@ function renderTable(tasks){
         descCell.innerHTML = tasks[entry].DESCRIPTION
         var timeCell = row.insertCell()
         timeCell.innerHTML = tasks[entry].TIME
-        var editCell = row.insertCell()
-        editCell.innerHTML = "EDIT"
+        var editCell = row.insertCell();
+        var editButton = document.createElement('button');
+        editButton.textContent = 'Edit Task';
+        editButton.addEventListener('click', function() {
+            editTask(entry);
+        });
+        editCell.appendChild(editButton);
         var statusCell = row.insertCell()
         statusCell.innerHTML = tasks[entry].STATUS
         var deleteCell = row.insertCell();
@@ -43,6 +48,9 @@ function deleteTask(id) {
     })
 }
 
+function editTask() {
+    console.log("EDITED");
+}
 
 function sortTodoList(todos, by) {
     if (by === 'title') {
