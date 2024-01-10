@@ -1,5 +1,6 @@
 function renderTable(todoList){
     var table = document.getElementById("todo_table")
+    table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
     for (var i = 0; i < todoList.length; i++) {
         var entry = todoList[i]
         var row = table.insertRow()
