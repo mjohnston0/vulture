@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function renderTable(todo){
     var table = document.getElementById("todo_table")
     table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
-    for (var i = 0; i < todo.tasks.length; i++) {
-        var entry = todo.tasks[i]
+    for (let entry in todo.tasks) {
         var row = table.insertRow()
         var titleCell = row.insertCell()
         titleCell.innerHTML = entry.TITLE
@@ -30,12 +29,6 @@ function renderTable(todo){
     }
 }
 
-function addSavedEntries(){
-    var table = document.getElementById("todo_table")
-    var todo = chrome.storage.local.get(["todo"])
-
-    renderTable(todo)
-}
 
 function sortTodoList(todos, by) {
     if (by === 'title') {
@@ -72,9 +65,9 @@ document.getElementById("add_todo").addEventListener("click", function () {
     console.log("HELLO");
     chrome.storage.local.get(['todo'], function (result) {
         console.log("---");
-        let todo = result.todo.tasks;
+        let todo = result.todo;
         task_id = result.todo.count + 1;
-        todo[task_id] = {TITLE: "test", DESCRIPTION: "test", TIME: "test", STATUS: false };
+        todo.tasks[task_id] = {TITLE: `test${task_id}`, DESCRIPTION: "test", TIME: "test", STATUS: false };
         chrome.storage.local.set({ todo: todo });
         renderTable(todo);
     })
