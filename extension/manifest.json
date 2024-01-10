@@ -5,11 +5,15 @@
     "version": "0.0.1",
     "permissions": [
         "storage",
-        "unlimitedStorage"
+        "unlimitedStorage",
+        "notifications"
     ],
     "action": {
         "default_icon": "assets/placeholder.png",
         "default_title": "Click Me.",
         "default_popup": "assets/popup.html"
+    },
+    "background": {
+        "service_worker" : "js/background.js"
     }
   }
