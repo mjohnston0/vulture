@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function renderTable(tasksDict){
     var table = document.getElementById("todo_table")
-    table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
+    table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Tag</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
     let tasks = sortTasks(tasksDict);
     for (let entry of tasks) {
         let taskID = entry[0];
@@ -22,6 +22,8 @@ function renderTable(tasksDict){
         descCell.innerHTML = task.DESCRIPTION
         var dueCell = row.insertCell()
         dueCell.innerHTML = task.DUE
+        var tagCell = row.insertCell()
+        tagCell.innerHTML = task.TAG
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
         editButton.textContent = 'Edit Task';
@@ -115,7 +117,7 @@ document.getElementById("addTask").addEventListener("click", function () {
         console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
-        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: "test", DUE: due, STATUS: false };
+        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: "test", DUE: due, TAG: "tag", STATUS: false };
         chrome.storage.local.set({ todo: todo });
         clearText();
         renderTable(todo.tasks);
