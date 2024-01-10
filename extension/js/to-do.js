@@ -101,6 +101,15 @@ function sameDate(date1, date2) {
 document.getElementById("addTask").addEventListener("click", function () {
     let title = document.getElementById("taskTitle").value;
     let due = document.getElementById("taskDue").value;
+
+    if (title.length == 0){
+        alert("Entries require a title.")
+        return
+    }
+    if (due.length == 0){
+        alert("Entries require a date and time.")
+        return
+    }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         console.log(todo);
@@ -124,6 +133,28 @@ function clearText()
 document.getElementById("clearTodo").addEventListener("click", function() {
     chrome.storage.local.set({todo: {count: 0, tasks: {}}});
     renderTable({});
+})
+
+document.getElementById("search").addEventListener("input", function (e){
+    chrome.storage.local.get(["todo"], function(result){
+        let e = document.getElementById("search").value
+        filtered = {}
+        let todo = result.todo
+        //console.log(e)
+        for (let task in todo.tasks) {
+            if (todo.tasks[task]["TITLE"].match(e)){
+                filtered[task] = todo.tasks[task]
+            }
+        }
+        //console.log(filtered)
+        let msg = document.getElementById("search_error")
+        if(Object.keys(filtered).length == 0){
+            msg.innerHTML = "NO MATCHES FOUND"
+        } else {
+            msg.innerHTML = ""
+            renderTable(filtered)
+        }
+    })
 })
 
 // // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
