@@ -1,4 +1,5 @@
 function renderTable(todoList){
+    let table = document.getElementById("todo_table")
     for (var i = 0; i < todoList.length; i++) {
         var entry = todoList[i]
         var row = table.insertRow()
@@ -57,82 +58,85 @@ function sameDate(date1, date2) {
     return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true : false;
 }
 
-function edit(task) {
-    chrome.storage.sync.get(['todoList'], function (result) {
+document.getElementById("add_todo").addEventListener("click", function () {
+    console.log("HELLO");
+    chrome.storage.local.get(['todoList'], function (result) {
+        console.log("---");
         let todoList = result.todoList;
-        todoList.push(task);
-        chrome.storage.sync.set({ todoList: todoList });
+        todoList.push({ TITLE: "test", DESCRIPTION: "test", TIME: "test", STATUS: false });
+        chrome.storage.local.set({ todoList: todoList });
+        renderTable(todoList);
     })
-}
+})
 
-// *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
-document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
+// // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
+// document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
 
-function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) {
-    // todos - store list of the todo that match with keyword and date defined, or when need only done object to be included
-    let todos = []
+// function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) {
+//     // todos - store list of the todo that match with keyword and date defined, or when need only done object to be included
+//     let todos = []
 
-    chrome.storage.local.get(['todos'], result => {
+//     chrome.storage.local.get(['todos'], result => {
 
-        for (todo of result['todos']) {
+//         for (todo of result['todos']) {
 
-            if (keyword && !includes(todo, keyword)) continue;
+//             if (keyword && !includes(todo, keyword)) continue;
 
-            if (doneOnly && todo.status) continue;
+//             if (doneOnly && todo.status) continue;
 
-            if (date && !sameDate(todo.date, date)) continue;
+//             if (date && !sameDate(todo.date, date)) continue;
 
-            todos.push(todo);
-        }
+//             todos.push(todo);
+//         }
 
-        sortTodoList(todos, 'title');
+//         sortTodoList(todos, 'title');
 
-        // *** use to test if this work (can be removed) ***
-        for (todo of todos) {
-            console.log(todo.title, todo.date, todo.status);
-        }
+//         // *** use to test if this work (can be removed) ***
+//         for (todo of todos) {
+//             console.log(todo.title, todo.date, todo.status);
+//         }
 
-        // *** Call function for display todo list - EXAMPLE ***
-        // *** display(todos); ***
-    })
-}
+//         // *** Call function for display todo list - EXAMPLE ***
+//         // *** display(todos); ***
+//     })
+// }
 
-// **** ----------------------------------------------- TEST ----------------------------------------------------------- ****
+// // **** ----------------------------------------------- TEST ----------------------------------------------------------- ****
 
 
-// *** use for testing if the getTodos function work - need to be rewrite to make it works when add only one todo per time. ***
+// // *** use for testing if the getTodos function work - need to be rewrite to make it works when add only one todo per time. ***
 
-// *** for testing and run addTodos and getTodos - need to edit some code in index.html file in order to run the following line of code***
-document.getElementById('save').addEventListener('click', addTodos)
+// // *** for testing and run addTodos and getTodos - need to edit some code in index.html file in order to run the following line of code***
+// document.getElementById('save').addEventListener('click', addTodos)
 
-function addTodos() {
-    class ToDo {
-        title = '';
-        description = '';
-        date = '';
-        tag = '';
-        status = false; // inactive or done
+// function addTodos() {
+//     class ToDo {
+//         title = '';
+//         description = '';
+//         date = '';
+//         tag = '';
+//         status = false; // inactive or done
 
-        constructor(title, description, date, tag, status) {
-            this.title = title;
-            this.description = description;
-            this.date = date;
-            this.tag = tag;
-            this.status = status;
-        }
-    }
+//         constructor(title, description, date, tag, status) {
+//             this.title = title;
+//             this.description = description;
+//             this.date = date;
+//             this.tag = tag;
+//             this.status = status;
+//         }
+//     }
 
-    let t1 = new ToDo('abce', 'j', '2024-01-04', 'lplp', false);
+//     let t1 = new ToDo('abce', 'j', '2024-01-04', 'lplp', false);
 
-    let t2 = new ToDo('aako', 'ojo', '2024-01-04', 'lplp', true);
-    let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
-    let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
-    let t5 = new ToDo('AAkop', 'ojo', '2003-06-13', 'lplp', true);
-    let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', true);
+//     let t2 = new ToDo('aako', 'ojo', '2024-01-04', 'lplp', true);
+//     let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
+//     let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
+//     let t5 = new ToDo('AAkop', 'ojo', '2003-06-13', 'lplp', true);
+//     let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', true);
 
-    let todos = [t1, t2, t3, t4, t5, t6];
+//     let todos = [t1, t2, t3, t4, t5, t6];
 
-    chrome.storage.local.set({ 'todos': todos }, () => {
-        console.log(typeof (todos));
-    });
-}
+//     chrome.storage.local.set({ 'todos': todos }, () => {
+//         console.log(typeof (todos));
+//     });
+// }
