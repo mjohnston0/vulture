@@ -19,13 +19,8 @@ function renderTable(tasks){
         descCell.innerHTML = tasks[entry].DESCRIPTION
         var timeCell = row.insertCell()
         timeCell.innerHTML = tasks[entry].TIME
-        var editCell = row.insertCell();
-        var editButton = document.createElement('button');
-        editButton.textContent = 'Edit Task';
-        editButton.addEventListener('click', function() {
-            editTask(entry);
-        });
-        editCell.appendChild(editButton);
+        var editCell = row.insertCell()
+        editCell.innerHTML = "EDIT"
         var statusCell = row.insertCell()
         statusCell.innerHTML = tasks[entry].STATUS
         var deleteCell = row.insertCell();
@@ -48,9 +43,6 @@ function deleteTask(id) {
     })
 }
 
-function editTask() {
-    console.log("EDITED");
-}
 
 function sortTodoList(todos, by) {
     if (by === 'title') {
@@ -99,6 +91,28 @@ document.getElementById("add_todo").addEventListener("click", function () {
 document.getElementById("clear_todo").addEventListener("click", function() {
     chrome.storage.local.set({todo: {count: 0, tasks: {}}});
     renderTable({});
+})
+
+document.getElementById("search").addEventListener("input", function (e){
+    chrome.storage.local.get(["todo"], function(result){
+        let e = document.getElementById("search").value
+        filtered = {}
+        let todo = result.todo
+        console.log(e)
+        for (let task in todo.tasks) {
+            if (todo.tasks[task]["TITLE"].match(e)){
+                filtered[task] = todo.tasks[task]
+            }
+        }
+        console.log(filtered)
+        let msg = document.getElementById("search_error")
+        if(Object.keys(filtered).length == 0){
+            msg.innerHTML = "NO MATCHES FOUND"
+        } else {
+            msg.innerHTML = ""
+            renderTable(filtered)
+        }
+    })
 })
 
 // // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
