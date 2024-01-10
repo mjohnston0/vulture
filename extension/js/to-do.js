@@ -1,10 +1,6 @@
 function renderTable(todoList){
-<<<<<<< HEAD
-    let table = document.getElementById("todo_table")
-=======
     var table = document.getElementById("todo_table")
     table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
->>>>>>> 771e0ed02914bca57597880c84932035e7eef920
     for (var i = 0; i < todoList.length; i++) {
         var entry = todoList[i]
         var row = table.insertRow()
@@ -24,6 +20,7 @@ function renderTable(todoList){
 }
 
 function addSavedEntries(){
+    var table = document.getElementById("todo_table")
     var todoList = chrome.storage.local.get(["todoList"])
 
     renderTable(todoList)
@@ -71,6 +68,11 @@ document.getElementById("add_todo").addEventListener("click", function () {
         chrome.storage.local.set({ todoList: todoList });
         renderTable(todoList);
     })
+})
+
+document.getElementById("clear_todo").addEventListener("click", function() {
+    chrome.storage.local.set({todoList: []});
+    renderTable([]);
 })
 
 // // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
