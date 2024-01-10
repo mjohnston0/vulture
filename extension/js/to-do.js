@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function() {
+    chrome.storage.local.get(["todoList"], function(result) {
+        if (result.todoList) {
+            renderTable(result.todoList);
+        } else {
+            console.error("No todoList found.");
+        }
+    });
+});
+
 function renderTable(todoList){
     var table = document.getElementById("todo_table")
     table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
@@ -25,8 +35,6 @@ function addSavedEntries(){
 
     renderTable(todoList)
 }
-
-addSavedEntries()
 
 function sortTodoList(todos, by) {
     if (by === 'title') {
