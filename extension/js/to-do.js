@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function renderTable(todo){
+function renderTable(tasks){
     var table = document.getElementById("todo_table")
     table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
-    for (let entry in todo.tasks) {
+    for (var i = 0; i < tasks.length; i++) {
+        var entry = tasks[i]
         var row = table.insertRow()
         var titleCell = row.insertCell()
         titleCell.innerHTML = entry.TITLE
@@ -24,10 +25,12 @@ function renderTable(todo){
         var statusCell = row.insertCell()
         statusCell.innerHTML = entry.STATUS
         var deleteCell = row.insertCell()
-        deleteCell.innerHTML = `<button type="button" id="${entry.id}">Delete Task</button>`;
-        
+        deleteCell.innerHTML = `<button type="button" id="${entry.id}">Delete Task</button>`
     }
 }
+
+
+
 
 
 function sortTodoList(todos, by) {
@@ -64,18 +67,17 @@ function sameDate(date1, date2) {
 document.getElementById("add_todo").addEventListener("click", function () {
     console.log("HELLO");
     chrome.storage.local.get(['todo'], function (result) {
-        console.log("---");
         let todo = result.todo;
-        task_id = result.todo.count + 1;
-        result.todo.count++;
-        todo.tasks[task_id] = {TITLE: `test${task_id}`, DESCRIPTION: "test", TIME: "test", STATUS: false };
+        task_id = todo.count + 1;
+        todo.count++;
+        todo.tasks.push({ID: task_id, TITLE: `test${task_id}`, DESCRIPTION: "test", TIME: "test", STATUS: false });
         chrome.storage.local.set({ todo: todo });
-        renderTable(todo);
+        renderTable(todo.tasks);
     })
 })
 
 document.getElementById("clear_todo").addEventListener("click", function() {
-    chrome.storage.local.set({todo: {count: 0, tasks: {}}});
+    chrome.storage.local.set({todo: {count: 0, tasks: []}});
     renderTable([]);
 })
 
