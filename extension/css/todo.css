@@ -217,14 +217,14 @@ input:focus {
     background: url(../images/dataicon.png);
     background-size: 100%;
 }
-.editbox .btnbox{
+.editbox .addBtn{
     width: 345px;
     margin: 0 auto;
     margin-top: 25px;
     display: flex;
     justify-content: space-between;
 }
-.editbox .btnbox a{
+.editbox .addBtn a{
     width: 150px;
     height: 55px;
     background: #00A6DB;
@@ -239,10 +239,71 @@ input:focus {
     color: #fff;
     font-size: 20px;
 }
-.editbox .btnbox a:nth-child(2){
+.editbox .addBtn a:nth-child(2){
     height: 53px;
     background: #FFF;
     color: #000;
     border-radius: 15px;
     border: 1px solid #000;
+}
+
+.editbox .editBtn{
+    width: 345px;
+    margin: 0 auto;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+.editbox .editBtn a{
+    width: 150px;
+    height: 55px;
+    background: #00A6DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    color: #fff;
+    font-size: 20px;
+}
+.editbox .editBtn a:nth-child(2){
+    height: 53px;
+    background: #FFF;
+    color: #000;
+    border-radius: 15px;
+    border: 1px solid #000;
+}
+
+
+.editbox .editBtn{
+    width: 345px;
+    margin: 0 auto;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+.editbox .editBtn a{
+    width: 150px;
+    height: 55px;
+    background: #97da80;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    color: #fff;
+    font-size: 20px;
+}
+.editbox .editBtn a:nth-child(2){
+    height: 55px;
+    background: #e87979;
+    color: #FFF;
+    border-radius: 15px;
+    border: 0px;
 }

@@ -27,12 +27,11 @@
 
             <div>
                 <h3>Filter by time</h3>
-                <input type="datetime-local">
+                <input type="datetime-local" id="taskDue">
             </div>
         </div>
-
-        <button type="button" id="add_todo">Add ToDo</button>
-        <button type="button" id="clear_todo">Clear ToDo</button>
+        <button type="button" id="addTask">Add ToDo</button>
+        <button type="button" id="clearTodo">Clear ToDo</button>
 
         <table id="todo_table">
             <tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>
@@ -40,7 +39,7 @@
     </body>
     <div class="editbox">
         <div class="box">
-            <p class="tit">Add TODO item</p>
+            <p class="tit" id="menuTitle">Add TODO item</p>
             <div class="fitem">
                 <span class="name">Name</span>
                 <div class="ipt">
@@ -78,14 +77,18 @@
             <div class="fitem fitem3">
                 <span class="name">Due date</span>
                 <div class="ipt">
-                    <input type="text" id="date2" placeholder="06/24/2023">
+                    <input type="datetime-local" id="taskDueDate" placeholder="06/24/2023">
                 </div>
                 <div id='schedule-box2' class="boxshaw schedule-box">
                 </div>
             </div>
-            <div class="btnbox">
+            <div class="editBtn" id = "addGroup">
+                <a class="edit" id="edit">Edit</a>
+                <a class="discard" id="discard">Discard</a>
+            </div>
+            <div class="addBtn" id = "editGroup">
                 <a class="save" id="save">Add</a>
-                <a class="close" id="close">Cancel</a>
+                <a class="cancel" id="cancel">Cancel</a>
             </div>
         </div>
     </div>
