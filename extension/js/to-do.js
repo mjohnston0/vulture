@@ -38,7 +38,7 @@ function renderTable(tasks){
     }
 }
 
-
+// delete task based on ID
 function deleteTask(id) {
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
@@ -48,6 +48,7 @@ function deleteTask(id) {
     })
 }
 
+// edit task
 function editTask() {
     console.log("EDITED");
 }
@@ -83,20 +84,32 @@ function sameDate(date1, date2) {
     return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true : false;
 }
 
-document.getElementById("add_todo").addEventListener("click", function () {
-    console.log("HELLO");
+
+// add task listener
+document.getElementById("addTask").addEventListener("click", function () {
+    let title = document.getElementById("taskTitle").value;
+    let due = document.getElementById("taskDue").value;
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
-        todo.tasks[task_id] = {TITLE: `test${task_id}`, DESCRIPTION: "test", TIME: "test", STATUS: false };
+        todo.tasks[task_id] = {TITLE: title, DESCRIPTION: "test", TIME: due, STATUS: false };
         chrome.storage.local.set({ todo: todo });
+        clearText();
         renderTable(todo.tasks);
     })
 })
 
-document.getElementById("clear_todo").addEventListener("click", function() {
+// reset fields after adding task
+function clearText()  
+{
+    document.getElementById('taskTitle').value = "";
+    document.getElementById('taskDue').value = "";
+}  
+
+// clear all tasks listener
+document.getElementById("clearTodo").addEventListener("click", function() {
     chrome.storage.local.set({todo: {count: 0, tasks: {}}});
     renderTable({});
 })
