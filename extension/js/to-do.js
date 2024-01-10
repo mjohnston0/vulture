@@ -8,34 +8,46 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function renderTable(tasks){
+function renderTable(tasksDict){
     var table = document.getElementById("todo_table")
     table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
-    for (let entry in tasks) {
+    let tasks = sortTasks(tasksDict);
+    for (let entry of tasks) {
+        let taskID = entry[0];
+        let task = entry[1];
         var row = table.insertRow()
         var titleCell = row.insertCell()
-        titleCell.innerHTML = tasks[entry].TITLE
+        titleCell.innerHTML = task.TITLE
         var descCell = row.insertCell()
-        descCell.innerHTML = tasks[entry].DESCRIPTION
-        var timeCell = row.insertCell()
-        timeCell.innerHTML = tasks[entry].TIME
+        descCell.innerHTML = task.DESCRIPTION
+        var dueCell = row.insertCell()
+        dueCell.innerHTML = task.DUE
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
         editButton.textContent = 'Edit Task';
         editButton.addEventListener('click', function() {
-            editTask(entry,tasks);
+            editTask(taskID);
         });
         editCell.appendChild(editButton);
         var statusCell = row.insertCell()
-        statusCell.innerHTML = tasks[entry].STATUS
+        statusCell.innerHTML = task.STATUS
         var deleteCell = row.insertCell();
         var deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete Task';
         deleteButton.addEventListener('click', function() {
-            deleteTask(entry);
+            deleteTask(taskID);
         });
         deleteCell.appendChild(deleteButton);
     }
+}
+
+function sortTasks(taskDict) {
+    let entries = Object.entries(taskDict);
+
+    entries.sort(function compare(task1, task2) {
+        return new Date(task1[1]['DUE']) - new Date(task2[1]['DUE'])
+    })
+    return entries;
 }
 
 // delete task based on ID
@@ -57,9 +69,9 @@ function editTask(id) {
         document.getElementById("title").value = todo.tasks[id].TITLE;
         document.getElementById("tag").value = "";
         document.getElementById("description").value = todo.tasks[id].DESCRIPTION;
-        console.log(typeof todo.tasks[id].TIME)
+        console.log(typeof todo.tasks[id].DUE)
         currentTodoId = id
-        document.getElementById("taskDueDate").value = todo.tasks[id].TIME
+        document.getElementById("taskDueDate").value = todo.tasks[id].DUE
     })
 
 }
@@ -100,6 +112,7 @@ function sameDate(date1, date2) {
 var title = document.getElementById('menuTitle')
 const save = document.querySelector('.save');
 const cancel = document.querySelector('.cancel');
+
 
 const edit = document.querySelector('.edit');
 const discard = document.querySelector('.discard');
@@ -147,7 +160,7 @@ edit.addEventListener("click", function(){
         console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
-        todo.tasks[task_id] = {TITLE: title, DESCRIPTION: description, TIME: due, STATUS: false };
+        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, STATUS: false };
         chrome.storage.local.set({ todo: todo });
 
         deleteTask(currentTodoId)
@@ -173,7 +186,7 @@ save.addEventListener("click", function (){
         console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
-        todo.tasks[task_id] = {TITLE: title, DESCRIPTION:description, TIME: due, STATUS: false };
+        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, STATUS: false };
         chrome.storage.local.set({ todo: todo });
         renderTable(todo.tasks);
         addMenu.classList.remove("on");
@@ -200,6 +213,28 @@ document.getElementById("clearTodo").addEventListener("click", function() {
     renderTable({});
 })
 
+
+document.getElementById("search").addEventListener("input", function (e){
+    chrome.storage.local.get(["todo"], function(result){
+        let e = document.getElementById("search").value
+        filtered = {}
+        let todo = result.todo
+        //console.log(e)
+        for (let task in todo.tasks) {
+            if (todo.tasks[task]["TITLE"].match(e)){
+                filtered[task] = todo.tasks[task]
+            }
+        }
+        //console.log(filtered)
+        let msg = document.getElementById("search_error")
+        if(Object.keys(filtered).length == 0){
+            msg.innerHTML = "NO MATCHES FOUND"
+        } else {
+            msg.innerHTML = ""
+            renderTable(filtered)
+        }
+    })
+})
 
 
 // // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
