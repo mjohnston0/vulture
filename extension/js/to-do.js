@@ -66,15 +66,43 @@ function sameDate(date1, date2) {
 
     return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true : false;
 }
+const close = document.querySelector('.close');
+const addMenu = document.querySelector(".editbox");
+const save = document.querySelector('.save');
+
+
 
 document.getElementById("add_todo").addEventListener("click", function () {
-    console.log("HELLO");
+    addMenu.classList.toggle("on");
+})
+
+close.addEventListener('click', function () {
+    addMenu.classList.toggle("on");
+})
+
+save.addEventListener("click", function (){
+    
+    var title = document.getElementById("title").value 
+    var tag = document.getElementById("tag").value 
+    var description = document.getElementById("description").value 
+    var time = document.getElementById("date2").value 
+
+    if(title == "" || tag == "" || description == "" || time == ""){
+        console.log("invalid input")
+        return;
+    }
     chrome.storage.local.get(['todoList'], function (result) {
-        console.log("---");
         let todoList = result.todoList;
-        todoList.push({ TITLE: "test", DESCRIPTION: "test", TIME: "test", STATUS: false });
+        todoList.push({ TITLE: title, DESCRIPTION: tag, TIME: description, STATUS: false });
         chrome.storage.local.set({ todoList: todoList });
         renderTable(todoList);
+        console.log("saved and quit")
+
+        document.getElementById("title").value = "";
+        document.getElementById("tag").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("date2").value = "";
+        addMenu.classList.remove("on");
     })
 })
 
@@ -82,6 +110,8 @@ document.getElementById("clear_todo").addEventListener("click", function() {
     chrome.storage.local.set({todoList: []});
     renderTable([]);
 })
+
+
 
 // // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
 // document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
