@@ -84,6 +84,15 @@ function sameDate(date1, date2) {
 document.getElementById("addTask").addEventListener("click", function () {
     let title = document.getElementById("taskTitle").value;
     let due = document.getElementById("taskDue").value;
+
+    if (title.length == 0){
+        alert("Entries require a title.")
+        return
+    }
+    if (due.length == 0){
+        alert("Entries require a date and time.")
+        return
+    }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         console.log(todo);
@@ -114,13 +123,13 @@ document.getElementById("search").addEventListener("input", function (e){
         let e = document.getElementById("search").value
         filtered = {}
         let todo = result.todo
-        console.log(e)
+        //console.log(e)
         for (let task in todo.tasks) {
             if (todo.tasks[task]["TITLE"].match(e)){
                 filtered[task] = todo.tasks[task]
             }
         }
-        console.log(filtered)
+        //console.log(filtered)
         let msg = document.getElementById("search_error")
         if(Object.keys(filtered).length == 0){
             msg.innerHTML = "NO MATCHES FOUND"
