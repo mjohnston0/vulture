@@ -1,7 +1,4 @@
-function addSavedEntries(){
-    var table = document.getElementById("todo_table")
-    var todoList = chrome.storage.local.get(["todoList"])
-
+function renderTable(todoList){
     for (var i = 0; i < todoList.length; i++) {
         var entry = todoList[i]
         var row = table.insertRow()
@@ -19,6 +16,14 @@ function addSavedEntries(){
         deleteCell.innerHTML = '<img src="../images/closeicon.png">'
     }
 }
+
+function addSavedEntries(){
+    var table = document.getElementById("todo_table")
+    var todoList = chrome.storage.local.get(["todoList"])
+
+    renderTable(todoList)
+}
+
 addSavedEntries()
 
 function sortTodoList(todos, by) {
