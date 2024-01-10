@@ -29,6 +29,14 @@ function sameDate(date1, date2) {
     return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true : false;
 }
 
+function edit(task) {
+    chrome.storage.sync.get(['todoList'], function (result) {
+        let todoList = result.todoList;
+        todoList.push(task);
+        chrome.storage.sync.set({ todoList: todoList });
+    })
+}
+
 // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
 document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
 
