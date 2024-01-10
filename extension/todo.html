@@ -22,12 +22,12 @@
 
             <div>
                 <h3>Filter by time</h3>
-                <input type="datetime-local">
+                <input type="datetime-local" id="taskDue">
             </div>
         </div>
-
-        <button type="button" id="add_todo">Add ToDo</button>
-        <button type="button" id="clear_todo">Clear ToDo</button>
+        <input type="text" id="taskTitle" placeholder="Title...">
+        <button type="button" id="addTask">Add ToDo</button>
+        <button type="button" id="clearTodo">Clear ToDo</button>
 
         <table id="todo_table">
             <tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>
