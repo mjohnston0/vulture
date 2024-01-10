@@ -8,6 +8,8 @@
         "unlimitedStorage"
     ],
     "action": {
-        "default_icon": "assets/placeholder.png"
+        "default_icon": "assets/placeholder.png",
+        "default_title": "Click Me.",
+        "default_popup": "assets/popup.html"
     }
   }
