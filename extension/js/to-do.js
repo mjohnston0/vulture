@@ -8,34 +8,46 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function renderTable(tasks){
+function renderTable(tasksDict){
     var table = document.getElementById("todo_table")
     table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
-    for (let entry in tasks) {
+    let tasks = sortTasks(tasksDict);
+    for (let entry of tasks) {
+        let taskID = entry[0];
+        let task = entry[1];
         var row = table.insertRow()
         var titleCell = row.insertCell()
-        titleCell.innerHTML = tasks[entry].TITLE
+        titleCell.innerHTML = task.TITLE
         var descCell = row.insertCell()
-        descCell.innerHTML = tasks[entry].DESCRIPTION
-        var timeCell = row.insertCell()
-        timeCell.innerHTML = tasks[entry].TIME
+        descCell.innerHTML = task.DESCRIPTION
+        var dueCell = row.insertCell()
+        dueCell.innerHTML = task.DUE
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
         editButton.textContent = 'Edit Task';
         editButton.addEventListener('click', function() {
-            editTask(entry);
+            editTask(taskID);
         });
         editCell.appendChild(editButton);
         var statusCell = row.insertCell()
-        statusCell.innerHTML = tasks[entry].STATUS
+        statusCell.innerHTML = task.STATUS
         var deleteCell = row.insertCell();
         var deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete Task';
         deleteButton.addEventListener('click', function() {
-            deleteTask(entry);
+            deleteTask(taskID);
         });
         deleteCell.appendChild(deleteButton);
     }
+}
+
+function sortTasks(taskDict) {
+    let entries = Object.entries(taskDict);
+
+    entries.sort(function compare(task1, task2) {
+        return new Date(task1[1]['DUE']) - new Date(task2[1]['DUE'])
+    })
+    return entries;
 }
 
 // delete task based on ID
@@ -94,7 +106,7 @@ document.getElementById("addTask").addEventListener("click", function () {
         console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
-        todo.tasks[task_id] = {TITLE: title, DESCRIPTION: "test", TIME: due, STATUS: false };
+        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: "test", DUE: due, STATUS: false };
         chrome.storage.local.set({ todo: todo });
         clearText();
         renderTable(todo.tasks);
