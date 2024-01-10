@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
-    chrome.storage.local.get(["todoList"], function(result) {
-        if (result.todoList) {
-            renderTable(result.todoList);
+    chrome.storage.local.get(["todo"], function(result) {
+        if (result.todo) {
+            renderTable(result.todo.tasks);
         } else {
             console.error("No todoList found.");
         }
     });
 });
 
-function renderTable(todoList){
+function renderTable(todo){
     var table = document.getElementById("todo_table")
     table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
-    for (var i = 0; i < todoList.length; i++) {
-        var entry = todoList[i]
+    for (var i = 0; i < todo.tasks.length; i++) {
+        var entry = todo.tasks[i]
         var row = table.insertRow()
         var titleCell = row.insertCell()
         titleCell.innerHTML = entry.TITLE
@@ -25,15 +25,16 @@ function renderTable(todoList){
         var statusCell = row.insertCell()
         statusCell.innerHTML = entry.STATUS
         var deleteCell = row.insertCell()
-        deleteCell.innerHTML = '<img src="../images/closeicon.png">'
+        deleteCell.innerHTML = `<button type="button" id="${entry.id}">Delete Task</button>`;
+        
     }
 }
 
 function addSavedEntries(){
     var table = document.getElementById("todo_table")
-    var todoList = chrome.storage.local.get(["todoList"])
+    var todo = chrome.storage.local.get(["todo"])
 
-    renderTable(todoList)
+    renderTable(todo)
 }
 
 function sortTodoList(todos, by) {
@@ -69,17 +70,18 @@ function sameDate(date1, date2) {
 
 document.getElementById("add_todo").addEventListener("click", function () {
     console.log("HELLO");
-    chrome.storage.local.get(['todoList'], function (result) {
+    chrome.storage.local.get(['todo'], function (result) {
         console.log("---");
-        let todoList = result.todoList;
-        todoList.push({ TITLE: "test", DESCRIPTION: "test", TIME: "test", STATUS: false });
-        chrome.storage.local.set({ todoList: todoList });
-        renderTable(todoList);
+        let todo = result.todo.tasks;
+        task_id = result.todo.count + 1;
+        todo[task_id] = {TITLE: "test", DESCRIPTION: "test", TIME: "test", STATUS: false };
+        chrome.storage.local.set({ todo: todo });
+        renderTable(todo);
     })
 })
 
 document.getElementById("clear_todo").addEventListener("click", function() {
-    chrome.storage.local.set({todoList: []});
+    chrome.storage.local.set({todo: {count: 0, tasks: {}}});
     renderTable([]);
 })
 
