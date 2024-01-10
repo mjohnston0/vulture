@@ -68,20 +68,5 @@
         </div>
     </div>
 </body>
-<script>
-    const statusbtn = document.querySelectorAll('.status')
-    for (let i = 0; i < statusbtn.length; i++) {
-        statusbtn[i].addEventListener('click', function () {
-            this.classList.toggle('ina')
-        })
-    }
-    const deletebtn = document.querySelectorAll('.listbox .content .list .item .delete span')
-
-    for (let i = 0; i < deletebtn.length; i++) {
-        deletebtn[i].addEventListener('click', function () {
-            this.parentElement.parentElement.remove()
-        })
-    }
-</script>
 
 </html>
