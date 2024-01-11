@@ -1,8 +1,8 @@
 chrome.runtime.onInstalled.addListener(function () {
-    chrome.storage.local.get(['todo'], function (result) {
-        if (!result.todo) {
-            let todo = { count: 0, tasks: {} };
-            chrome.storage.local.set({ todo: todo });
+    chrome.storage.local.get(['todoList'], function(result) {
+        if (!result.todoList) {
+            let todoList = [];
+            chrome.storage.local.set({todoList: todoList});
         }
     });
 });

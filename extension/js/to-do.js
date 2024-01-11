@@ -63,9 +63,22 @@ function deleteTask(id) {
 }
 
 // edit task
-function editTask() {
-    console.log("EDITED");
+function editTask(id) {
+    toggleEditBox();
+    showEditBtn();
+    chrome.storage.local.get(['todo'], function (result) {
+        let todo = result.todo;
+        document.getElementById("title").value = todo.tasks[id].TITLE;
+        document.getElementById("tag").value = "";
+        document.getElementById("description").value = todo.tasks[id].DESCRIPTION;
+        console.log(typeof todo.tasks[id].DUE)
+        currentTodoId = id
+        document.getElementById("taskDueDate").value = todo.tasks[id].DUE
+    })
+
 }
+
+
 
 function sortTodoList(todos, by) {
     if (by === 'title') {
@@ -98,19 +111,51 @@ function sameDate(date1, date2) {
     return ((day1 === day2) && (month1 === month2) && (year1 === year2)) ? true : false;
 }
 
+var title = document.getElementById('menuTitle')
+const save = document.querySelector('.save');
+const cancel = document.querySelector('.cancel');
 
-// add task listener
-document.getElementById("addTask").addEventListener("click", function () {
-    let title = document.getElementById("taskTitle").value;
-    let due = document.getElementById("taskDue").value;
 
-    if (title.length == 0){
-        alert("Entries require a title.")
-        return
-    }
-    if (due.length == 0){
-        alert("Entries require a date and time.")
-        return
+const edit = document.querySelector('.edit');
+const discard = document.querySelector('.discard');
+
+const addMenu = document.querySelector(".editbox");
+
+const editBtnDiv = document.getElementById("addGroup");
+const addBtnDiv = document.getElementById("editGroup");
+var currentTodoId = 0;
+
+function showEditBtn(){
+    editBtnDiv.style.display = "flex";
+    addBtnDiv.style.display = "none";
+    title.textContent = "Edit todo item"
+}
+
+
+function showAddBtn(){
+    addBtnDiv.style.display = "flex";
+    editBtnDiv.style.display = "none";
+    title.textContent = "Add todo item"
+}
+
+document.getElementById("addTask").addEventListener("click",   function (){
+    clearText();
+    showAddBtn();
+    toggleEditBox();
+})
+
+cancel.addEventListener('click',  toggleEditBox)
+discard.addEventListener('click',  toggleEditBox)
+
+edit.addEventListener("click", function(){
+    var title = document.getElementById("title").value 
+    var tag = document.getElementById("tag").value 
+    var description = document.getElementById("description").value 
+    var due = document.getElementById("taskDueDate").value
+
+    if(title == "" ||  description == "" || due == ""){
+        console.log("invalid input")
+        return;
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
@@ -119,19 +164,53 @@ document.getElementById("addTask").addEventListener("click", function () {
         todo.count++;
         todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: "test", DUE: due, TAG: "tag", STATUS: false };
         chrome.storage.local.set({ todo: todo });
-        clearText();
+
+        deleteTask(currentTodoId)
         renderTable(todo.tasks);
 
         chrome.runtime.sendMessage({todo: todo.tasks[task_id]}).catch();
+        addMenu.classList.toggle("on");
+
     })
 })
+
+save.addEventListener("click", function (){
+    var title = document.getElementById("title").value 
+    var tag = document.getElementById("tag").value 
+    var description = document.getElementById("description").value 
+    var due = document.getElementById("taskDueDate").value
+
+    if(title == "" ||  description == "" || due == ""){
+        console.log("invalid input")
+        return;
+    }
+    chrome.storage.local.get(['todo'], function (result) {
+        let todo = result.todo;
+        console.log(todo);
+        task_id = todo.count + 1;
+        todo.count++;
+        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, STATUS: false };
+        chrome.storage.local.set({ todo: todo });
+        renderTable(todo.tasks);
+
+        chrome.runtime.sendMessage({todo: todo.tasks[task_id]}).catch();
+        addMenu.classList.remove("on");
+
+    })
+})
+
+function toggleEditBox(){
+    addMenu.classList.toggle("on");
+}
 
 // reset fields after adding task
 function clearText()  
 {
-    document.getElementById('taskTitle').value = "";
-    document.getElementById('taskDue').value = "";
-}  
+    document.getElementById("title").value = "";
+    document.getElementById("tag").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("taskDueDate").value = "";
+}
 
 // clear all tasks listener
 document.getElementById("clearTodo").addEventListener("click", function() {
@@ -190,6 +269,7 @@ function filter() {
 //         }
 //     })
 // })
+
 
 
 // // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***

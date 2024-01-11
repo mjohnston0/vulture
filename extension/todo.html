@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 
+<meta charset="UTF-8">
+
+<title>To to List</title>
+<link rel="stylesheet" href="./css/todo.css">
+<link rel="stylesheet" href="./css/font_234130_nem7eskcrkpdgqfr.css">
+</head>
 <html>
     <body>
         <h1>To Do List</h1>
@@ -25,8 +31,6 @@
                 <input type="date" id="selectDate">
             </div>
         </div>
-        <input type="datetime-local" id="taskDue">
-        <input type="text" id="taskTitle" placeholder="Title...">
         <button type="button" id="addTask">Add ToDo</button>
         <button type="button" id="clearTodo">Clear ToDo</button>
 
@@ -34,6 +38,61 @@
             <tr><td>Title</td><td>Description</td><td>Due time</td><td>Tag</td><td>Edit</td><td>Status</td><td>Delete</td></tr>
         </table>
     </body>
+    <div class="editbox">
+        <div class="box">
+            <p class="tit" id="menuTitle">Add TODO item</p>
+            <div class="fitem">
+                <span class="name">Name</span>
+                <div class="ipt">
+                    <input id="title" type="text" placeholder="site name">
+                </div>
+            </div>
+            <div class="fitem">
+                <span class="name">Tags</span>
+                <div class="tagipt">
+                    <div class="ipt">
+                        <input id="tag" type="text" placeholder="Default Tag">
+                    </div>
+                    <div class="tags">
+                        <p class="on">Tag1<span></span></p>
+                        <p class="tag2 on">Tag2<span></span></p>
+                        <p class="tag3">Tag3<span></span></p>
+                        <div class="add">
+                            <div class="tsbox">
+                                <p>Create tag</p>
+                            </div>
+                            <div class="addipt">
+                                <p><input type="text" placeholder="New tag"><span></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fitem fitem2">
+                <span class="name">Note</span>
+                <div class="textbox">
+                    <textarea name="" id="description"></textarea>
+                </div>
+            </div>
+            <div class="fitem fitem3">
+                <span class="name">Due date</span>
+                <div class="ipt">
+                    <input type="datetime-local" id="taskDueDate" placeholder="06/24/2023">
+                </div>
+                <div id='schedule-box2' class="boxshaw schedule-box">
+                </div>
+            </div>
+            <div class="editBtn" id = "addGroup">
+                <a class="edit" id="edit">Edit</a>
+                <a class="discard" id="discard">Discard</a>
+            </div>
+            <div class="addBtn" id = "editGroup">
+                <a class="save" id="save">Add</a>
+                <a class="cancel" id="cancel">Cancel</a>
+            </div>
+        </div>
+    </div>
 
     <script src="js/to-do.js"></script>
 </html>
