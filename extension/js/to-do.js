@@ -9,13 +9,29 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+function drawTable() {
+    chrome.storage.local.get(["todo"], function(result) {
+        renderTable(result.todo.tasks);
+    })
+}
+
+document.getElementById("showDone").addEventListener("change", function(e){
+    chrome.storage.local.get(["todo"], function(result) {
+        renderTable(result.todo.tasks);
+    })
+})
+
 function renderTable(tasksDict){
     var table = document.getElementById("todo_table")
     table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Tag</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
     let tasks = sortTasks(tasksDict);
+    let showDone = document.getElementById("showDone").checked;
     for (let entry of tasks) {
         let taskID = entry[0];
         let task = entry[1];
+        if (!showDone && task.STATUS){
+            continue;
+        }
         var row = table.insertRow()
         var titleCell = row.insertCell()
         titleCell.innerHTML = task.TITLE
@@ -50,7 +66,9 @@ function renderTable(tasksDict){
                 let todo = result.todo;
                 todo.tasks[taskID].STATUS = check;
                 chrome.storage.local.set({todo : todo})
+                drawTable();
             })
+            
         })
         statusCell.appendChild(statusBox)
 
