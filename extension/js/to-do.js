@@ -19,13 +19,17 @@ function renderTable(tasksDict){
         var row = table.insertRow()
         var titleCell = row.insertCell()
         titleCell.innerHTML = task.TITLE
+
         var descCell = row.insertCell()
         descCell.innerHTML = task.DESCRIPTION
+
         var dueCell = row.insertCell()
         dueCell.innerHTML = task.DUE
+
         var tagCell = row.insertCell()
         //console.log(task.TAG)
         tagCell.innerHTML = task.TAG
+
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
         editButton.textContent = 'Edit Task';
@@ -33,8 +37,23 @@ function renderTable(tasksDict){
             editTask(taskID);
         });
         editCell.appendChild(editButton);
+
         var statusCell = row.insertCell()
-        statusCell.innerHTML = task.STATUS
+        var statusBox = document.createElement('input')
+        statusBox.type = "checkbox"
+        if (task.STATUS == true){
+            statusBox.checked = true;
+        }
+        statusBox.addEventListener("change", function(e) {
+            var check = this.checked;
+            chrome.storage.local.get(["todo"], function(result) {
+                let todo = result.todo;
+                todo.tasks[taskID].STATUS = check;
+                chrome.storage.local.set({todo : todo})
+            })
+        })
+        statusCell.appendChild(statusBox)
+
         var deleteCell = row.insertCell();
         var deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete Task';
