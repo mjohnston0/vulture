@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (result.todo) {
             renderTable(result.todo.tasks);
         } else {
-            console.error("No todoList found.");
+            //console.error("No todoList found.");
+            return;
         }
     });
 });
@@ -23,7 +24,7 @@ function renderTable(tasksDict){
         var dueCell = row.insertCell()
         dueCell.innerHTML = task.DUE
         var tagCell = row.insertCell()
-        console.log(task.TAG)
+        //console.log(task.TAG)
         tagCell.innerHTML = task.TAG
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
@@ -72,7 +73,7 @@ function editTask(id) {
         document.getElementById("title").value = todo.tasks[id].TITLE;
         document.getElementById("tag").value = todo.tasks[id].TAG;
         document.getElementById("description").value = todo.tasks[id].DESCRIPTION;
-        console.log(typeof todo.tasks[id].DUE)
+        //console.log(typeof todo.tasks[id].DUE)
         currentTodoId = id
         document.getElementById("taskDueDate").value = todo.tasks[id].DUE
     })
@@ -155,12 +156,12 @@ edit.addEventListener("click", function(){
     var due = document.getElementById("taskDueDate").value
 
     if(title == "" ||  description == "" || due == ""){
-        console.log("invalid input")
+        alert("invalid input")
         return;
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
-        console.log(todo);
+        //console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
         todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
@@ -187,7 +188,7 @@ save.addEventListener("click", function (){
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
-        console.log(todo);
+        //console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
         todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due,TAG : tag, STATUS: false };
@@ -233,7 +234,7 @@ function filter() {
         let todo = result.todo;
 
         for (task in todo.tasks) {
-            if (todo.tasks[task]["TITLE"].match(e) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
+            if (todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
                 filtered[task] = todo.tasks[task];
             }
         }
