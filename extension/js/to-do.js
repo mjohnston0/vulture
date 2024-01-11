@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (result.todo) {
             renderTable(result.todo.tasks);
         } else {
-            console.error("No todoList found.");
+            console.error("No todoList found. Create empty list");
+            resetTodo();
         }
     });
 });
@@ -55,6 +56,7 @@ function deleteTask(id) {
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         delete todo.tasks[id];
+        todo.count--;
         chrome.storage.local.set({todo: todo});
         renderTable(todo.tasks);
     })
@@ -157,13 +159,10 @@ edit.addEventListener("click", function(){
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
-        console.log(todo);
-        task_id = todo.count + 1;
-        todo.count++;
-        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, STATUS: false };
+        todo.tasks[currentTodoId] = {ID: currentTodoId, TITLE: title, DESCRIPTION: description, DUE: due, STATUS: false };
         chrome.storage.local.set({ todo: todo });
 
-        deleteTask(currentTodoId)
+        //deleteTask(currentTodoId)
         renderTable(todo.tasks);
 
         addMenu.classList.toggle("on");
@@ -209,10 +208,13 @@ function clearText()
 
 // clear all tasks listener
 document.getElementById("clearTodo").addEventListener("click", function() {
-    chrome.storage.local.set({todo: {count: 0, tasks: {}}});
-    renderTable({});
+    resetTodo();
 })
 
+function resetTodo(){
+    chrome.storage.local.set({todo: {count: 0, tasks: {}}});
+    renderTable({});
+}
 
 document.getElementById("search").addEventListener("input", function (e){
     chrome.storage.local.get(["todo"], function(result){
