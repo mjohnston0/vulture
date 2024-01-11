@@ -10,7 +10,10 @@ chrome.runtime.onInstalled.addListener(function () {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.todo) {
         let todo = request.todo;
-        chrome.alarms.create(todo.ID.toString(), { when: new Date(todo.DUE).getTime() });
+        let date = new Date(todo.DUE);
+
+        date.setDate(date.getDate() - 1)
+        chrome.alarms.create(todo.ID.toString(), { when: new Date(date).getTime()});
     }
 })
 
