@@ -121,6 +121,8 @@ document.getElementById("addTask").addEventListener("click", function () {
         chrome.storage.local.set({ todo: todo });
         clearText();
         renderTable(todo.tasks);
+
+        chrome.runtime.sendMessage({todo: todo.tasks[task_id]}).catch();
     })
 })
 
