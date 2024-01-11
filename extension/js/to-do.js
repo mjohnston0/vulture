@@ -200,9 +200,7 @@ edit.addEventListener("click", function(){
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         //console.log(todo);
-        task_id = todo.count + 1;
-        todo.count++;
-        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
+        todo.tasks[currentTodoId] = {ID: currentTodoId, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
         chrome.storage.local.set({ todo: todo });
 
         //deleteTask(currentTodoId)
