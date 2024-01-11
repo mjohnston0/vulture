@@ -3,8 +3,13 @@ document.addEventListener("DOMContentLoaded", function() {
         if (result.todo) {
             renderTable(result.todo.tasks);
         } else {
+<<<<<<< HEAD
             //console.error("No todoList found.");
             return;
+=======
+            console.error("No todoList found. Create empty list");
+            resetTodo();
+>>>>>>> 8b3cda2d36767904070408e7224e0c0e6ff7d49d
         }
     });
 });
@@ -78,6 +83,7 @@ function deleteTask(id) {
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         delete todo.tasks[id];
+        todo.count--;
         chrome.storage.local.set({todo: todo});
         renderTable(todo.tasks);
     })
@@ -180,16 +186,20 @@ edit.addEventListener("click", function(){
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
+<<<<<<< HEAD
         //console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
         todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
+=======
+        todo.tasks[currentTodoId] = {ID: currentTodoId, TITLE: title, DESCRIPTION: description, DUE: due, TAG:tag, STATUS: false };
+>>>>>>> 8b3cda2d36767904070408e7224e0c0e6ff7d49d
         chrome.storage.local.set({ todo: todo });
 
-        deleteTask(currentTodoId)
+        //deleteTask(currentTodoId)
         renderTable(todo.tasks);
 
-        chrome.runtime.sendMessage({todo: todo.tasks[task_id]}).catch();
+        chrome.runtime.sendMessage({todo: todo.tasks[currentTodoId]}).catch();
         addMenu.classList.toggle("on");
 
     })
@@ -210,7 +220,11 @@ save.addEventListener("click", function (){
         //console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
+<<<<<<< HEAD
         todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due,TAG : tag, STATUS: false };
+=======
+        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, TAG:tag, STATUS: false };
+>>>>>>> 8b3cda2d36767904070408e7224e0c0e6ff7d49d
         chrome.storage.local.set({ todo: todo });
         renderTable(todo.tasks);
 
@@ -235,12 +249,16 @@ function clearText()
 
 // clear all tasks listener
 document.getElementById("clearTodo").addEventListener("click", function() {
-    chrome.storage.local.set({todo: {count: 0, tasks: {}}});
-    renderTable({});
+    resetTodo();
 })
 
-document.getElementById("search").addEventListener("input", filter)
 
+function resetTodo(){
+    chrome.storage.local.set({todo: {count: 0, tasks: {}}});
+    renderTable({});
+}
+
+document.getElementById("search").addEventListener("input", filter)
 document.getElementById("selectDate").addEventListener("input", filter)
 
 function filter() {
