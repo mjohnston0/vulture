@@ -40,7 +40,7 @@ function renderTable(tasksDict){
         descCell.innerHTML = task.DESCRIPTION
 
         var dueCell = row.insertCell()
-        dueCell.innerHTML = task.DUE
+        dueCell.innerHTML = task.DUE.slice(-5) + " "+task.DUE.slice(8,10)+"/" +task.DUE.slice(5,7) + " " + task.DUE.slice(0,4)
 
         var tagCell = row.insertCell()
         //console.log(task.TAG)
