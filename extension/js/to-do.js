@@ -23,6 +23,7 @@ function renderTable(tasksDict){
         var dueCell = row.insertCell()
         dueCell.innerHTML = task.DUE
         var tagCell = row.insertCell()
+        console.log(task.TAG)
         tagCell.innerHTML = task.TAG
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
@@ -69,7 +70,7 @@ function editTask(id) {
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         document.getElementById("title").value = todo.tasks[id].TITLE;
-        document.getElementById("tag").value = "";
+        document.getElementById("tag").value = todo.tasks[id].TAG;
         document.getElementById("description").value = todo.tasks[id].DESCRIPTION;
         console.log(typeof todo.tasks[id].DUE)
         currentTodoId = id
@@ -162,7 +163,7 @@ edit.addEventListener("click", function(){
         console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
-        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: "test", DUE: due, TAG: "tag", STATUS: false };
+        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
         chrome.storage.local.set({ todo: todo });
 
         deleteTask(currentTodoId)
@@ -181,7 +182,7 @@ save.addEventListener("click", function (){
     var due = document.getElementById("taskDueDate").value
 
     if(title == "" ||  description == "" || due == ""){
-        console.log("invalid input")
+        alert("invalid input")
         return;
     }
     chrome.storage.local.get(['todo'], function (result) {
@@ -189,7 +190,7 @@ save.addEventListener("click", function (){
         console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
-        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, STATUS: false };
+        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due,TAG : tag, STATUS: false };
         chrome.storage.local.set({ todo: todo });
         renderTable(todo.tasks);
 
