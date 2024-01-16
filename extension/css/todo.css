@@ -1,9 +1,8 @@
-
 input:focus {
     outline: none;
 }
 
-.editbox{
+.editbox {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,10 +14,12 @@ input:focus {
     z-index: 1000;
     display: none;
 }
-.editbox.on{
+
+.editbox.on {
     display: flex;
 }
-.editbox .box{
+
+.editbox .box {
     width: 650px;
     background: #fff;
     box-shadow: 1px 5px 5px 4px #aba9a9;
@@ -30,20 +31,24 @@ input:focus {
     box-sizing: border-box;
     padding: 25px 55px;
 }
-.editbox .box p.tit{
+
+.editbox .box p.tit {
     text-align: center;
     font-size: 24px;
 }
-.editbox .box .fitem{
+
+.editbox .box .fitem {
     margin-top: 20px;
     display: flex;
     align-items: center;
     height: 40px;
 }
-.editbox .box .fitem .name{
+
+.editbox .box .fitem .name {
     width: 100px;
 }
-.editbox .box .fitem .ipt{
+
+.editbox .box .fitem .ipt {
     width: 250px;
     height: 40px;
     box-shadow: inset 0px 0px 0px 2px #e5e5e5;
@@ -54,7 +59,8 @@ input:focus {
     -o-border-radius: 3px;
     padding: 0 10px;
 }
-.editbox .box .fitem .ipt input{
+
+.editbox .box .fitem .ipt input {
     border: none;
     background: none;
     width: 100%;
@@ -62,7 +68,7 @@ input:focus {
     font-size: 16px;
 }
 
-.editbox .box .fitem .tagipt{
+.editbox .box .fitem .tagipt {
     width: 190px !important;
     background: #fff;
     margin-left: 0;
@@ -80,18 +86,21 @@ input:focus {
     justify-content: space-between;
     position: relative;
 }
-.editbox .box .fitem .tagipt .ipt{
+
+.editbox .box .fitem .tagipt .ipt {
     display: flex;
     align-items: center;
 }
-.editbox .box .fitem .tagipt .ipt::after{
+
+.editbox .box .fitem .tagipt .ipt::after {
     content: '';
     width: 12px;
     height: 12px;
     background: url(../images/sjxicon.png);
     background-size: 100%;
 }
-.editbox .box .fitem .tagipt .tags{
+
+.editbox .box .fitem .tagipt .tags {
     width: 100%;
     position: absolute;
     top: 37px;
@@ -106,10 +115,12 @@ input:focus {
     box-sizing: border-box;
     display: none;
 }
-.editbox .box .fitem .tagipt .tags.on{
+
+.editbox .box .fitem .tagipt .tags.on {
     display: block;
 }
-.editbox .box .fitem .tagipt .tags p{
+
+.editbox .box .fitem .tagipt .tags p {
     padding: 0 10px;
     box-sizing: border-box;
     font-size: 16px;
@@ -119,7 +130,8 @@ input:focus {
     border-bottom: 1px solid #e5e5e5;
     position: relative;
 }
-.editbox .box .fitem .tagipt .tags span{
+
+.editbox .box .fitem .tagipt .tags span {
     width: 16px;
     height: 16px;
     background: #00a6db;
@@ -130,13 +142,16 @@ input:focus {
     -o-border-radius: 99px;
     margin-left: 8px;
 }
-.editbox .box .fitem .tagipt .tags .tag2 span{
+
+.editbox .box .fitem .tagipt .tags .tag2 span {
     background: #db8300;
 }
-.editbox .box .fitem .tagipt .tags .tag3 span{
+
+.editbox .box .fitem .tagipt .tags .tag3 span {
     background: #afdb00;
 }
-.editbox .box .fitem .tagipt .tags p.on::after{
+
+.editbox .box .fitem .tagipt .tags p.on::after {
     content: '';
     width: 16px;
     height: 16px;
@@ -147,13 +162,16 @@ input:focus {
     top: 50%;
     margin-top: -8px;
 }
+
 .editbox .box .fitem .tagipt .addipt {
     display: none;
 }
-.editbox .box .fitem .tagipt .addipt.on{
+
+.editbox .box .fitem .tagipt .addipt.on {
     display: block;
 }
-.editbox .box .fitem .tagipt .addipt input{
+
+.editbox .box .fitem .tagipt .addipt input {
     width: 30px;
     height: 30px;
     display: block;
@@ -161,13 +179,16 @@ input:focus {
     flex: 1;
     border: none;
 }
-.editbox .box .fitem .tagipt .tsbox p{
+
+.editbox .box .fitem .tagipt .tsbox p {
     justify-content: flex-start;
 }
-.editbox .box .fitem .tagipt .tsbox.on{
+
+.editbox .box .fitem .tagipt .tsbox.on {
     display: none;
 }
-.editbox .box .fitem .tagipt .tsbox p::after{
+
+.editbox .box .fitem .tagipt .tsbox p::after {
     content: '';
     width: 20px;
     height: 20px;
@@ -175,12 +196,14 @@ input:focus {
     background-size: 100%;
     margin-left: 10px;
 }
-.editbox .box .fitem2{
+
+.editbox .box .fitem2 {
     height: auto;
     display: flex;
     align-items: flex-start;
 }
-.editbox .box .fitem .textbox{
+
+.editbox .box .fitem .textbox {
     width: 350px;
     height: 150px;
     box-shadow: inset 0px 0px 0px 2px #e5e5e5;
@@ -189,10 +212,11 @@ input:focus {
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
-    padding: 10px ;
+    padding: 10px;
     box-sizing: border-box;
 }
-.editbox .box .fitem .textbox textarea{
+
+.editbox .box .fitem .textbox textarea {
     width: 100%;
     height: 100%;
     border: none;
@@ -202,29 +226,34 @@ input:focus {
     box-sizing: border-box;
     font-size: 18px;
 }
-.editbox .box .fitem3{
+
+.editbox .box .fitem3 {
     position: relative;
 }
-.editbox .box .fitem3 .ipt{
+
+.editbox .box .fitem3 .ipt {
     width: 350px;
     display: flex;
     align-items: center;
 }
-.editbox .box .fitem3 .ipt::after{
+
+.editbox .box .fitem3 .ipt::after {
     content: '';
     width: 25px;
     height: 25px;
     background: url(../images/dataicon.png);
     background-size: 100%;
 }
-.editbox .addBtn{
+
+.editbox .addBtn {
     width: 345px;
     margin: 0 auto;
     margin-top: 25px;
     display: flex;
     justify-content: space-between;
 }
-.editbox .addBtn a{
+
+.editbox .addBtn a {
     width: 150px;
     height: 55px;
     background: #00A6DB;
@@ -239,7 +268,8 @@ input:focus {
     color: #fff;
     font-size: 20px;
 }
-.editbox .addBtn a:nth-child(2){
+
+.editbox .addBtn a:nth-child(2) {
     height: 53px;
     background: #FFF;
     color: #000;
@@ -247,14 +277,15 @@ input:focus {
     border: 1px solid #000;
 }
 
-.editbox .editBtn{
+.editbox .editBtn {
     width: 345px;
     margin: 0 auto;
     margin-top: 25px;
     display: flex;
     justify-content: space-between;
 }
-.editbox .editBtn a{
+
+.editbox .editBtn a {
     width: 150px;
     height: 55px;
     background: #00A6DB;
@@ -269,7 +300,8 @@ input:focus {
     color: #fff;
     font-size: 20px;
 }
-.editbox .editBtn a:nth-child(2){
+
+.editbox .editBtn a:nth-child(2) {
     height: 53px;
     background: #FFF;
     color: #000;
@@ -278,14 +310,15 @@ input:focus {
 }
 
 
-.editbox .editBtn{
+.editbox .editBtn {
     width: 345px;
     margin: 0 auto;
     margin-top: 25px;
     display: flex;
     justify-content: space-between;
 }
-.editbox .editBtn a{
+
+.editbox .editBtn a {
     width: 150px;
     height: 55px;
     background: #97da80;
@@ -300,10 +333,172 @@ input:focus {
     color: #fff;
     font-size: 20px;
 }
-.editbox .editBtn a:nth-child(2){
+
+.editbox .editBtn a:nth-child(2) {
     height: 55px;
     background: #e87979;
     color: #FFF;
     border-radius: 15px;
     border: 0px;
 }
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.todo {
+    border: 3px inset;
+    margin: 2rem;
+    height: 90%;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    background-color: #F5F5F5;
+}
+
+.todo-head {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+}
+
+.todo-head h2 {
+    width: 10%;
+    text-align: center;
+}
+
+.todo-action {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.todo-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.todo-filter div {
+    display: flex;
+    margin: 8px;
+}
+
+.todo-filter div label {
+    margin-right: 8px;
+}
+
+.todo-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.todo-button button {
+    margin: 8px;
+}
+
+#addTask {
+    border: none;
+    border-radius: 8px;
+    color: #F5F5F5;
+    background-color: #00A6DB;
+}
+
+#addTask:hover {
+    box-shadow: 3px 3px 5px #65828c8f;
+    cursor: pointer;
+}
+
+#clearTodo {
+    border: none;
+    border-radius: 8px;
+    color: #F5F5F5;
+    background-color: #db2500ca;
+}
+
+#clearTodo:hover {
+    box-shadow: 3px 3px 5px #80605a99;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    border: 1px #B5B5B5 solid;
+}
+
+.table-header {
+    box-shadow: 1px 1px 5px hsl(0, 0%, 25%)
+}
+
+/* .table-header {
+    border: 1px solid;
+} */
+/* 
+.todo-table th {
+    margin: 0;
+    border: 1px solid;
+} */
+
+/* .todo .todo-head {
+    display: inline-flex;
+} */
+
+/* .todo {
+    margin: 2rem;
+    height: 90%;
+    border: 3px inset;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.todo h2 {
+    font-size: 1.5em;
+    display: inline;
+    justify-content: left;
+    white-space: nowrap;
+    float: inline-start;
+    margin: auto;
+    border: #000 solid;
+}
+
+.todo label {
+    font-size: 1em;
+    justify-items: center;
+    text-align: center;
+    white-space: nowrap;
+    margin: auto;
+    margin-right: 0;
+    border: #000 solid;
+}
+
+.todo input {
+    justify-items: left;
+    text-align: center;
+    margin: auto;
+    margin-left: 0;
+}
+
+.todo .filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 40px 20px;
+    border: #29434b solid;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+* {
+    box-sizing: border-box;
+  } */

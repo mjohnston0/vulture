@@ -23,7 +23,7 @@ document.getElementById("showDone").addEventListener("change", function(e){
 
 function renderTable(tasksDict){
     var table = document.getElementById("todo_table")
-    table.innerHTML = "<tr><td>Title</td><td>Description</td><td>Due time</td><td>Tag</td><td>Edit</td><td>Status</td><td>Delete</td></tr>"
+    table.innerHTML = "<tr><th>Title</th><th>Description</th><th>Due time</th><th>Tag</th><th>Edit</th><th>Status</th><th>Delete</th></tr>"
     let tasks = sortTasks(tasksDict);
     let showDone = document.getElementById("showDone").checked;
     for (let entry of tasks) {

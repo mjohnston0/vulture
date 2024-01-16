@@ -7,93 +7,127 @@
 <link rel="stylesheet" href="./css/font_234130_nem7eskcrkpdgqfr.css">
 </head>
 <html>
-    <body>
-        <h1>To Do List</h1>
 
-        <div>
-            <h2>To DO List</h2>
+<body>
+    <h1>To Do List</h1>
 
-            <div>
-                <h3>Filter by tags</h3>
-                <select name="tags" multiple>
-                    <option>tag1</option>
-                </select>
+    <div class="todo">
+
+        <section class="todo-head">
+
+            <h2>To Do List</h2>
+
+            <div class="todo-action">
+
+                <section class="todo-filter">
+
+                    <div id="tag-filter">
+                        <label for="tags">Filter by tags</label>
+                        <select id="tags">
+                            <option>tag1</option>
+                        </select>
+                    </div>
+
+                    <div id="search-filter">
+                        <label for="search">Search ToDo List</label>
+                        <input type="text" id="search" placeholder="Search for keyword">
+                        <div id="search_error"></div>
+                    </div>
+
+                    <div id="date-filter">
+
+                        <label for="selectDate">Filter by time</label>
+                        <input type="date" id="selectDate">
+                    </div>
+
+                    <div id="done-filter">
+                        <label>Show Finished Tasks</label>
+                        <input type="checkbox" id="showDone">
+                    </div>
+
+                </section>
+
+                <div class="todo-button">
+                    <button type="button" id="addTask">Add ToDo</button>
+                    <button type="button" id="clearTodo">Clear ToDo</button>
+                </div>
+
             </div>
 
-            <div>
-                <h3>Search ToDO List</h3>
-                <input type="text" id="search">
-                <div id="search_error"></div>
-            </div>
-
-            <div>
-                <h3>Filter by time</h3>
-                <input type="date" id="selectDate">
-            </div>
-        </div>
-        <button type="button" id="addTask">Add ToDo</button>
-        <button type="button" id="clearTodo">Clear ToDo</button>
-        <input type="checkbox" id="showDone"><label>Show Finished Tasks</label>
+        </section>
 
         <table id="todo_table">
-            <tr><td>Title</td><td>Description</td><td>Due time</td><td>Tag</td><td>Edit</td><td>Status</td><td>Delete</td></tr>
+
+            <tr class="table-header">
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due time</th>
+                <th>Tag</th>
+                <th>Edit</th>
+                <th>Status</th>
+                <th>Delete</th>
+            </tr>
+
         </table>
-    </body>
-    <div class="editbox">
-        <div class="box">
-            <p class="tit" id="menuTitle">Add TODO item</p>
-            <div class="fitem">
-                <span class="name">Name</span>
-                <div class="ipt">
-                    <input id="title" type="text" placeholder="site name">
-                </div>
+
+    </div>
+</body>
+<div class="editbox">
+    <div class="box">
+        <p class="tit" id="menuTitle">Add TODO item</p>
+        <div class="fitem">
+            <span class="name">Name</span>
+            <div class="ipt">
+                <input id="title" type="text" placeholder="site name">
             </div>
-            <div class="fitem">
-                <span class="name">Tags</span>
-                <div class="tagipt">
-                    <div class="ipt">
-                        <input id="tag" type="text" placeholder="Default Tag">
-                    </div>
-                    <div class="tags">
-                        <p class="on">Tag1<span></span></p>
-                        <p class="tag2 on">Tag2<span></span></p>
-                        <p class="tag3">Tag3<span></span></p>
-                        <div class="add">
-                            <div class="tsbox">
-                                <p>Create tag</p>
-                            </div>
-                            <div class="addipt">
-                                <p><input type="text" placeholder="New tag"><span></span>
-                                </p>
-                            </div>
+        </div>
+        <div class="fitem">
+            <span class="name">Tags</span>
+            <div class="tagipt">
+                <div class="ipt">
+                    <input id="tag" type="text" placeholder="Default Tag">
+                </div>
+                <div class="tags">
+                    <p class="on">Tag1<span></span></p>
+                    <p class="tag2 on">Tag2<span></span></p>
+                    <p class="tag3">Tag3<span></span></p>
+                    <div class="add">
+                        <div class="tsbox">
+                            <p>Create tag</p>
+                        </div>
+                        <div class="addipt">
+                            <p><input type="text" placeholder="New tag"><span></span>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="fitem fitem2">
-                <span class="name">Note</span>
-                <div class="textbox">
-                    <textarea name="" id="description"></textarea>
-                </div>
-            </div>
-            <div class="fitem fitem3">
-                <span class="name">Due date</span>
-                <div class="ipt">
-                    <input type="datetime-local" id="taskDueDate" placeholder="06/24/2023">
-                </div>
-                <div id='schedule-box2' class="boxshaw schedule-box">
-                </div>
-            </div>
-            <div class="editBtn" id = "addGroup">
-                <a class="edit" id="edit">Edit</a>
-                <a class="discard" id="discard">Discard</a>
-            </div>
-            <div class="addBtn" id = "editGroup">
-                <a class="save" id="save">Add</a>
-                <a class="cancel" id="cancel">Cancel</a>
+        </div>
+        <div class="fitem fitem2">
+            <span class="name">Note</span>
+            <div class="textbox">
+                <textarea name="" id="description"></textarea>
             </div>
         </div>
+        <div class="fitem fitem3">
+            <span class="name">Due date</span>
+            <div class="ipt">
+                <input type="datetime-local" id="taskDueDate" placeholder="06/24/2023">
+            </div>
+            <div id='schedule-box2' class="boxshaw schedule-box">
+            </div>
+        </div>
+        <div class="editBtn" id="addGroup">
+            <a class="edit" id="edit">Edit</a>
+            <a class="discard" id="discard">Discard</a>
+        </div>
+        <div class="addBtn" id="editGroup">
+            <a class="save" id="save">Add</a>
+            <a class="cancel" id="cancel">Cancel</a>
+        </div>
     </div>
+</div>
 
-    <script src="js/to-do.js"></script>
+<script src="js/to-do.js"></script>
+
 </html>
