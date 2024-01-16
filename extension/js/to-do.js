@@ -49,11 +49,15 @@ function renderTable(tasksDict){
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
         editButton.textContent = "⋯";
-        editButton.classList.add('edit-button')
+        editButton.classList.add('table-button')
         editButton.addEventListener('click', function() {
             editTask(taskID);
         });
         editCell.appendChild(editButton);
+
+        var toggle = document.createElement('label');
+        toggle.classList.add('toggle')
+        var span = document.createElement('span');
 
         var statusCell = row.insertCell()
         var statusBox = document.createElement('input')
@@ -71,11 +75,16 @@ function renderTable(tasksDict){
             })
             
         })
-        statusCell.appendChild(statusBox)
+        toggle.appendChild(statusBox);
+        toggle.appendChild(span);
+
+        statusCell.appendChild(toggle)
+
 
         var deleteCell = row.insertCell();
         var deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete Task';
+        deleteButton.textContent = '—';
+        deleteButton.classList.add('table-button');
         deleteButton.addEventListener('click', function() {
             deleteTask(taskID);
         });

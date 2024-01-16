@@ -421,14 +421,6 @@ body {
     background-color: #db2500ca;
 }
 
-.edit-button {
-    font-size: 2em;
-    padding: 0;
-    border: none;
-    outline: none;
-    background-color: #F5F5F5;
-}
-
 #clearTodo:hover {
     box-shadow: 3px 3px 5px #80605a99;
 }
@@ -460,7 +452,7 @@ table th {
     cursor: pointer;
 }
 
-.toggle input{
+.toggle input {
     display: none;
 }
 
@@ -487,10 +479,18 @@ table th {
     transition: all 0.4s ease-in-out;
 }
 
-.toggle input:checked + span {
+.toggle input:checked+span {
     background-color: #00A6DB;
 }
 
-.toggle input:checked + span::before {
+.toggle input:checked+span::before {
     transform: translateX(calc(48px - 24px));
-  }
+}
+
+.table-button {
+    font-size: 2em;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: #F5F5F5;
+}
