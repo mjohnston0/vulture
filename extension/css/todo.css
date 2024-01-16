@@ -421,6 +421,11 @@ body {
     background-color: #db2500ca;
 }
 
+.edit-button {
+    content: "...";
+    background-color: green;
+}
+
 #clearTodo:hover {
     box-shadow: 3px 3px 5px #80605a99;
 }
@@ -428,6 +433,10 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
+}
+
+table td {
+    text-align: center;
 }
 
 table th {
@@ -438,67 +447,47 @@ table th {
     box-shadow: 1px 1px 5px hsl(0, 0%, 25%)
 }
 
-/* .table-header {
-    border: 1px solid;
-} */
-/* 
-.todo-table th {
-    margin: 0;
-    border: 1px solid;
-} */
-
-/* .todo .todo-head {
-    display: inline-flex;
-} */
-
-/* .todo {
-    margin: 2rem;
-    height: 90%;
-    border: 3px inset;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+.toggle {
+    width: 48px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+    background-color: #00A6DB;
+    border-radius: 100px;
+    cursor: pointer;
 }
 
-.todo h2 {
-    font-size: 1.5em;
-    display: inline;
-    justify-content: left;
-    white-space: nowrap;
-    float: inline-start;
-    margin: auto;
-    border: #000 solid;
+.toggle input{
+    display: none;
 }
 
-.todo label {
-    font-size: 1em;
-    justify-items: center;
-    text-align: center;
-    white-space: nowrap;
-    margin: auto;
-    margin-right: 0;
-    border: #000 solid;
+.toggle span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    background-color: #ccc;
+    transition: all 0.4s ease-in-out;
 }
 
-.todo input {
-    justify-items: left;
-    text-align: center;
-    margin: auto;
-    margin-left: 0;
+.toggle span::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #fff;
+    transition: all 0.4s ease-in-out;
 }
 
-.todo .filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding: 40px 20px;
-    border: #29434b solid;
+.toggle input:checked + span {
+    background-color: #00A6DB;
 }
 
-body {
-    height: 100vh;
-    width: 100vw;
-}
-
-* {
-    box-sizing: border-box;
-  } */
+.toggle input:checked + span::before {
+    transform: translateX(calc(48px - 24px));
+  }
