@@ -23,7 +23,7 @@ document.getElementById("showDone").addEventListener("change", function(e){
 
 function renderTable(tasksDict){
     var table = document.getElementById("todo_table")
-    table.innerHTML = "<tr><th>Title</th><th>Description</th><th>Due time</th><th>Tag</th><th>Edit</th><th>Status</th><th>Delete</th></tr>"
+    table.innerHTML = '<tr class="table-header"><th id="tbl-title">Title</th><th id="tbl-description">Description</th><th id="tbl-due">Due time</th><th id="tbl-tag">Tag</th><th id="tbl-edit">Edit</th><th id="tbl-status">Status</th><th id="tbl-del">Delete</th></tr>'
     let tasks = sortTasks(tasksDict);
     let showDone = document.getElementById("showDone").checked;
     for (let entry of tasks) {
@@ -37,6 +37,7 @@ function renderTable(tasksDict){
         titleCell.innerHTML = task.TITLE
 
         var descCell = row.insertCell()
+        descCell.id = 'data-des';
         descCell.innerHTML = task.DESCRIPTION
 
         var dueCell = row.insertCell()

@@ -432,14 +432,34 @@ table {
 
 table td {
     text-align: center;
+    height: 40px;
+}
+
+#data-des {
+    text-align: left;
+    padding-left: 16px;
 }
 
 table th {
     border: 1px #B5B5B5 solid;
+    height: 32px;
 }
 
 .table-header {
-    box-shadow: 1px 1px 5px hsl(0, 0%, 25%)
+    box-shadow: 1px 1px 5px hsl(0, 0%, 25%);
+    /* height: 24px; */
+}
+
+#tbl-title, #tbl-due {
+    width: 15%;
+}
+
+#tbl-description {
+    width: 30%;
+}
+
+#tbl-tag, #tbl-edit, #tbl-status, #tbl-del {
+    width: 10%;
 }
 
 .toggle {
