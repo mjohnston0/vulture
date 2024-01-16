@@ -57,7 +57,7 @@ function renderTable(tasksDict){
         editCell.appendChild(editButton);
 
         var toggle = document.createElement('label');
-        toggle.classList.add('toggle')
+        toggle.classList.add('status-toggle')
         var span = document.createElement('span');
 
         var statusCell = row.insertCell()

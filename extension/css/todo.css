@@ -450,7 +450,8 @@ table th {
     /* height: 24px; */
 }
 
-#tbl-title, #tbl-due {
+#tbl-title,
+#tbl-due {
     width: 15%;
 }
 
@@ -458,7 +459,10 @@ table th {
     width: 30%;
 }
 
-#tbl-tag, #tbl-edit, #tbl-status, #tbl-del {
+#tbl-tag,
+#tbl-edit,
+#tbl-status,
+#tbl-del {
     width: 10%;
 }
 
@@ -504,7 +508,52 @@ table th {
 }
 
 .toggle input:checked+span::before {
-    transform: translateX(calc(48px - 24px));
+    transform: translateX(24px);
+}
+
+.status-toggle {
+    width: 48px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+    background-color: #00A6DB;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.status-toggle input {
+    display: none;
+}
+
+.status-toggle span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    background-color: #9DE267;
+    transition: all 0.4s ease-in-out;
+}
+
+.status-toggle span::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 27px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #fff;
+    transition: all 0.4s ease-in-out;
+}
+
+.status-toggle input:checked+span {
+    background-color: #ccc;
+}
+
+.status-toggle input:checked+span::before {
+    transform: translateX(-24px);
 }
 
 .table-button {
