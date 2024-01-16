@@ -422,8 +422,11 @@ body {
 }
 
 .edit-button {
-    content: "...";
-    background-color: green;
+    font-size: 2em;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: #F5F5F5;
 }
 
 #clearTodo:hover {

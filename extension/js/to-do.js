@@ -48,7 +48,8 @@ function renderTable(tasksDict){
 
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
-        editButton.textContent = 'Edit Task';
+        editButton.textContent = "⋯";
+        editButton.classList.add('edit-button')
         editButton.addEventListener('click', function() {
             editTask(taskID);
         });
