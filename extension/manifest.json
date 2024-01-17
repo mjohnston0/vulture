@@ -11,12 +11,12 @@
             "js" : ["js/parser.js"]
         }
     ],
+    "host_permissions": ["*://*/*"],
     "permissions": [
         "storage",
         "unlimitedStorage",
         "notifications",
-        "alarms",
-        "<all_urls>"
+        "alarms"
     ],
     "action": {
         "default_icon": "assets/placeholder.png",
