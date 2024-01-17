@@ -266,6 +266,7 @@ document.getElementById("clearTodo").addEventListener("click", function() {
     resetTodo();
 })
 
+document.getElementById("resetFilter").addEventListener("click",resetFilter)
 
 function resetTodo(){
     chrome.storage.local.set({todo: {count: 0, tasks: {}}});
@@ -285,7 +286,7 @@ function filter() {
         let todo = result.todo;
 
         for (task in todo.tasks) {
-            if (todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
+            if ((todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) || todo.tasks[task]["DESCRIPTION"].toLowerCase().match(e.toLowerCase())) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
                 filtered[task] = todo.tasks[task];
             }
         }
@@ -293,12 +294,17 @@ function filter() {
         let msg = document.getElementById("search_error")
         if(Object.keys(filtered).length == 0){
             msg.innerHTML = "NO MATCHES FOUND"
+            renderTable({})
         } else {
             msg.innerHTML = ""
             renderTable(filtered)
         }
 
     })
+}
+
+function resetFilter(){
+    location.reload();
 }
 
 // document.getElementById("search").addEventListener("input", function (e){
