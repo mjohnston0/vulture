@@ -19,7 +19,9 @@ window.onload = function() {
                 if (index[kw]) {
                     if (!index[kw].includes(url)) {
                         index[kw].push(url);
-                    } //else move url to back of array
+                    } else {
+                        index[kw].push(index[kw].splice(index[kw].indexOf(url), 1)[0]);
+                    } 
                 } else {
                     index[kw] = [url];
                 }  
