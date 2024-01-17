@@ -26,7 +26,7 @@ window.onload = function() {
             }
         }
 
-        chrome.storage.local.set({result: newIndex});
+        chrome.storage.local.set({"index": newIndex});
     })
 
 
