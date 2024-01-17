@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.local.get(["index"], function(result) {
-        displayUrls(result.index);
-        
+        if (Object.keys(result.index).length > 0) {
+            displayUrls(result.index);
+        } else {
+            displayNoUrlsMessage();
+        } 
     });
 });
 
