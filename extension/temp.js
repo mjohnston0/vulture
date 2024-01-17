@@ -1,21 +1,24 @@
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.local.get(["index"], function(result) {
-        if (result.index && result.index.length > 0) {
-            displayUrls(result.index);
-        } else {
-            displayNoUrlsMessage();
-        }
+        displayUrls(result.index);
+        
     });
 });
 
-function displayUrls(urls) {
+function displayUrls(dict) {
     var urlsContainer = document.getElementById("urlsContainer");
     var ul = document.createElement("ul");
-    urls.forEach(function(url) {
+    for (let key of Object.keys(dict)){
         var li = document.createElement("li");
-        li.textContent = url;
+        li.textContent = key;
+        li.style.fontWeight = "bold";
         ul.appendChild(li);
-    });
+        for (let url of dict[key]) {
+            var li = document.createElement("li");
+            li.textContent = url;
+            ul.appendChild(li);
+        }
+    }
     urlsContainer.appendChild(ul);
 }
 
