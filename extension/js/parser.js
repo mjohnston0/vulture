@@ -1,5 +1,3 @@
-
-// on load save entry
 window.onload = function() {
 
     let url = window.location.href;
@@ -10,7 +8,6 @@ window.onload = function() {
     let keywordSet = new Set(keywords);
 
     chrome.storage.local.get(['index'], function (result) {
-        console.log(result);
         let index = result.index;
         for (let kw of keywordSet.keys()) {
             kw = kw.replace(/[^a-z']/g, '');
@@ -30,9 +27,4 @@ window.onload = function() {
 
         chrome.storage.local.set({"index": index});
     })
-
-
-    chrome.storage.local.get(['index']), function (result) {
-        console.log(result.index);
-    }
 }
