@@ -3,11 +3,20 @@
     "name": "Productivity Tool",
     "description": "Page Indexer and To do list",
     "version": "0.0.1",
+    "content_scripts" : [
+        {
+            "matches" : [
+                "<all_urls>"
+            ],
+            "js" : ["js/parser.js"]
+        }
+    ],
     "permissions": [
         "storage",
         "unlimitedStorage",
         "notifications",
-        "alarms"
+        "alarms",
+        "<all_urls>"
     ],
     "action": {
         "default_icon": "assets/placeholder.png",
