@@ -6,6 +6,13 @@ chrome.runtime.onInstalled.addListener(function () {
             console.log("create todo")
         }
     });
+    chrome.storage.local.get(['index'], function(result) {
+        if (!result.index) {
+            let index = {}
+            chrome.storage.local.set({index: index});
+            console.log("Create index")
+        }
+    });
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
