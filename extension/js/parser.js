@@ -11,22 +11,22 @@ window.onload = function() {
 
     chrome.storage.local.get(['index'], function (result) {
         console.log(result);
-        let newIndex = result;
+        let index = result.index;
         for (let kw of keywordSet.keys()) {
             kw = kw.replace(/[^a-z']/g, '');
             kw = kw.replace(/^'|'$/g, '');
             if (kw != '') {
-                if (kw in newIndex) {
-                    if (!url in newIndex[kw]) {
-                        newIndex[kw].push(url);
-                    }
+                if (index[kw]) {
+                    if (!index[kw].includes(url)) {
+                        index[kw].push(url);
+                    } //else move url to back of array
                 } else {
-                    newIndex[kw] = [url];
+                    index[kw] = [url];
                 }  
             }
         }
 
-        chrome.storage.local.set({"index": newIndex});
+        chrome.storage.local.set({"index": index});
     })
 
 
