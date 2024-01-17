@@ -1,9 +1,14 @@
 chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.local.get(['todo'], function(result) {
         if (!result.todo) {
-            let todo = [];
             chrome.storage.local.set({todo: {count: 0, tasks: {}}});
             console.log("create todo")
+        }
+    });
+    chrome.storage.local.get(['index'], function(result) {
+        if (!result.index) {
+            chrome.storage.local.set({index: {}});
+            console.log("Create index");
         }
     });
 });
