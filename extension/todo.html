@@ -10,36 +10,26 @@
 
 <body>
     <h1>To Do List</h1>
-
     <div class="todo">
-
         <section class="todo-head">
-
             <h2>To Do List</h2>
-
             <div class="todo-action">
-
                 <section class="todo-filter">
-
                     <div id="tag-filter">
                         <label for="tags">Filter by tags</label>
                         <select id="tags">
                             <option>tag1</option>
                         </select>
                     </div>
-
                     <div id="search-filter">
                         <label for="search">Search ToDo List</label>
                         <input type="text" id="search" placeholder="Search for keyword">
                         <div id="search_error"></div>
                     </div>
-
                     <div id="date-filter">
-
                         <label for="selectDate">Filter by time</label>
                         <input type="date" id="selectDate">
                     </div>
-
                     <div id="done-filter">
                         <label>Show Finished Tasks</label>
                         <label class="toggle">
@@ -47,25 +37,18 @@
                             <span></span>
                         </label>
                     </div>
-
                     <div>
                         <button type="button" id="resetFilter">Reset Filter</button>
-
+                        <button type="button" class="gotoPreference" id="gotoPreference">Preference</button>
                     </div>
-
                 </section>
-
                 <div class="todo-button">
                     <button type="button" id="addTask">Add ToDo</button>
                     <button type="button" id="clearTodo">Clear ToDo</button>
                 </div>
-
             </div>
-
         </section>
-
         <table id="todo_table">
-
             <tr class="table-header">
                 <th id="tbl-title">Title</th>
                 <th id="tbl-description">Description</th>
@@ -75,14 +58,13 @@
                 <th id="tbl-status">Status</th>
                 <th id="tbl-del">Delete</th>
             </tr>
-
         </table>
 
     </div>
 </body>
 <div class="editbox">
     <div class="box">
-        <p class="tit" id="menuTitle">Add TODO item</p>
+        <p class="tit" id="menuTitle">Add Allow Value</p>
         <div class="fitem">
             <span class="name">Name</span>
             <div class="ipt">
@@ -135,7 +117,12 @@
         </div>
     </div>
 </div>
-
+<script>
+    const gotoPreference_btn = document.querySelector('.gotoPreference')
+    gotoPreference_btn.addEventListener('click', function () {
+        window.location.href="./Preference.html"
+    })
+</script>
 <script src="js/to-do.js"></script>
 
 </html>
