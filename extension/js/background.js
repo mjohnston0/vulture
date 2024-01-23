@@ -1,11 +1,26 @@
+import { DEFAULT_ALLOWLIST_SITE, DEFAULT_ALLOWLIST_PAGE, DEFAULT_ALLOWLIST_REGEX } from "./allowlist.js";
+
 chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.local.get(['todo'], function(result) {
         if (!result.todo) {
-            let todo = [];
             chrome.storage.local.set({todo: {count: 0, tasks: {}}});
             console.log("create todo")
         }
     });
+
+    chrome.storage.local.get(['index'], function(result) {
+        if (!result.index) {
+            chrome.storage.local.set({index: {}});
+            console.log("Create index");
+        }
+    });
+
+    chrome.storage.local.get(['allowlist'], function(result) {
+        if (!result.allowlist) {
+            chrome.storage.local.set({allowlist: {site: DEFAULT_ALLOWLIST_SITE, page: DEFAULT_ALLOWLIST_PAGE, regex: DEFAULT_ALLOWLIST_REGEX}});
+            console.log("create allowlist");
+        }
+    })
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
