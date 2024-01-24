@@ -347,12 +347,21 @@ function resetFilter() {
 }
 
 function addTag(name) {
-    chrome.storage.get(['tag'], function (result) {
-        let tag = result.tag;
+    chrome.storage.local.get(['tags'], function (result) {
+        let tags = result.tags;
 
-        tag.tags[tag.count] = { ID: tag.count, NAME: name, COLOR: "#F5F5DC" }
-        tag.count++;
+        tags[name] = "#F5F5DC"
 
-        chrome.storage.set({ tag: tag });
+        chrome.storage.local.set({ tags: tags });
     })
 }
+
+document.getElementById("newTagbtn").addEventListener("click", function(){
+    tagName = document.getElementById("newTagName").value;
+    if (tagName == "") {
+        alert("Tag name cannot be empty.");
+        return;
+    }
+    addTag(tagName);
+    
+})
