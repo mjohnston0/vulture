@@ -209,15 +209,10 @@ function updateTagList() {
     tagElement = document.getElementById('tag');
     tagElement.innerHTML = '<select id="tag"></select>'
 
-    console.log('UPDATEs');
-
     chrome.storage.local.get(['tags'], function (result) {
         tags = result.tags;
 
-        console.log(tags);
-
         Object.keys(tags).forEach((key) => {
-            console.log(key);
             option = new Option(key, key);
             tagElement.options.add(option);
         })
