@@ -41,7 +41,22 @@ function renderTable(allowlist) {
 
         radioCell.appendChild(radio)
 
-    })
+        var deleteCell = row.insertCell();
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'DELETE';
+        var deleteID = element.ID;
+        console.log("making delete button")
+        deleteButton.addEventListener('click', function() {
+            chrome.storage.local.get(['allowlist'], function (result) {
+                let allowList = result.allowlist;
+                delete allowList.list[deleteID];
+                allowList.count--;
+                chrome.storage.local.set({"allowlist": allowList});
+                renderTable(allowList.list);
+            })});
+        console.log(deleteButton);
+        deleteCell.appendChild(deleteButton);
+        })
 }
 
 document.getElementById("add_entry_btn").addEventListener("click", function(){
