@@ -1,7 +1,9 @@
-window.onload = async function () {
+navigation.addEventListener("navigate", async function() {
 
     let url = window.location.href;
     let text = document.body.innerText.toLowerCase();
+
+    console.log(url);
 
     let keywords = text.split(/\s+/);
 
@@ -28,13 +30,14 @@ window.onload = async function () {
                 }
             }
 
+            console.log(index);
             chrome.storage.local.set({ "index": index });
         })
     }
     else {
         console.log("FALSE");
     }
-}
+})
 
 async function isValid() {
     const result = await chrome.storage.local.get(['allowlist']);
