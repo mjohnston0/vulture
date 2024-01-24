@@ -76,13 +76,14 @@ document.getElementById("add_entry_btn").addEventListener("click", function(){
 })
 
 
-const deleteAll = document.querySelector('.deleteAll');
+const deleteAll = document.getElementById('delete_all');
 
 deleteAll.addEventListener("click", function() {
-    let kw = document.getElementById("keywordToDelete").value;
+    let kw = document.getElementById("delete_value").value;
 
+    console.log('1');
 
-    chrome.storage.get("index", function(result) {
+    chrome.storage.local.get("index", function(result) {
         let index = result.index;
         if (index[kw]) {
             delete index[kw];
@@ -90,7 +91,9 @@ deleteAll.addEventListener("click", function() {
             alert("No matching entries");
         }
 
-        chrome.storage.local.set({index: index})
+        chrome.storage.local.set({index: index});
+
+        console.log('deleted');
     })
 })
 
