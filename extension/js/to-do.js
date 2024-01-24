@@ -6,6 +6,16 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
     });
+    chrome.storage.local.get(["tag"], function(result){
+        let tags = result.tag.tags;
+        let tagFilterBox = document.getElementById("tags");
+        for (let key of Object.keys(tags)){
+            let newOption = document.createElement("option");
+            newOption.value=tags[key].ID;
+            newOption.textContent=tags[key].NAME;
+            tagFilterBox.appendChild(newOption);
+        }
+    })
 });
 
 function drawTable() {
