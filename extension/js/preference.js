@@ -93,13 +93,6 @@ function showAssociatedKeywords() {
             }
         }
 
-        if (filtered.length == 0) {
-            console.log('No matches found');
-        } else {
-            console.log(filtered);
-        }
-
-
         let dropdown = document.getElementById('suggestions_dropdown');
 
         dropdown.innerHTML = '';
@@ -116,7 +109,7 @@ function showAssociatedKeywords() {
 }
 
 deleteAll.addEventListener("click", function() {
-    let kw = document.getElementById("delete_value").value;
+    let kw = document.getElementById("suggestions_dropdown").value;
 
     console.log('1');
 
