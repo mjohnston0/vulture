@@ -16,7 +16,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
     chrome.storage.local.get(['tag'], function(result) {
         if (!result.tag) {
-            chrome.storage.local.set({tag: {count: 1, tags: {0: {ID: 0, NAME: 'DEFAULT', COLOR: "#0000FF"}}}})
+            chrome.storage.local.set({tags: {'DEFAULT': '#ffff'}})
         }
     })
 
