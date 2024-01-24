@@ -43,3 +43,21 @@ function renderTable(allowlist) {
 
     })
 }
+
+document.getElementById("add_entry_btn").addEventListener("click", function(){
+    let textbox = document.getElementById("new_value");
+    let typeSelect = document.getElementById("new_type");
+
+    let value = textbox.value;
+    let type = typeSelect.value;
+
+    chrome.storage.local.get(["allowlist"], function(result){
+        list = result.allowlist.list;
+        console.log(list)
+        count = result.allowlist.count;
+        list[count] = {"ID": count, "VALUE": value, "TYPE": type, "IS_ACTIVE": true};
+        count++;
+        chrome.storage.local.set({"allowlist": {"count":count,"list":list}});
+        renderTable(list);
+    })
+})

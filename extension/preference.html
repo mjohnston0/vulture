@@ -22,6 +22,15 @@
                     </a>
                 </div>
                 <p class="title2">Allow list</p>
+                <lable>Enter domain, page or regex</lable>
+                <input type="text" id="new_value">
+                <label>Choose value type</label>
+                <select id="new_type">
+                    <option value="SITE">DOMAIN</option>
+                    <option value="PAGE">PAGE</option>
+                    <option value="REGEX">REGEX</option>
+                </select>
+                <button id="add_entry_btn" >Add To Allow List</button>
                 <div class="listbox">
                     <div class="content">
                         <table id="allowlist_tbl">
