@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderTable(allowlist) {
     console.log(allowlist);
     var table = document.getElementById("allowlist_tbl")
-    table.innerHTML = '<tr class="table-header"><th id="tbl-title">Title</th><th id="tbl-description">Description</th><th id="tbl-due">Due time</th><th id="tbl-tag">Tag</th><th id="tbl-edit">Edit</th><th id="tbl-status">Status</th><th id="tbl-del">Delete</th></tr>'
+    table.innerHTML = '<tr class="table-header"><th id="tbl-value">Value</th><th id="tbl-type">Type</th><th id="tbl-enable">Enable</th><th id="tbl-delete">Delete</th>'
     console.log("KOKOK");
 
     Object.values(allowlist).forEach((element) => {
