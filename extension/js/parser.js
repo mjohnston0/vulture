@@ -7,7 +7,7 @@ window.onload = async function () {
 
     let keywordSet = new Set(keywords);
 
-    if (await allow()) {
+    if (await isValid()) {
         console.log("TRUE");
 
         chrome.storage.local.get(['index'], function (result) {
@@ -36,29 +36,29 @@ window.onload = async function () {
     }
 }
 
-async function allow() {
+async function isValid() {
     const result = await chrome.storage.local.get(['allowlist']);
 
-    let allowlist = result.allowlist;
-
-    let site = allowlist.site;
-    let page = allowlist.page;
-    let regex = allowlist.regex;
+    let list = result.allowlist.list;
 
     let domain = window.location.hostname;
     let url = window.location.href;
 
-    for (s of site) {
-        if (domain.localeCompare(s) === 0) return true;
+    for (element of Object.values(list)) {
+
+        console.log(element);
+
+        if (element.IS_ACTIVE) {
+
+            if (element.TYPE === 'SITE' && element.VALUE.localeCompare(domain) === 0) return true;
+
+            if (element.TYPE === 'PAGE' && element.VALUE.localeCompare(url) === 0) return true;
+
+            if (element.TYPE === 'REGEX' && element.VALUE.match(url)) return true;
+
+        }
     }
 
-    for (p of page) {
-        if (url.localeCompare(p) === 0) return true;
-    }
+    return false
 
-    for (r of regex) {
-        if (regex.match(r)) return true;
-    }
-
-    return false;
 }

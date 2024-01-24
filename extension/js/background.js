@@ -17,7 +17,25 @@ chrome.runtime.onInstalled.addListener(function () {
 
     chrome.storage.local.get(['allowlist'], function(result) {
         if (!result.allowlist) {
-            chrome.storage.local.set({allowlist: {site: DEFAULT_ALLOWLIST_SITE, page: DEFAULT_ALLOWLIST_PAGE, regex: DEFAULT_ALLOWLIST_REGEX}});
+            let list = {};
+            let count = 0;
+
+            DEFAULT_ALLOWLIST_SITE.forEach(((element) => {
+                list[count] = {ID: count, VALUE: element, TYPE: 'SITE', IS_ACTIVE: true};
+                count++;
+            }))
+
+            DEFAULT_ALLOWLIST_PAGE.forEach(((element) => {
+                list[count] = {ID: count, VALUE: element, TYPE: 'PAGE', IS_ACTIVE: true};
+                count++;
+            }))
+
+            DEFAULT_ALLOWLIST_REGEX.forEach(((element) => {
+                list[count] = {ID: count, VALUE: element, TYPE: 'REGEX', IS_ACTIVE: true};
+                count++;
+            }))
+
+            chrome.storage.local.set({allowlist: {'count': count, 'list': list}})
             console.log("create allowlist");
         }
     })
