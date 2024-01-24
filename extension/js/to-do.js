@@ -176,14 +176,14 @@ var currentTodoId = 0;
 function showEditBtn(){
     editBtnDiv.style.display = "flex";
     addBtnDiv.style.display = "none";
-    title.textContent = "Edit todo item"
+    title.textContent = "Edit Task"
 }
 
 
 function showAddBtn(){
     addBtnDiv.style.display = "flex";
     editBtnDiv.style.display = "none";
-    title.textContent = "Add todo item"
+    title.textContent = "Add Task"
 }
 
 document.getElementById("addTask").addEventListener("click",   function (){
