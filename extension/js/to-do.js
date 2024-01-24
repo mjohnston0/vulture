@@ -1,27 +1,43 @@
-document.addEventListener("DOMContentLoaded", function() {
-    chrome.storage.local.get(["todo"], function(result) {
+document.addEventListener("DOMContentLoaded", function () {
+    chrome.storage.local.get(["todo"], function (result) {
         if (result.todo) {
             renderTable(result.todo.tasks);
         } else {
-            //console.error("No todoList found.");
             return;
         }
     });
+
+    updateTagBox();
+
 });
 
+function updateTagBox() {
+    chrome.storage.local.get(["tags"], function (result) {
+        let tags = result.tags;
+        let tagFilterBox = document.getElementById("tags");
+        tagFilterBox.innerHTML = '<select id="tags"><option value=""></option></select>'
+        for (let key of Object.keys(tags)) {
+            let newOption = document.createElement("option");
+            newOption.value = key;
+            newOption.textContent = key;
+            tagFilterBox.appendChild(newOption);
+        }
+    })
+}
+
 function drawTable() {
-    chrome.storage.local.get(["todo"], function(result) {
+    chrome.storage.local.get(["todo"], function (result) {
         renderTable(result.todo.tasks);
     })
 }
 
-document.getElementById("showDone").addEventListener("change", function(e){
-    chrome.storage.local.get(["todo"], function(result) {
+document.getElementById("showDone").addEventListener("change", function (e) {
+    chrome.storage.local.get(["todo"], function (result) {
         renderTable(result.todo.tasks);
     })
 })
 
-function renderTable(tasksDict){
+function renderTable(tasksDict) {
     var table = document.getElementById("todo_table")
     table.innerHTML = '<tr class="table-header"><th id="tbl-title">Title</th><th id="tbl-description">Description</th><th id="tbl-due">Due time</th><th id="tbl-tag">Tag</th><th id="tbl-edit">Edit</th><th id="tbl-status">Status</th><th id="tbl-del">Delete</th></tr>'
     let tasks = sortTasks(tasksDict);
@@ -29,7 +45,7 @@ function renderTable(tasksDict){
     for (let entry of tasks) {
         let taskID = entry[0];
         let task = entry[1];
-        if (!showDone && task.STATUS){
+        if (!showDone && task.STATUS) {
             continue;
         }
         var row = table.insertRow()
@@ -41,17 +57,16 @@ function renderTable(tasksDict){
         descCell.innerHTML = task.DESCRIPTION
 
         var dueCell = row.insertCell()
-        dueCell.innerHTML = task.DUE.slice(-5) + " "+task.DUE.slice(8,10)+"/" +task.DUE.slice(5,7) + " " + task.DUE.slice(0,4)
+        dueCell.innerHTML = task.DUE.slice(-5) + " " + task.DUE.slice(8, 10) + "/" + task.DUE.slice(5, 7) + " " + task.DUE.slice(0, 4)
 
         var tagCell = row.insertCell()
-        //console.log(task.TAG)
         tagCell.innerHTML = task.TAG
 
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
         editButton.textContent = "⋯";
-        editButton.classList.add('table-button')
-        editButton.addEventListener('click', function() {
+        editButton.classList.add('edit-button')
+        editButton.addEventListener('click', function () {
             editTask(taskID);
         });
         editCell.appendChild(editButton);
@@ -63,18 +78,18 @@ function renderTable(tasksDict){
         var statusCell = row.insertCell()
         var statusBox = document.createElement('input')
         statusBox.type = "checkbox"
-        if (task.STATUS == true){
+        if (task.STATUS == true) {
             statusBox.checked = true;
         }
-        statusBox.addEventListener("change", function(e) {
+        statusBox.addEventListener("change", function (e) {
             var check = this.checked;
-            chrome.storage.local.get(["todo"], function(result) {
+            chrome.storage.local.get(["todo"], function (result) {
                 let todo = result.todo;
                 todo.tasks[taskID].STATUS = check;
-                chrome.storage.local.set({todo : todo})
+                chrome.storage.local.set({ todo: todo })
                 drawTable();
             })
-            
+
         })
         toggle.appendChild(statusBox);
         toggle.appendChild(span);
@@ -84,10 +99,12 @@ function renderTable(tasksDict){
 
         var deleteCell = row.insertCell();
         var deleteButton = document.createElement('button');
-        deleteButton.textContent = '—';
+        deleteButton.textContent = 'X';
         deleteButton.classList.add('table-button');
-        deleteButton.addEventListener('click', function() {
-            deleteTask(taskID);
+        deleteButton.addEventListener('click', function () {
+            if (confirm("Are you sure you wish to delete this task?")) {
+                deleteTask(taskID);
+            }
         });
         deleteCell.appendChild(deleteButton);
     }
@@ -102,18 +119,16 @@ function sortTasks(taskDict) {
     return entries;
 }
 
-// delete task based on ID
 function deleteTask(id) {
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         delete todo.tasks[id];
         todo.count--;
-        chrome.storage.local.set({todo: todo});
+        chrome.storage.local.set({ todo: todo });
         renderTable(todo.tasks);
     })
 }
 
-// edit task
 function editTask(id) {
     toggleEditBox();
     showEditBtn();
@@ -122,14 +137,11 @@ function editTask(id) {
         document.getElementById("title").value = todo.tasks[id].TITLE;
         document.getElementById("tag").value = todo.tasks[id].TAG;
         document.getElementById("description").value = todo.tasks[id].DESCRIPTION;
-        //console.log(typeof todo.tasks[id].DUE)
         currentTodoId = id
         document.getElementById("taskDueDate").value = todo.tasks[id].DUE
     })
 
 }
-
-
 
 function sortTodoList(todos, by) {
     if (by === 'title') {
@@ -139,7 +151,7 @@ function sortTodoList(todos, by) {
 
     } else if (by === 'date') {
         todos.sort((todo1, todo2) =>
-            todo2.status - todo1.status || new Date(todo1.date).getTime() - new Date(todo2.date).getTime() || todo1.title.localeCompare(todo2.title, undefined, {sensitivity: 'accent'})
+            todo2.status - todo1.status || new Date(todo1.date).getTime() - new Date(todo2.date).getTime() || todo1.title.localeCompare(todo2.title, undefined, { sensitivity: 'accent' })
         );
     }
 }
@@ -176,123 +188,145 @@ const editBtnDiv = document.getElementById("addGroup");
 const addBtnDiv = document.getElementById("editGroup");
 var currentTodoId = 0;
 
-function showEditBtn(){
+function showEditBtn() {
     editBtnDiv.style.display = "flex";
     addBtnDiv.style.display = "none";
-    title.textContent = "Edit todo item"
+    title.textContent = "Edit Task"
+
+    updateTagList();
 }
 
 
-function showAddBtn(){
+function showAddBtn() {
     addBtnDiv.style.display = "flex";
     editBtnDiv.style.display = "none";
-    title.textContent = "Add todo item"
+    title.textContent = "Add Task"
+
+    updateTagList();
 }
 
-document.getElementById("addTask").addEventListener("click",   function (){
+function updateTagList() {
+    tagElement = document.getElementById('tag');
+    tagElement.innerHTML = '<select id="tag"></select>'
+
+    chrome.storage.local.get(['tags'], function (result) {
+        tags = result.tags;
+
+        Object.keys(tags).forEach((key) => {
+            option = new Option(key, key);
+            tagElement.options.add(option);
+        })
+    })
+}
+
+document.getElementById("addTask").addEventListener("click", function () {
     clearText();
     showAddBtn();
     toggleEditBox();
 })
 
-cancel.addEventListener('click',  toggleEditBox)
-discard.addEventListener('click',  toggleEditBox)
+cancel.addEventListener('click', toggleEditBox)
+discard.addEventListener('click', toggleEditBox)
 
-edit.addEventListener("click", function(){
-    var title = document.getElementById("title").value 
-    var tag = document.getElementById("tag").value 
-    var description = document.getElementById("description").value 
+edit.addEventListener("click", function () {
+    var title = document.getElementById("title").value
+    var tag = document.getElementById("tag").value
+    var description = document.getElementById("description").value
     var due = document.getElementById("taskDueDate").value
 
-    if(title == "" ||  description == "" || due == ""){
+    if (title == "" || description == "" || due == "") {
         alert("invalid input")
         return;
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
-        //console.log(todo);
-        todo.tasks[currentTodoId] = {ID: currentTodoId, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
+        todo.tasks[currentTodoId] = { ID: currentTodoId, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
         chrome.storage.local.set({ todo: todo });
 
-        //deleteTask(currentTodoId)
         renderTable(todo.tasks);
 
-        chrome.runtime.sendMessage({todo: todo.tasks[currentTodoId]}).catch();
+        chrome.runtime.sendMessage({ todo: todo.tasks[currentTodoId] }).catch();
         addMenu.classList.toggle("on");
 
     })
 })
 
-save.addEventListener("click", function (){
-    var title = document.getElementById("title").value 
-    var tag = document.getElementById("tag").value 
-    var description = document.getElementById("description").value 
+save.addEventListener("click", function () {
+    var title = document.getElementById("title").value
+    var tag = document.getElementById("tag").value
+    var description = document.getElementById("description").value
     var due = document.getElementById("taskDueDate").value
 
-    if(title == "" ||  description == "" || due == ""){
+    if (title == "" || description == "" || due == "") {
         alert("invalid input")
         return;
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
-        //console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
-        todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due,TAG : tag, STATUS: false };
+        todo.tasks[task_id] = { ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
         chrome.storage.local.set({ todo: todo });
         renderTable(todo.tasks);
 
-        chrome.runtime.sendMessage({todo: todo.tasks[task_id]}).catch();
+        chrome.runtime.sendMessage({ todo: todo.tasks[task_id] }).catch();
         addMenu.classList.remove("on");
 
     })
 })
 
-function toggleEditBox(){
+function toggleEditBox() {
     addMenu.classList.toggle("on");
 }
 
-// reset fields after adding task
-function clearText()  
-{
+function clearText() {
     document.getElementById("title").value = "";
     document.getElementById("tag").value = "";
     document.getElementById("description").value = "";
     document.getElementById("taskDueDate").value = "";
 }
 
-// clear all tasks listener
-document.getElementById("clearTodo").addEventListener("click", function() {
-    resetTodo();
+document.getElementById("clearTodo").addEventListener("click", function () {
+    if (confirm("Are you sure you want to clear the To Do List? (This is permanent!)")) {
+        resetTodo();
+    }
 })
 
-document.getElementById("resetFilter").addEventListener("click",resetFilter)
+document.getElementById("resetFilter").addEventListener("click", resetFilter)
 
-function resetTodo(){
-    chrome.storage.local.set({todo: {count: 0, tasks: {}}});
+function resetTodo() {
+    chrome.storage.local.set({ todo: { count: 0, tasks: {} } });
     renderTable({});
 }
 
 document.getElementById("search").addEventListener("input", filter)
 document.getElementById("selectDate").addEventListener("input", filter)
+document.getElementById("tags").addEventListener("change", filter)
 
 function filter() {
-    chrome.storage.local.get(["todo"], function(result) {
+    chrome.storage.local.get(["todo"], function (result) {
         let e = document.getElementById("search").value;
         let d = document.getElementById("selectDate").value;
+        let tag = document.getElementById("tags").value;
 
         let filtered = {};
 
         let todo = result.todo;
 
         for (task in todo.tasks) {
-            if ((todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) || todo.tasks[task]["DESCRIPTION"].toLowerCase().match(e.toLowerCase())) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
-                filtered[task] = todo.tasks[task];
+            if (tag == "") {
+                if ((todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) || todo.tasks[task]["DESCRIPTION"].toLowerCase().match(e.toLowerCase())) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
+                    filtered[task] = todo.tasks[task];
+                }
+            } else {
+                if ((todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) || todo.tasks[task]["DESCRIPTION"].toLowerCase().match(e.toLowerCase())) && todo.tasks[task]["DUE"].slice(0, 10).match(d) && todo.tasks[task]["TAG"] == tag) {
+                    filtered[task] = todo.tasks[task];
+                }
             }
         }
 
         let msg = document.getElementById("search_error")
-        if(Object.keys(filtered).length == 0){
+        if (Object.keys(filtered).length == 0) {
             msg.innerHTML = "NO MATCHES FOUND"
             renderTable({})
         } else {
@@ -303,102 +337,28 @@ function filter() {
     })
 }
 
-function resetFilter(){
+function resetFilter() {
     location.reload();
 }
 
-// document.getElementById("search").addEventListener("input", function (e){
-//     chrome.storage.local.get(["todo"], function(result){
-//         let e = document.getElementById("search").value
-//         filtered = {}
-//         let todo = result.todo
-//         //console.log(e)
-//         for (let task in todo.tasks) {
-//             if (todo.tasks[task]["TITLE"].match(e)){
-//                 filtered[task] = todo.tasks[task]
-//             }
-//         }
-//         //console.log(filtered)
-//         let msg = document.getElementById("search_error")
-//         if(Object.keys(filtered).length == 0){
-//             msg.innerHTML = "NO MATCHES FOUND"
-//         } else {
-//             msg.innerHTML = ""
-//             renderTable(filtered)
-//         }
-//     })
-// })
+async function addTag(name) {
+    const result = await chrome.storage.local.get(['tags']);
+    let tags = result.tags;
 
+    tags[name] = "#F5F5DC"
 
+    await chrome.storage.local.set({ tags: tags });
 
-// // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
-// document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
+}
 
-// function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) {
-//     // todos - store list of the todo that match with keyword and date defined, or when need only done object to be included
-//     let todos = []
+document.getElementById("newTagbtn").addEventListener("click", async function () {
+    tagName = document.getElementById("newTagName").value;
+    if (tagName == "") {
+        alert("Tag name cannot be empty.");
+        return;
+    }
+    await addTag(tagName);
+    updateTagList();
+    updateTagBox();
 
-//     chrome.storage.local.get(['todos'], result => {
-
-//         for (todo of result['todos']) {
-
-//             if (keyword && !includes(todo, keyword)) continue;
-
-//             if (doneOnly && todo.status) continue;
-
-//             if (date && !sameDate(todo.date, date)) continue;
-
-//             todos.push(todo);
-//         }
-
-//         sortTodoList(todos, 'title');
-
-//         // *** use to test if this work (can be removed) ***
-//         for (todo of todos) {
-//             console.log(todo.title, todo.date, todo.status);
-//         }
-
-//         // *** Call function for display todo list - EXAMPLE ***
-//         // *** display(todos); ***
-//     })
-// }
-
-// // **** ----------------------------------------------- TEST ----------------------------------------------------------- ****
-
-
-// // *** use for testing if the getTodos function work - need to be rewrite to make it works when add only one todo per time. ***
-
-// // *** for testing and run addTodos and getTodos - need to edit some code in index.html file in order to run the following line of code***
-// document.getElementById('save').addEventListener('click', addTodos)
-
-// function addTodos() {
-//     class ToDo {
-//         title = '';
-//         description = '';
-//         date = '';
-//         tag = '';
-//         status = false; // inactive or done
-
-//         constructor(title, description, date, tag, status) {
-//             this.title = title;
-//             this.description = description;
-//             this.date = date;
-//             this.tag = tag;
-//             this.status = status;
-//         }
-//     }
-
-//     let t1 = new ToDo('abce', 'j', '2024-01-04', 'lplp', false);
-
-//     let t2 = new ToDo('aako', 'ojo', '2024-01-04', 'lplp', true);
-//     let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
-//     let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
-//     let t5 = new ToDo('AAkop', 'ojo', '2003-06-13', 'lplp', true);
-//     let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', true);
-
-//     let todos = [t1, t2, t3, t4, t5, t6];
-
-//     chrome.storage.local.set({ 'todos': todos }, () => {
-//         console.log(typeof (todos));
-//     });
-// }
+})

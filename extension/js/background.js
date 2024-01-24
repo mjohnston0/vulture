@@ -14,6 +14,12 @@ chrome.runtime.onInstalled.addListener(function () {
         }
     });
 
+    chrome.storage.local.get(['tags'], function(result) {
+        if (!result.tag) {
+            chrome.storage.local.set({tags: {'DEFAULT': '#ffff'}})
+        }
+    })
+
     chrome.storage.local.get(['allowlist'], function(result) {
         if (!result.allowlist) {
             let list = {};

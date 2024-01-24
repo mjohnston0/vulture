@@ -96,7 +96,6 @@ input:focus {
     content: '';
     width: 12px;
     height: 12px;
-    background: url(../images/sjxicon.png);
     background-size: 100%;
 }
 
@@ -557,6 +556,15 @@ table th {
 }
 
 .table-button {
+    font-size: 2em;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: #F5F5F5;
+    color : red;
+}
+
+.edit-button {
     font-size: 2em;
     padding: 0;
     border: none;

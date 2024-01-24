@@ -22,21 +22,21 @@
                 <section class="todo-filter">
 
                     <div id="tag-filter">
-                        <label for="tags">Filter by tags</label>
+                        <label for="tags">Filter By Tag</label>
                         <select id="tags">
-                            <option>tag1</option>
+                            <option value=""></option>
                         </select>
                     </div>
 
                     <div id="search-filter">
-                        <label for="search">Search ToDo List</label>
-                        <input type="text" id="search" placeholder="Search for keyword">
+                        <label for="search">Search Tasks By Keyword</label>
+                        <input type="text" id="search" placeholder="Search By Keyword">
                         <div id="search_error"></div>
                     </div>
 
                     <div id="date-filter">
 
-                        <label for="selectDate">Filter by time</label>
+                        <label for="selectDate">Filter By Date</label>
                         <input type="date" id="selectDate">
                     </div>
 
@@ -49,15 +49,15 @@
                     </div>
 
                     <div>
-                        <button type="button" id="resetFilter">Reset Filter</button>
+                        <button type="button" id="resetFilter">Reset Filters</button>
 
                     </div>
 
                 </section>
 
                 <div class="todo-button">
-                    <button type="button" id="addTask">Add ToDo</button>
-                    <button type="button" id="clearTodo">Clear ToDo</button>
+                    <button type="button" id="addTask">Add Task</button>
+                    <button type="button" id="clearTodo">Clear Tasks</button>
                 </div>
 
             </div>
@@ -82,43 +82,33 @@
 </body>
 <div class="editbox">
     <div class="box">
-        <p class="tit" id="menuTitle">Add TODO item</p>
+        <p class="tit" id="menuTitle">Add Task</p>
         <div class="fitem">
-            <span class="name">Name</span>
+            <span class="name">Title</span>
             <div class="ipt">
-                <input id="title" type="text" placeholder="site name">
+                <input id="title" type="text" placeholder="Task Name">
             </div>
         </div>
         <div class="fitem">
-            <span class="name">Tags</span>
+            <span class="name">Tag</span>
             <div class="tagipt">
                 <div class="ipt">
-                    <input id="tag" type="text" placeholder="Default Tag">
-                </div>
-                <div class="tags">
-                    <p class="on">Tag1<span></span></p>
-                    <p class="tag2 on">Tag2<span></span></p>
-                    <p class="tag3">Tag3<span></span></p>
-                    <div class="add">
-                        <div class="tsbox">
-                            <p>Create tag</p>
-                        </div>
-                        <div class="addipt">
-                            <p><input type="text" placeholder="New tag"><span></span>
-                            </p>
-                        </div>
-                    </div>
+                    <select id="tag">
+
+                    </select>
                 </div>
             </div>
+            <input type="text" id="newTagName" placeholder="New Tag">
+            <button id="newTagbtn">Add New Tag</button>
         </div>
         <div class="fitem fitem2">
-            <span class="name">Note</span>
+            <span class="name">Description</span>
             <div class="textbox">
-                <textarea name="" id="description"></textarea>
+                <textarea name="" id="description" placeholder="Enter description here..."></textarea>
             </div>
         </div>
         <div class="fitem fitem3">
-            <span class="name">Due date</span>
+            <span class="name">Due Date and Time</span>
             <div class="ipt">
                 <input type="datetime-local" id="taskDueDate" placeholder="06/24/2023">
             </div>
@@ -126,11 +116,11 @@
             </div>
         </div>
         <div class="editBtn" id="addGroup">
-            <a class="edit" id="edit">Edit</a>
-            <a class="discard" id="discard">Discard</a>
+            <a class="edit" id="edit">Edit Task</a>
+            <a class="discard" id="discard">Discard Changes</a>
         </div>
         <div class="addBtn" id="editGroup">
-            <a class="save" id="save">Add</a>
+            <a class="save" id="save">Add Task</a>
             <a class="cancel" id="cancel">Cancel</a>
         </div>
     </div>
