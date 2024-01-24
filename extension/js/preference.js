@@ -88,7 +88,6 @@ function showAssociatedKeywords() {
         let index = result.index;
 
         for (let kw of Object.keys(index)) {
-            console.log(kw);
             if (kw.toLowerCase().match(search.toLowerCase())) {
                 filtered.push(kw);
             }
@@ -98,6 +97,19 @@ function showAssociatedKeywords() {
             console.log('No matches found');
         } else {
             console.log(filtered);
+        }
+
+
+        let dropdown = document.getElementById('suggestions_dropdown');
+
+        dropdown.innerHTML = '';
+
+        for (let option of filtered) {
+            let optionElement = document.createElement('option');
+            optionElement.value = option;
+            optionElement.text = option;
+
+            dropdown.add(optionElement);
         }
 
     })
