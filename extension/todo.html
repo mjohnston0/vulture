@@ -29,8 +29,8 @@
                     </div>
 
                     <div id="search-filter">
-                        <label for="search">Search Titles</label>
-                        <input type="text" id="search" placeholder="Search Titles">
+                        <label for="search">Search Tasks By Keyword</label>
+                        <input type="text" id="search" placeholder="Search By Keyword">
                         <div id="search_error"></div>
                     </div>
 
@@ -82,15 +82,15 @@
 </body>
 <div class="editbox">
     <div class="box">
-        <p class="tit" id="menuTitle">Add TODO item</p>
+        <p class="tit" id="menuTitle">Add Task</p>
         <div class="fitem">
-            <span class="name">Name</span>
+            <span class="name">Title</span>
             <div class="ipt">
-                <input id="title" type="text" placeholder="site name">
+                <input id="title" type="text" placeholder="Task Name">
             </div>
         </div>
         <div class="fitem">
-            <span class="name">Tags</span>
+            <span class="name">Tag</span>
             <div class="tagipt">
                 <div class="ipt">
                     <select id="tag"></select>
@@ -112,13 +112,13 @@
             </div>
         </div>
         <div class="fitem fitem2">
-            <span class="name">Note</span>
+            <span class="name">Description</span>
             <div class="textbox">
-                <textarea name="" id="description"></textarea>
+                <textarea name="" id="description" placeholder="Enter description here..."></textarea>
             </div>
         </div>
         <div class="fitem fitem3">
-            <span class="name">Due date</span>
+            <span class="name">Due Date and Time</span>
             <div class="ipt">
                 <input type="datetime-local" id="taskDueDate" placeholder="06/24/2023">
             </div>
@@ -126,11 +126,11 @@
             </div>
         </div>
         <div class="editBtn" id="addGroup">
-            <a class="edit" id="edit">Edit</a>
-            <a class="discard" id="discard">Discard</a>
+            <a class="edit" id="edit">Edit Task</a>
+            <a class="discard" id="discard">Discard Changes</a>
         </div>
         <div class="addBtn" id="editGroup">
-            <a class="save" id="save">Add</a>
+            <a class="save" id="save">Add Task</a>
             <a class="cancel" id="cancel">Cancel</a>
         </div>
     </div>

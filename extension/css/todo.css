@@ -562,4 +562,13 @@ table th {
     border: none;
     outline: none;
     background-color: #F5F5F5;
+    color : red;
+}
+
+.edit-button {
+    font-size: 2em;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: #F5F5F5;
 }

@@ -48,7 +48,7 @@ function renderTable(tasksDict){
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
         editButton.textContent = "⋯";
-        editButton.classList.add('table-button')
+        editButton.classList.add('edit-button')
         editButton.addEventListener('click', function() {
             editTask(taskID);
         });
@@ -82,7 +82,7 @@ function renderTable(tasksDict){
 
         var deleteCell = row.insertCell();
         var deleteButton = document.createElement('button');
-        deleteButton.textContent = '—';
+        deleteButton.textContent = 'X';
         deleteButton.classList.add('table-button');
         deleteButton.addEventListener('click', function() {
             if (confirm("Are you sure you wish to delete this task?")){
@@ -174,14 +174,14 @@ var currentTodoId = 0;
 function showEditBtn(){
     editBtnDiv.style.display = "flex";
     addBtnDiv.style.display = "none";
-    title.textContent = "Edit todo item"
+    title.textContent = "Edit Task"
 }
 
 
 function showAddBtn(){
     addBtnDiv.style.display = "flex";
     editBtnDiv.style.display = "none";
-    title.textContent = "Add todo item"
+    title.textContent = "Add Task"
 
     tagElement = document.getElementById('tag');
 
