@@ -124,6 +124,9 @@ deleteAll.addEventListener("click", function() {
             }
     
             chrome.storage.local.set({index: index});
+
+            document.getElementById("suggestions_dropdown").value = '';
+            document.getElementById("delete_value").value = '';
     
             console.log('deleted');
         })
