@@ -77,6 +77,31 @@ document.getElementById("add_entry_btn").addEventListener("click", function(){
 
 
 const deleteAll = document.getElementById('delete_all');
+document.getElementById("delete_value").addEventListener("input", showAssociatedKeywords);
+
+function showAssociatedKeywords() {
+    
+    chrome.storage.local.get(['index'], function(result) {
+        let search = document.getElementById("delete_value").value;
+        let filtered = []
+
+        let index = result.index;
+
+        for (let kw of Object.keys(index)) {
+            console.log(kw);
+            if (kw.toLowerCase().match(search.toLowerCase())) {
+                filtered.push(kw);
+            }
+        }
+
+        if (filtered.length == 0) {
+            console.log('No matches found');
+        } else {
+            console.log(filtered);
+        }
+
+    })
+}
 
 deleteAll.addEventListener("click", function() {
     let kw = document.getElementById("delete_value").value;
@@ -84,7 +109,7 @@ deleteAll.addEventListener("click", function() {
     console.log('1');
 
     if (confirm(`Are you sure you want
-     to delete all entries associated with the keyword: ${kw}?`)) {
+     to delete all entries associated with the keyword: "${kw}"?`)) {
         chrome.storage.local.get("index", function(result) {
             let index = result.index;
             if (index[kw]) {
