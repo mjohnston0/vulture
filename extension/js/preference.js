@@ -74,3 +74,63 @@ document.getElementById("add_entry_btn").addEventListener("click", function(){
     })
     textbox.value = "";
 })
+
+
+const deleteAll = document.getElementById('delete_all');
+document.getElementById("delete_value").addEventListener("input", showAssociatedKeywords);
+
+function showAssociatedKeywords() {
+    
+    chrome.storage.local.get(['index'], function(result) {
+        let search = document.getElementById("delete_value").value;
+        let filtered = []
+
+        let index = result.index;
+
+        for (let kw of Object.keys(index)) {
+            if (kw.toLowerCase().match(search.toLowerCase())) {
+                filtered.push(kw);
+            }
+        }
+
+        let dropdown = document.getElementById('suggestions_dropdown');
+
+        dropdown.innerHTML = '<option value="" disabled selected>Select keyword to delete</option>';
+
+        for (let option of filtered) {
+            let optionElement = document.createElement('option');
+            optionElement.value = option;
+            optionElement.text = option;
+
+            dropdown.add(optionElement);
+        }
+
+    })
+}
+
+deleteAll.addEventListener("click", function() {
+    let kw = document.getElementById("suggestions_dropdown").value;
+
+    console.log('1');
+
+    if (confirm(`Are you sure you want
+     to delete all entries associated with the keyword: "${kw}"?`)) {
+        chrome.storage.local.get("index", function(result) {
+            let index = result.index;
+            if (index[kw]) {
+                delete index[kw];
+            } else {
+                alert("No matching entries");
+            }
+    
+            chrome.storage.local.set({index: index});
+
+            document.getElementById("suggestions_dropdown").value = '';
+            document.getElementById("delete_value").value = '';
+    
+            console.log('deleted');
+        })
+     }
+})
+
+

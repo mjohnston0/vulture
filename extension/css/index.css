@@ -835,3 +835,10 @@ a{outline-style:none;color:#000;text-decoration:none}
     background: url(../images/listicon.png);
     background-size: 100%;
 }
+#delete_value,
+#suggestions_dropdown {
+    width: 200px; 
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;

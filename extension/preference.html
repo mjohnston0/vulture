@@ -31,8 +31,15 @@
                     <option value="REGEX">REGEX</option>
                 </select>
                 <button id="add_entry_btn" >Add To Allow List</button>
-                <button id="delete_entry_btn" >Delete</button>
-                <input type="text" id="delete_value">
+                
+                <div>
+                    <button id="delete_all" >Delete All</button>
+                    <input type="text" id="delete_value" placeholder="Search for a keyword...">
+                    <select id="suggestions_dropdown">
+                        <option value="" disabled selected>Select keyword to delete</option>
+                    </select>
+                </div>
+                
                 <div class="listbox">
                     <div class="content">
                         <table id="allowlist_tbl">
