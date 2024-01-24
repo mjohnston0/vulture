@@ -14,7 +14,6 @@ function renderTable(allowlist) {
     console.log(allowlist);
     var table = document.getElementById("allowlist_tbl")
     table.innerHTML = '<tr class="table-header"><th id="tbl-value">Value</th><th id="tbl-type">Type</th><th id="tbl-enable">Enable</th><th id="tbl-delete">Delete</th>'
-    console.log("KOKOK");
 
     Object.values(allowlist).forEach((element) => {
         var row = table.insertRow()
@@ -45,7 +44,6 @@ function renderTable(allowlist) {
         var deleteButton = document.createElement('button');
         deleteButton.textContent = 'DELETE';
         var deleteID = element.ID;
-        console.log("making delete button")
         deleteButton.addEventListener('click', function() {
             chrome.storage.local.get(['allowlist'], function (result) {
                 let allowList = result.allowlist;
@@ -54,7 +52,6 @@ function renderTable(allowlist) {
                 chrome.storage.local.set({"allowlist": allowList});
                 renderTable(allowList.list);
             })});
-        console.log(deleteButton);
         deleteCell.appendChild(deleteButton);
         })
 }
@@ -75,4 +72,5 @@ document.getElementById("add_entry_btn").addEventListener("click", function(){
         chrome.storage.local.set({"allowlist": {"count":count,"list":list}});
         renderTable(list);
     })
+    textbox.value = "";
 })
