@@ -3,15 +3,19 @@
     "name": "Productivity Tool",
     "description": "Page Indexer and To do list",
     "version": "0.0.1",
-    "content_scripts" : [
+    "content_scripts": [
         {
-            "matches" : [
+            "matches": [
                 "<all_urls>"
             ],
-            "js" : ["js/parser.js"]
+            "js": [
+                "js/parser.js"
+            ]
         }
     ],
-    "host_permissions": ["*://*/*"],
+    "host_permissions": [
+        "*://*/*"
+    ],
     "permissions": [
         "storage",
         "unlimitedStorage",
@@ -24,6 +28,7 @@
         "default_popup": "assets/popup.html"
     },
     "background": {
-        "service_worker" : "js/background.js"
+        "service_worker": "js/background.js",
+        "type": "module"
     }
-  }
+}
