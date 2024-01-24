@@ -96,7 +96,6 @@ input:focus {
     content: '';
     width: 12px;
     height: 12px;
-    background: url(../images/sjxicon.png);
     background-size: 100%;
 }
 
