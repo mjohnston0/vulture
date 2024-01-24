@@ -6,17 +6,24 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     });
-    chrome.storage.local.get(["tags"], function(result){
+
+    updateTagBox();
+
+});
+
+function updateTagBox() {
+    chrome.storage.local.get(["tags"], function (result) {
         let tags = result.tags;
         let tagFilterBox = document.getElementById("tags");
+        tagFilterBox.innerHTML = '<select id="tags"><option value=""></option></select>'
         for (let key of Object.keys(tags)) {
             let newOption = document.createElement("option");
-            newOption.value=key;
-            newOption.textContent=key;
+            newOption.value = key;
+            newOption.textContent = key;
             tagFilterBox.appendChild(newOption);
         }
     })
-});
+}
 
 function drawTable() {
     chrome.storage.local.get(["todo"], function (result) {
@@ -186,20 +193,7 @@ function showEditBtn() {
     addBtnDiv.style.display = "none";
     title.textContent = "Edit Task"
 
-    tagElement = document.getElementById('tag');
-    tagElement.innerHTML = '<select id="tag"></select>'
-
-    chrome.storage.local.get(['tags'], function (result) {
-        tags = result.tags;
-
-        console.log(tags);
-
-        Object.keys(tags).forEach((key) => {
-            console.log(key);
-            option = new Option(key, key);
-            tagElement.options.add(option);
-        })
-    })
+    updateTagList();
 }
 
 
@@ -208,8 +202,14 @@ function showAddBtn() {
     editBtnDiv.style.display = "none";
     title.textContent = "Add Task"
 
+    updateTagList();
+}
+
+function updateTagList() {
     tagElement = document.getElementById('tag');
     tagElement.innerHTML = '<select id="tag"></select>'
+
+    console.log('UPDATEs');
 
     chrome.storage.local.get(['tags'], function (result) {
         tags = result.tags;
@@ -319,7 +319,7 @@ function filter() {
         let todo = result.todo;
 
         for (task in todo.tasks) {
-            if (tag == ""){
+            if (tag == "") {
                 if ((todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) || todo.tasks[task]["DESCRIPTION"].toLowerCase().match(e.toLowerCase())) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
                     filtered[task] = todo.tasks[task];
                 }
@@ -346,22 +346,24 @@ function resetFilter() {
     location.reload();
 }
 
-function addTag(name) {
-    chrome.storage.local.get(['tags'], function (result) {
-        let tags = result.tags;
+async function addTag(name) {
+    const result = await chrome.storage.local.get(['tags']);
+    let tags = result.tags;
 
-        tags[name] = "#F5F5DC"
+    tags[name] = "#F5F5DC"
 
-        chrome.storage.local.set({ tags: tags });
-    })
+    await chrome.storage.local.set({ tags: tags });
+
 }
 
-document.getElementById("newTagbtn").addEventListener("click", function(){
+document.getElementById("newTagbtn").addEventListener("click", async function () {
     tagName = document.getElementById("newTagName").value;
     if (tagName == "") {
         alert("Tag name cannot be empty.");
         return;
     }
-    addTag(tagName);
-    
+    await addTag(tagName);
+    updateTagList();
+    updateTagBox();
+
 })
