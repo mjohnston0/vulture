@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     });
-    chrome.storage.local.get(["tag"], function (result) {
-        let tags = result.tag.tags;
+    chrome.storage.local.get(["tags"], function(result){
+        let tags = result.tags;
         let tagFilterBox = document.getElementById("tags");
         for (let key of Object.keys(tags)) {
             let newOption = document.createElement("option");
-            newOption.value = tags[key].ID;
-            newOption.textContent = tags[key].NAME;
+            newOption.value=key;
+            newOption.textContent=key;
             tagFilterBox.appendChild(newOption);
         }
     })
@@ -306,19 +306,27 @@ function resetTodo() {
 
 document.getElementById("search").addEventListener("input", filter)
 document.getElementById("selectDate").addEventListener("input", filter)
+document.getElementById("tags").addEventListener("change", filter)
 
 function filter() {
     chrome.storage.local.get(["todo"], function (result) {
         let e = document.getElementById("search").value;
         let d = document.getElementById("selectDate").value;
+        let tag = document.getElementById("tags").value;
 
         let filtered = {};
 
         let todo = result.todo;
 
         for (task in todo.tasks) {
-            if ((todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) || todo.tasks[task]["DESCRIPTION"].toLowerCase().match(e.toLowerCase())) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
-                filtered[task] = todo.tasks[task];
+            if (tag == ""){
+                if ((todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) || todo.tasks[task]["DESCRIPTION"].toLowerCase().match(e.toLowerCase())) && todo.tasks[task]["DUE"].slice(0, 10).match(d)) {
+                    filtered[task] = todo.tasks[task];
+                }
+            } else {
+                if ((todo.tasks[task]["TITLE"].toLowerCase().match(e.toLowerCase()) || todo.tasks[task]["DESCRIPTION"].toLowerCase().match(e.toLowerCase())) && todo.tasks[task]["DUE"].slice(0, 10).match(d) && todo.tasks[task]["TAG"] == tag) {
+                    filtered[task] = todo.tasks[task];
+                }
             }
         }
 
