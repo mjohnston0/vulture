@@ -3,10 +3,19 @@ document.addEventListener("DOMContentLoaded", function() {
         if (result.todo) {
             renderTable(result.todo.tasks);
         } else {
-            //console.error("No todoList found.");
             return;
         }
     });
+    chrome.storage.local.get(["tag"], function(result){
+        let tags = result.tag.tags;
+        let tagFilterBox = document.getElementById("tags");
+        for (let key of Object.keys(tags)){
+            let newOption = document.createElement("option");
+            newOption.value=tags[key].ID;
+            newOption.textContent=tags[key].NAME;
+            tagFilterBox.appendChild(newOption);
+        }
+    })
 });
 
 function drawTable() {
@@ -44,13 +53,12 @@ function renderTable(tasksDict){
         dueCell.innerHTML = task.DUE.slice(-5) + " "+task.DUE.slice(8,10)+"/" +task.DUE.slice(5,7) + " " + task.DUE.slice(0,4)
 
         var tagCell = row.insertCell()
-        //console.log(task.TAG)
         tagCell.innerHTML = task.TAG
 
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
         editButton.textContent = "⋯";
-        editButton.classList.add('table-button')
+        editButton.classList.add('edit-button')
         editButton.addEventListener('click', function() {
             editTask(taskID);
         });
@@ -84,10 +92,12 @@ function renderTable(tasksDict){
 
         var deleteCell = row.insertCell();
         var deleteButton = document.createElement('button');
-        deleteButton.textContent = '—';
+        deleteButton.textContent = 'X';
         deleteButton.classList.add('table-button');
         deleteButton.addEventListener('click', function() {
+            if (confirm("Are you sure you wish to delete this task?")){
             deleteTask(taskID);
+            }
         });
         deleteCell.appendChild(deleteButton);
     }
@@ -102,7 +112,6 @@ function sortTasks(taskDict) {
     return entries;
 }
 
-// delete task based on ID
 function deleteTask(id) {
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
@@ -113,7 +122,6 @@ function deleteTask(id) {
     })
 }
 
-// edit task
 function editTask(id) {
     toggleEditBox();
     showEditBtn();
@@ -122,14 +130,11 @@ function editTask(id) {
         document.getElementById("title").value = todo.tasks[id].TITLE;
         document.getElementById("tag").value = todo.tasks[id].TAG;
         document.getElementById("description").value = todo.tasks[id].DESCRIPTION;
-        //console.log(typeof todo.tasks[id].DUE)
         currentTodoId = id
         document.getElementById("taskDueDate").value = todo.tasks[id].DUE
     })
 
 }
-
-
 
 function sortTodoList(todos, by) {
     if (by === 'title') {
@@ -179,14 +184,27 @@ var currentTodoId = 0;
 function showEditBtn(){
     editBtnDiv.style.display = "flex";
     addBtnDiv.style.display = "none";
-    title.textContent = "Edit todo item"
+    title.textContent = "Edit Task"
 }
 
 
 function showAddBtn(){
     addBtnDiv.style.display = "flex";
     editBtnDiv.style.display = "none";
-    title.textContent = "Add todo item"
+    title.textContent = "Add Task"
+
+    tagElement = document.getElementById('tag');
+
+    chrome.storage.local.get(['tag'], function (result) {
+        tags = result.tag.tags;
+
+        Object.values(tags).forEach((element) => {
+            option = new Option(element.NAME, element.NAME);
+            // option.style.background = element.COLOR;
+
+            tagElement.options.add(option);
+        })
+    })
 }
 
 document.getElementById("addTask").addEventListener("click",   function (){
@@ -210,11 +228,9 @@ edit.addEventListener("click", function(){
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
-        //console.log(todo);
         todo.tasks[currentTodoId] = {ID: currentTodoId, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
         chrome.storage.local.set({ todo: todo });
 
-        //deleteTask(currentTodoId)
         renderTable(todo.tasks);
 
         chrome.runtime.sendMessage({todo: todo.tasks[currentTodoId]}).catch();
@@ -235,7 +251,6 @@ save.addEventListener("click", function (){
     }
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
-        //console.log(todo);
         task_id = todo.count + 1;
         todo.count++;
         todo.tasks[task_id] = {ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due,TAG : tag, STATUS: false };
@@ -252,7 +267,6 @@ function toggleEditBox(){
     addMenu.classList.toggle("on");
 }
 
-// reset fields after adding task
 function clearText()  
 {
     document.getElementById("title").value = "";
@@ -261,9 +275,10 @@ function clearText()
     document.getElementById("taskDueDate").value = "";
 }
 
-// clear all tasks listener
 document.getElementById("clearTodo").addEventListener("click", function() {
+    if (confirm("Are you sure you want to clear the To Do List? (This is permanent!)")){
     resetTodo();
+    }
 })
 
 document.getElementById("resetFilter").addEventListener("click",resetFilter)
@@ -307,98 +322,13 @@ function resetFilter(){
     location.reload();
 }
 
-// document.getElementById("search").addEventListener("input", function (e){
-//     chrome.storage.local.get(["todo"], function(result){
-//         let e = document.getElementById("search").value
-//         filtered = {}
-//         let todo = result.todo
-//         //console.log(e)
-//         for (let task in todo.tasks) {
-//             if (todo.tasks[task]["TITLE"].match(e)){
-//                 filtered[task] = todo.tasks[task]
-//             }
-//         }
-//         //console.log(filtered)
-//         let msg = document.getElementById("search_error")
-//         if(Object.keys(filtered).length == 0){
-//             msg.innerHTML = "NO MATCHES FOUND"
-//         } else {
-//             msg.innerHTML = ""
-//             renderTable(filtered)
-//         }
-//     })
-// })
+function addTag(name) {
+    chrome.storage.get(['tag'], function(result) {
+        let tag = result.tag;
 
+        tag.tags[tag.count] = {ID: tag.count, NAME: name, COLOR: "#F5F5DC"}
+        tag.count++;
 
-
-// // *** for testing getTodos - need to edit some code in index.html file in order to run the following line of code ***
-// document.getElementById('close').addEventListener('click', (evt) => getTodos("a", false));
-
-// function getTodos(keyword = undefined, doneOnly = false, date = undefined, evt) {
-//     // todos - store list of the todo that match with keyword and date defined, or when need only done object to be included
-//     let todos = []
-
-//     chrome.storage.local.get(['todos'], result => {
-
-//         for (todo of result['todos']) {
-
-//             if (keyword && !includes(todo, keyword)) continue;
-
-//             if (doneOnly && todo.status) continue;
-
-//             if (date && !sameDate(todo.date, date)) continue;
-
-//             todos.push(todo);
-//         }
-
-//         sortTodoList(todos, 'title');
-
-//         // *** use to test if this work (can be removed) ***
-//         for (todo of todos) {
-//             console.log(todo.title, todo.date, todo.status);
-//         }
-
-//         // *** Call function for display todo list - EXAMPLE ***
-//         // *** display(todos); ***
-//     })
-// }
-
-// // **** ----------------------------------------------- TEST ----------------------------------------------------------- ****
-
-
-// // *** use for testing if the getTodos function work - need to be rewrite to make it works when add only one todo per time. ***
-
-// // *** for testing and run addTodos and getTodos - need to edit some code in index.html file in order to run the following line of code***
-// document.getElementById('save').addEventListener('click', addTodos)
-
-// function addTodos() {
-//     class ToDo {
-//         title = '';
-//         description = '';
-//         date = '';
-//         tag = '';
-//         status = false; // inactive or done
-
-//         constructor(title, description, date, tag, status) {
-//             this.title = title;
-//             this.description = description;
-//             this.date = date;
-//             this.tag = tag;
-//             this.status = status;
-//         }
-//     }
-
-//     let t1 = new ToDo('abce', 'j', '2024-01-04', 'lplp', false);
-
-//     let t2 = new ToDo('aako', 'ojo', '2024-01-04', 'lplp', true);
-//     let t3 = new ToDo('polo', 'j', '2022-06-21', 'lplp', false);
-//     let t4 = new ToDo('bbce', 'ojo', '2022-06-21', 'lplp', false);
-//     let t5 = new ToDo('AAkop', 'ojo', '2003-06-13', 'lplp', true);
-//     let t6 = new ToDo('bari', 'ojo', '2024-05-24', 'lplp', true);
-
-//     let todos = [t1, t2, t3, t4, t5, t6];
-
-//     chrome.storage.local.set({ 'todos': todos }, () => {
-//         console.log(typeof (todos));
-//     });
-// }
+        chrome.storage.set({tag: tag});
+    })
+}
