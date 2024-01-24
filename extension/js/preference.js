@@ -74,3 +74,24 @@ document.getElementById("add_entry_btn").addEventListener("click", function(){
     })
     textbox.value = "";
 })
+
+
+const deleteAll = document.querySelector('.deleteAll');
+
+deleteAll.addEventListener("click", function() {
+    let kw = document.getElementById("keywordToDelete").value;
+
+
+    chrome.storage.get("index", function(result) {
+        let index = result.index;
+        if (index[kw]) {
+            delete index[kw];
+        } else {
+            alert("No matching entries");
+        }
+
+        chrome.storage.local.set({index: index})
+    })
+})
+
+
