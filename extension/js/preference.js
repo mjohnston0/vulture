@@ -80,6 +80,8 @@ const deleteAll = document.getElementById('delete_all');
 document.getElementById("delete_value").addEventListener("input", showAssociatedKeywords);
 
 function showAssociatedKeywords() {
+
+    let dropdown = document.getElementById('suggestions_dropdown');
     
     chrome.storage.local.get(['index'], function(result) {
         let search = document.getElementById("delete_value").value;
@@ -93,9 +95,11 @@ function showAssociatedKeywords() {
             }
         }
 
-        let dropdown = document.getElementById('suggestions_dropdown');
-
-        dropdown.innerHTML = '<option value="" disabled selected>Select keyword to delete</option>';
+        if (filtered.length == 0) {
+            dropdown.innerHTML = '<option value="" disabled selected>No entries found</option>';
+        } else {
+            dropdown.innerHTML = '';
+        }
 
         for (let option of filtered) {
             let optionElement = document.createElement('option');
@@ -104,7 +108,6 @@ function showAssociatedKeywords() {
 
             dropdown.add(optionElement);
         }
-
     })
 }
 
@@ -125,7 +128,7 @@ deleteAll.addEventListener("click", function() {
     
             chrome.storage.local.set({index: index});
 
-            document.getElementById("suggestions_dropdown").value = '';
+            document.getElementById("suggestions_dropdown").innerHTML = '<option value="" disabled selected>Select keyword to delete</option>';
             document.getElementById("delete_value").value = '';
     
             console.log('deleted');
