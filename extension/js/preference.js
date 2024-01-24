@@ -95,7 +95,7 @@ function showAssociatedKeywords() {
 
         let dropdown = document.getElementById('suggestions_dropdown');
 
-        dropdown.innerHTML = '';
+        dropdown.innerHTML = '<option value="" disabled selected>Select keyword to delete</option>';
 
         for (let option of filtered) {
             let optionElement = document.createElement('option');
