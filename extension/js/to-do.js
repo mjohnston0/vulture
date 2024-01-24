@@ -85,7 +85,9 @@ function renderTable(tasksDict){
         deleteButton.textContent = '—';
         deleteButton.classList.add('table-button');
         deleteButton.addEventListener('click', function() {
+            if (confirm("Are you sure you wish to delete this task?")){
             deleteTask(taskID);
+            }
         });
         deleteCell.appendChild(deleteButton);
     }
@@ -253,7 +255,9 @@ function clearText()
 }
 
 document.getElementById("clearTodo").addEventListener("click", function() {
+    if (confirm("Are you sure you want to clear the To Do List? (This is permanent!)")){
     resetTodo();
+    }
 })
 
 document.getElementById("resetFilter").addEventListener("click",resetFilter)
