@@ -7,7 +7,6 @@ chrome.runtime.onInstalled.addListener(function () {
             console.log("create todo")
         }
     });
-
     chrome.storage.local.get(['index'], function(result) {
         if (!result.index) {
             chrome.storage.local.set({index: {}});

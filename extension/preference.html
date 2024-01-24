@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preference</title>
     <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/todo.css">
     <link rel="stylesheet" href="./css/font_234130_nem7eskcrkpdgqfr.css">
 </head>
 
@@ -29,42 +28,38 @@
                             <p class="drop">Allow Value</p>
                             <p>Type</p>
                             <p>Enable</p>
-                            <p>Edit</p>
                             <p>Delete</p>
                         </div>
                         <div class="list">
-                            <div id="item1" class="item">
-                                <p id="allow1" class="title allow">www.siteurl.com</p>
+                            <div class="item">
+                                <p class="title allow">www.siteurl.com</p>
                                 <div class="des type">
-                                    <p id="type1">URL</p>
+                                    <p>URL</p>
                                 </div>
                                 <p class="status enable"><span></span></p>
-                                <p class="edit" onclick="editItem(1)"><span></span></p>
-                                <p id="item1_p" class="delete"><span></span></p>
+                                <p class="delete"><span></span></p>
                             </div>
-                            <div id="item2" class="item">
-                                <p id="allow2" class="title allow">Bank</p>
+                            <div class="item">
+                                <p class="title allow">Bank</p>
                                 <div class="des type">
-                                    <p id="type2">Keyword</p>
+                                    <p>Keyword</p>
                                 </div>
                                 <p class="status enable"><span></span></p>
-                                <p class="edit" onclick="editItem(2)"><span></span></p>
-                                <p id="item2_p" class="delete"><span></span></p>
+                                <p class="delete"><span></span></p>
                             </div>
-                            <div  id="item3" class="item">
-                                <p id="allow3" class="title allow">A(?!\b(?:;paylbank)b).</p>
+                            <div class="item">
+                                <p class="title allow">A(?!\b(?:;paylbank)b).</p>
                                 <div class="des type">
-                                    <p id="type3">Regex</p>
+                                    <p>Regex</p>
                                 </div>
                                 <p class="status enable"><span></span></p>
-                                <p class="edit" onclick="editItem(3)"><span></span></p>
-                                <p id="item3_p" class="delete"><span></span></p>
+                                <p class="delete"><span></span></p>
                             </div>
-                            <div id="add" class="item add">
+                            <div class="item add">
                                 <p class="title allow">Add new allow condition</p>
                                 <div class="des type"></div>
                                 <p class="status enable"></p>
-                                <p id="addTask" class="delete"><span></span></p>
+                                <p class="delete"><span></span></p>
                             </div>
                         </div>
                     </div>
@@ -73,235 +68,5 @@
         </div>
     </div>
 </body>
-
-<div class="editbox">
-    <div class="box">
-        <p class="tit" id="menuTitle">Add new allow condition</p>
-        <div class="fitem">
-            <span class="name">Allow Value</span>
-            <div class="ipt">
-                <input id="title" type="text" placeholder="Allow Value">
-            </div>
-        </div>
-
-        <div class="fitem">
-            <span class="name">Type</span>
-            <div class="tagipt">
-                <div class="ipt">
-                    <input id="tag" type="text" placeholder="type">
-                </div>
-                <div class="tags">
-                    <p class="on">Tag1<span></span></p>
-                    <p class="tag2 on">Tag2<span></span></p>
-                    <p class="tag3">Tag3<span></span></p>
-                    <div class="add">
-                        <div class="tsbox">
-                            <p>type</p>
-                        </div>
-                        <div class="addipt">
-                            <p><input type="text" placeholder="New tag"><span></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="editBtn" id="addGroup">
-            <a class="edit_b" id="edit_b">Edit</a>
-            <a class="discard" id="discard">Discard</a>
-        </div>
-        <div class="addBtn" id="editGroup">
-            <a class="save" id="save">Add</a>
-            <a class="cancel" id="cancel">Cancel</a>
-        </div>
-    </div>
-</div>
-
-<script>
-    var editIndex;
-    const addMenu = document.querySelector(".editbox");
-    const editBtnDiv = document.getElementById("addGroup");
-    const addBtnDiv = document.getElementById("editGroup");
-    var title = document.getElementById('menuTitle')
-    const save = document.querySelector('.save');
-    const cancel = document.querySelector('.cancel');
-    const discard = document.querySelector('.discard');
-    const edit = document.querySelector('.edit_b');
-
-    document.getElementById("addTask").addEventListener("click",   function (){
-        clearText();
-        showAddBtn();
-        toggleEditBox();
-    })
-
-    document.getElementById("item1_p").addEventListener("click",   function (){
-        var divElement = document.getElementById("item1");
-        divElement.style.display = "none";
-    })
-    document.getElementById("item2_p").addEventListener("click",   function (){
-        var divElement = document.getElementById("item2");
-        divElement.style.display = "none";
-    })
-    document.getElementById("item3_p").addEventListener("click",   function (){
-        var divElement = document.getElementById("item3");
-        divElement.style.display = "none";
-    })
-
-    function clearText() {
-        document.getElementById("title").value = "";
-        document.getElementById("tag").value = "";
-    }
-    function showAddBtn(){
-        addBtnDiv.style.display = "flex";
-        editBtnDiv.style.display = "none";
-        title.textContent = "Add Allow Value"
-    }
-    function toggleEditBox(){
-        addMenu.classList.toggle("on");
-    }
-    function editItem(index) {
-        editIndex = index
-        var allow = document.getElementById("allow" + index).innerText;
-        var type = document.getElementById("type" + index).innerText;
-        document.getElementById("title").value = allow;
-        document.getElementById("tag").value = type;
-        showEditBtn();
-        toggleEditBox();
-    }
-
-    function showEditBtn(){
-        editBtnDiv.style.display = "flex";
-        addBtnDiv.style.display = "none";
-        title.textContent = "Edit todo item"
-    }
-
-    save.addEventListener("click", function (){
-        var title = document.getElementById("title").value
-        var tag = document.getElementById("tag").value
-
-        if(title == "" ||  tag == ""){
-            alert("invalid input")
-            return;
-        }
-        var id = getRandomFourDigitNumber()
-        const targetElement = document.getElementById("add");
-        var htmlCodeToAdd = "                            <div id='item"+ id +"' class=\"item\">\n" +
-            "                                <p id='allow"+ id +"' class=\"title allow\">"+ title +"</p>\n" +
-            "                                <div class=\"des type\">\n" +
-            "                                    <p id='type"+ id +"'>"+ tag +"</p>\n" +
-            "                                </div>\n" +
-            "                                <p class=\"status enable\"><span></span></p>\n" +
-            "                                <p class=\"edit\" onclick=\"editItem("+id+")\"><span></span></p>\n" +
-            "                                <p class=\"delete\" onclick=\"deleteItem("+id+")\"><span></span></p>\n" +
-            "                            </div>\n";
-        targetElement.insertAdjacentHTML('beforebegin', htmlCodeToAdd);
-        addMenu.classList.remove("on");
-    })
-
-    function deleteItem(id) {
-        var divElement = document.getElementById("item"+id);
-        divElement.style.display = "none";
-    }
-
-    function getRandomFourDigitNumber() {
-        return Math.floor(1000 + Math.random() * 9000);
-    }
-
-    cancel.addEventListener('click',  toggleEditBox)
-    discard.addEventListener('click',  toggleEditBox)
-
-    function toggleEditBox(){
-        addMenu.classList.toggle("on");
-    }
-
-    edit.addEventListener("click", function(){
-        var allow = document.getElementById("title").value
-        var type = document.getElementById("tag").value
-
-        if(allow == "" ||  type == ""){
-            alert("invalid input")
-            return;
-        }
-        const allowId = 'allow' + editIndex
-        const typeId = 'type' + editIndex
-
-        document.getElementById(allowId).innerHTML = allow;
-        document.getElementById(typeId).innerHTML = type;
-        addMenu.classList.toggle("on");
-    })
-
-    function renderTable(tasksDict){
-        var table = document.getElementById("p_table")
-        table.innerHTML = '<tr class="table-header"><th id="tbl-title">Title</th><th id="tbl-description">Description</th><th id="tbl-due">Due time</th><th id="tbl-tag">Tag</th><th id="tbl-edit">Edit</th><th id="tbl-status">Status</th><th id="tbl-del">Delete</th></tr>'
-        let tasks = sortTasks(tasksDict);
-        let showDone = document.getElementById("showDone").checked;
-        for (let entry of tasks) {
-            let taskID = entry[0];
-            let task = entry[1];
-            if (!showDone && task.STATUS){
-                continue;
-            }
-            var row = table.insertRow()
-            var titleCell = row.insertCell()
-            titleCell.innerHTML = task.TITLE
-
-            var descCell = row.insertCell()
-            descCell.id = 'data-des';
-            descCell.innerHTML = task.DESCRIPTION
-
-            var dueCell = row.insertCell()
-            dueCell.innerHTML = task.DUE.slice(-5) + " "+task.DUE.slice(8,10)+"/" +task.DUE.slice(5,7) + " " + task.DUE.slice(0,4)
-
-            var tagCell = row.insertCell()
-            //console.log(task.TAG)
-            tagCell.innerHTML = task.TAG
-
-            var editCell = row.insertCell();
-            var editButton = document.createElement('button');
-            editButton.textContent = "⋯";
-            editButton.classList.add('table-button')
-            editButton.addEventListener('click', function() {
-                editTask(taskID);
-            });
-            editCell.appendChild(editButton);
-
-            var toggle = document.createElement('label');
-            toggle.classList.add('status-toggle')
-            var span = document.createElement('span');
-
-            var statusCell = row.insertCell()
-            var statusBox = document.createElement('input')
-            statusBox.type = "checkbox"
-            if (task.STATUS == true){
-                statusBox.checked = true;
-            }
-            statusBox.addEventListener("change", function(e) {
-                var check = this.checked;
-                chrome.storage.local.get(["todo"], function(result) {
-                    let todo = result.todo;
-                    todo.tasks[taskID].STATUS = check;
-                    chrome.storage.local.set({todo : todo})
-                    drawTable();
-                })
-
-            })
-            toggle.appendChild(statusBox);
-            toggle.appendChild(span);
-
-            statusCell.appendChild(toggle)
-
-
-            var deleteCell = row.insertCell();
-            var deleteButton = document.createElement('button');
-            deleteButton.textContent = '—';
-            deleteButton.classList.add('table-button');
-            deleteButton.addEventListener('click', function() {
-                deleteTask(taskID);
-            });
-            deleteCell.appendChild(deleteButton);
-        }
-    }
-
-</script>
 
 </html>
