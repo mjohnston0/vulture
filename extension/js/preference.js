@@ -83,18 +83,21 @@ deleteAll.addEventListener("click", function() {
 
     console.log('1');
 
-    chrome.storage.local.get("index", function(result) {
-        let index = result.index;
-        if (index[kw]) {
-            delete index[kw];
-        } else {
-            alert("No matching entries");
-        }
-
-        chrome.storage.local.set({index: index});
-
-        console.log('deleted');
-    })
+    if (confirm(`Are you sure you want
+     to delete all entries associated with the keyword: ${kw}?`)) {
+        chrome.storage.local.get("index", function(result) {
+            let index = result.index;
+            if (index[kw]) {
+                delete index[kw];
+            } else {
+                alert("No matching entries");
+            }
+    
+            chrome.storage.local.set({index: index});
+    
+            console.log('deleted');
+        })
+     }
 })
 
 
