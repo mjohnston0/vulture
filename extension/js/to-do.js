@@ -126,8 +126,6 @@ function editTask(id) {
 
 }
 
-
-
 function sortTodoList(todos, by) {
     if (by === 'title') {
         todos.sort((todo1, todo2) =>
@@ -184,6 +182,19 @@ function showAddBtn(){
     addBtnDiv.style.display = "flex";
     editBtnDiv.style.display = "none";
     title.textContent = "Add todo item"
+
+    tagElement = document.getElementById('tag');
+
+    chrome.storage.local.get(['tag'], function (result) {
+        tags = result.tag.tags;
+
+        Object.values(tags).forEach((element) => {
+            option = new Option(element.NAME, element.NAME);
+            // option.style.background = element.COLOR;
+
+            tagElement.options.add(option);
+        })
+    })
 }
 
 document.getElementById("addTask").addEventListener("click",   function (){
@@ -299,4 +310,15 @@ function filter() {
 
 function resetFilter(){
     location.reload();
+}
+
+function addTag(name) {
+    chrome.storage.get(['tag'], function(result) {
+        let tag = result.tag;
+
+        tag.tags[tag.count] = {ID: tag.count, NAME: name, COLOR: "#F5F5DC"}
+        tag.count++;
+
+        chrome.storage.set({tag: tag});
+    })
 }
