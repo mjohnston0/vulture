@@ -13,6 +13,7 @@
             ]
         }
     ],
+	"omnibox": { "keyword" : "v" },
     "host_permissions": [
         "*://*/*"
     ],
