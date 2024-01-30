@@ -69,15 +69,15 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 chrome.omnibox.onInputChanged.addListener(omnibarHandler);
 chrome.omnibox.onInputEntered.addListener( function(url){
     chrome.tabs.update({url: url});
+    
 });
-
 
 
 function omnibarHandler(text, suggest) {
     chrome.storage.local.get(["index"], function(result) {
       let searchResult = [];
       for (let key of Object.keys(result.index)) {
-        if(key.toString().startsWith(text.toString())){
+        if(key.toString().startsWith(text.toString().toLowerCase()) || key.toString().includes(text.toString().toLowerCase())){
             for (let url of result.index[key]) {
                 searchResult.push({
                     content:  url,
@@ -86,8 +86,6 @@ function omnibarHandler(text, suggest) {
             }
         }
       }
-  
-      console.log(searchResult);
     if (searchResult.length > 0) {
         chrome.omnibox.setDefaultSuggestion({description: "Select an option below"});
     } else {
@@ -97,3 +95,8 @@ function omnibarHandler(text, suggest) {
     }
     );
   }
+  
+
+
+  
+  
