@@ -11,10 +11,10 @@ body {
 
 .page {
     margin: 0.2rem;
-    background-color: #00A6DB;
+    background-color: #4682B4;
     border: none ;
     border-radius: 2em;
-    color:  #2b3252;
+    color:  #FFFF;
     text-align: center;
 }
 
@@ -475,11 +475,16 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
+    color: #FFFF
 }
 
 table td {
     text-align: center;
     height: 40px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #data-des {
@@ -621,12 +626,11 @@ table th {
 }
 
   .box {
-    /* flex-grow: 1; */
     height: 100%;
     border-radius: 10px;
     border: 1px solid #ccc;
     padding: 10px;
-    background-color: #75BEF4;
+    background-color: #2C3E50;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     margin: auto;
     overflow: auto;
@@ -646,10 +650,10 @@ table th {
     padding: 10px 20px;
     text-decoration: none;
     color: white;
-    background: #2E5EAA;
+    background: #456986;
     border-radius: 20px 20px 0 0;
     margin: 0 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.4s ease;
     flex: 1;
     text-align: center;
     border-radius: 0;
@@ -668,11 +672,12 @@ table th {
     justify-self: center;
     justify-content: center;
     display: flex;
+    padding: 10px;
   }
 
   
 .custom-select {
-    background-color: #2a4a8d;
+    background-color: #456986;
     border-radius: 15px;
     padding: 10px 15px;
     border: 1px solid #ddd;
