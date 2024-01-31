@@ -9,6 +9,15 @@ body {
     white-space: nowrap
 }
 
+.page {
+    margin: 0.2rem;
+    background-color: #00A6DB;
+    border: none ;
+    border-radius: 2em;
+    color:  #2b3252;
+    text-align: center;
+}
+
 a, .fakelink {
     font-family: 'Lato', sans-serif;
     text-decoration: none;
@@ -610,3 +619,64 @@ table th {
     outline: none;
     background-color: #F5F5F5;
 }
+
+  .box {
+    flex-grow: 1;
+    height: 400px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #75BEF4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 1%;
+    overflow: auto;
+  }
+
+  .tab-menu {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    overflow: hidden;
+    background: #2E5EAA;
+    border-radius: 20px;
+    margin: 0;
+  }
+  
+  .tab-item {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    background: #2E5EAA;
+    border-radius: 20px 20px 0 0;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+    flex: 1;
+    text-align: center;
+    border-radius: 0;
+    margin: 0;
+    border-right: 1px solid #fff;
+  }
+  
+  .tab-link:hover {
+    background: #2a4a8d;
+  }
+  
+
+  .custom-select-wrapper {
+    width: 200px;
+    position: center;
+    margin: auto;
+  }
+
+  
+.custom-select {
+    background-color: #2a4a8d;
+    border-radius: 15px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    width: 50%;
+    cursor: pointer;
+    line-height: 1.5;
+    margin: auto;
+    color: #ffff;
+  }

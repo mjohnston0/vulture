@@ -5,9 +5,11 @@
         <style>
             body {
                 width: 400px;
+                height: fit-content;
                 margin: 0px;
                 padding: 0px;
-                white-space: nowrap
+                white-space: nowrap;
+                align-items: center;
             }
             
             a, .fakelink {
@@ -45,15 +47,21 @@
         <script type="text/javascript" src="../js/popup.js"></script>
     </head>
     <body>
-        <hr style="color: #999;" />
-        <a href="../todo.html">To Do List</a>
+        <div class="box">
 
-        <div>
-            <select id="task_filter">
-                <option value="today">Today</option>
-                <option value="7days">7 Days</option>
-                <option value="30days">30 Days</option>
-            </select>
+            <div class="tab-menu">
+                <a class="tab-item" href="../todo.html">To Do List</a>
+                <a class="tab-item" href = "../preference.html">Allow List</a>
+            </div>
+            
+            <div class="custom-select-wrapper">
+                <select class="custom-select" id="task_filter">
+                    <option value="today">Today</option>
+                    <option value="7days">7 Days</option>
+                    <option value="30days">30 Days</option>
+                </select>
+            </div>
+            
             <table id="todo_table">
                 <tr class="table-header">
                     <th id="tbl-title">Title</th>
@@ -65,10 +73,11 @@
                     <th id="tbl-del">Delete</th>
                 </tr>
             </table>
+
+            <a class="page" href = "../temp.html">temp</a>
+
+
         </div>
-        <!--<a href="../preferences.html">Preferences</a>-->
-        <a href = "../preference.html">Allow List</a>
-        <a href = "../temp.html">temp</a>
     </body>
     
 </html>
