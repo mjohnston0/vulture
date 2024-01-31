@@ -1,7 +1,10 @@
 <html>
     <head>
+        <link rel="stylesheet" href="../css/popup.css">
+        <link rel="stylesheet" href="../css/font_234130_nem7eskcrkpdgqfr.css">
         <style>
             body {
+                width: 400px;
                 margin: 0px;
                 padding: 0px;
                 white-space: nowrap
@@ -38,13 +41,34 @@
               cursor: default;
             }
         </style>
+
+        <script type="text/javascript" src="../js/popup.js"></script>
     </head>
     <body>
         <hr style="color: #999;" />
         <a href="../todo.html">To Do List</a>
+
+        <div>
+            <select id="task_filter">
+                <option value="today">Today</option>
+                <option value="7days">7 Days</option>
+                <option value="30days">30 Days</option>
+            </select>
+            <table id="todo_table">
+                <tr class="table-header">
+                    <th id="tbl-title">Title</th>
+                    <th id="tbl-description">Description</th>
+                    <th id="tbl-due">Due time</th>
+                    <th id="tbl-tag">Tag</th>
+                    <th id="tbl-edit">Edit</th>
+                    <th id="tbl-status">Status</th>
+                    <th id="tbl-del">Delete</th>
+                </tr>
+            </table>
+        </div>
         <!--<a href="../preferences.html">Preferences</a>-->
         <a href = "../preference.html">Allow List</a>
         <a href = "../temp.html">temp</a>
     </body>
-    <script type="text/javascript" src="../js/popup.js"></script>
+    
 </html>
