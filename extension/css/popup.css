@@ -621,14 +621,14 @@ table th {
 }
 
   .box {
-    flex-grow: 1;
-    height: 400px;
+    /* flex-grow: 1; */
+    height: 100%;
     border-radius: 10px;
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #75BEF4;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin: 1%;
+    margin: auto;
     overflow: auto;
   }
 
@@ -663,9 +663,11 @@ table th {
   
 
   .custom-select-wrapper {
-    width: 200px;
-    position: center;
+    width: 300px;
     margin: auto;
+    justify-self: center;
+    justify-content: center;
+    display: flex;
   }
 
   
