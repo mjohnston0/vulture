@@ -53,16 +53,13 @@ function drawTable() {
     for (let entry of tasks) {
       let task = entry[1];
       let taskDate = new Date(task.DUE);
-      if (taskDate <= targetDate) {
+      if (taskDate <= targetDate && !task.STATUS) {
         toShow.push(entry);
       }
     }
 
-    // let showDone = document.getElementById("showDone").checked;
-
     for (let entry of toShow) {
       if (i>=5) {
-        console.log("no more");
         return;
       }
       let taskID = entry[0];
