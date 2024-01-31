@@ -572,3 +572,13 @@ table th {
     outline: none;
     background-color: #F5F5F5;
 }
+
+.task-tag {
+    border-radius: 10px;
+    color: #F5F5F5;
+    padding: 4px;
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+    box-shadow: 3px 3px 5px #65828c8f;
+}
