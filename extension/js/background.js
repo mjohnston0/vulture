@@ -78,29 +78,76 @@ chrome.omnibox.onInputEntered.addListener( function(url){
     
 });
 
+function checkCondition(key, text) {
+    if (key.toString().startsWith(text.toString().toLowerCase())) {
+        return true;
+    }
+
+    return false;
+}
+
+function intersectLists(lists) {
+    if (lists.length === 0) return [];
+    let result = lists[0].filter(element => {
+      return lists.every(list => list.includes(element));
+    });
+  
+    return result;
+  }
+  
 
 function omnibarHandler(text, suggest) {
-    chrome.storage.local.get(["index"], function(result) {
-      let searchResult = [];
-      for (let key of Object.keys(result.index)) {
-        if(key.toString().startsWith(text.toString().toLowerCase()) || key.toString().includes(text.toString().toLowerCase())){
-            for (let url of result.index[key]) {
-                searchResult.push({
-                    content:  url,
-                    description: url + " - Found keyword \"" + text.toString() + "\""
-                });
+    chrome.storage.local.get(["index"], function (data) {
+        let results = [];
+        let urlList = [];
+        if (text.includes(" ")) {
+            let textList = text.split(" ");
+            if(text.endsWith(" ")){
+                textList = textList.slice(0, -1);
             }
+            let nestedList = []
+            textList.forEach(function(keyword){
+                let tempList = []
+                for (let key of Object.keys(data.index)) {
+                    if (key.toString().startsWith(keyword.toString().toLowerCase())) {
+                        for (let url of data.index[key]) {
+                            tempList.push(url)
+                        }
+                        nestedList.push(tempList)
+                    }
+                }
+            })
+            if(textList.length <= nestedList.length) urlList = intersectLists(nestedList)
+
+        } else {
+            for (let key of Object.keys(data.index)) {
+                if (checkCondition(key, text.replace(/\s/g, ''))) {
+                    for (let url of data.index[key]) {
+                        urlList.push(url)
+                    }
+                }
+            }
+
         }
-      }
-    if (searchResult.length > 0) {
-        chrome.omnibox.setDefaultSuggestion({description: "Select an option below"});
-    } else {
-        chrome.omnibox.setDefaultSuggestion({description: "No results found"})
-    }
-    suggest(searchResult);
-    }
-    );
-  }
+
+
+        urlList.forEach(function(url){
+            results.push({
+                content: url,
+                description: url + " - Found keyword \"" + text.toString() + "\""
+            });
+        })
+
+        if (results.length > 0) {
+            chrome.omnibox.setDefaultSuggestion({ description: "Select an option below" });
+        } else {
+            chrome.omnibox.setDefaultSuggestion({ description: "No results found" });
+        }
+
+        suggest(results);
+    });
+}
+
   
 
 
