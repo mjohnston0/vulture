@@ -42,343 +42,81 @@ hr {
   cursor: default;
 }
 
-.editbox {
-    display: flex;
+.task-view {
+    display: none;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
-    display: none;
 }
 
-.editbox.on {
+.task-view .box {
     display: flex;
-}
-
-.editbox .box {
-    width: 650px;
-    background: #fff;
-    box-shadow: 1px 5px 5px 4px #aba9a9;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 450px;
+    height: 360px;
+    background-color: #456986;
+    padding: 20px;
     border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    box-sizing: border-box;
-    padding: 25px 55px;
-}
-
-.editbox .box p.tit {
     text-align: center;
-    font-size: 24px;
 }
 
-.editbox .box .fitem {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    height: 40px;
-}
-
-.editbox .box .fitem .name {
-    width: 100px;
-}
-
-.editbox .box .fitem .ipt {
-    width: 250px;
-    height: 40px;
-    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    padding: 0 10px;
-}
-
-.editbox .box .fitem .ipt input {
-    border: none;
-    background: none;
+.task-view .box > div {
+    margin-bottom: 10px;
     width: 100%;
-    height: 100%;
-    font-size: 16px;
 }
 
-.editbox .box .fitem .tagipt {
-    width: 190px !important;
-    background: #fff;
-    margin-left: 0;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    font-size: 13px;
-    justify-content: space-between;
-    position: relative;
-}
-
-.editbox .box .fitem .tagipt .ipt {
-    display: flex;
-    align-items: center;
-}
-
-.editbox .box .fitem .tagipt .ipt::after {
-    content: '';
-    width: 12px;
-    height: 12px;
-    background-size: 100%;
-}
-
-.editbox .box .fitem .tagipt .tags {
+.task-view .task-detail {
     width: 100%;
-    position: absolute;
-    top: 37px;
-    left: 0;
-    background: #fff;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-    border: 1px solid #e5e5e5;
-    box-sizing: border-box;
-    display: none;
+    margin-bottom: 15px;
 }
 
-.editbox .box .fitem .tagipt .tags.on {
-    display: block;
+.task-view .label {
+    font-weight: bold;
+    color: #F5F5F5;
+    margin-right: 10px;
+    text-align: center;
 }
 
-.editbox .box .fitem .tagipt .tags p {
-    padding: 0 10px;
-    box-sizing: border-box;
+.task-view p {
+    margin-bottom: 15px;
     font-size: 16px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #e5e5e5;
-    position: relative;
+    color: #F5F5F5;
 }
 
-.editbox .box .fitem .tagipt .tags span {
-    width: 16px;
-    height: 16px;
-    background: #00a6db;
-    border-radius: 99px;
-    -webkit-border-radius: 99px;
-    -moz-border-radius: 99px;
-    -ms-border-radius: 99px;
-    -o-border-radius: 99px;
-    margin-left: 8px;
-}
-
-.editbox .box .fitem .tagipt .tags .tag2 span {
-    background: #db8300;
-}
-
-.editbox .box .fitem .tagipt .tags .tag3 span {
-    background: #afdb00;
-}
-
-.editbox .box .fitem .tagipt .tags p.on::after {
-    content: '';
-    width: 16px;
-    height: 16px;
-    background: url(../images/tagonicon.png);
-    background-size: 100%;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    margin-top: -8px;
-}
-
-.editbox .box .fitem .tagipt .addipt {
-    display: none;
-}
-
-.editbox .box .fitem .tagipt .addipt.on {
-    display: block;
-}
-
-.editbox .box .fitem .tagipt .addipt input {
-    width: 30px;
-    height: 30px;
-    display: block;
-    font-size: 16px;
-    flex: 1;
-    border: none;
-}
-
-.editbox .box .fitem .tagipt .tsbox p {
-    justify-content: flex-start;
-}
-
-.editbox .box .fitem .tagipt .tsbox.on {
-    display: none;
-}
-
-.editbox .box .fitem .tagipt .tsbox p::after {
-    content: '';
-    width: 20px;
-    height: 20px;
-    background: url(../images/addicon.png);
-    background-size: 100%;
-    margin-left: 10px;
-}
-
-.editbox .box .fitem2 {
-    height: auto;
-    display: flex;
-    align-items: flex-start;
-}
-
-.editbox .box .fitem .textbox {
-    width: 350px;
-    height: 150px;
-    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
+.task-view .info-box {
+    color: #F5F5F5;
     padding: 10px;
-    box-sizing: border-box;
-}
-
-.editbox .box .fitem .textbox textarea {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: none;
     font-size: 16px;
-    resize: none;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
     box-sizing: border-box;
-    font-size: 18px;
-}
-
-.editbox .box .fitem3 {
-    position: relative;
-}
-
-.editbox .box .fitem3 .ipt {
-    width: 350px;
-    display: flex;
-    align-items: center;
-}
-
-.editbox .box .fitem3 .ipt::after {
-    content: '';
-    width: 25px;
-    height: 25px;
-    background: url(../images/dataicon.png);
-    background-size: 100%;
-}
-
-.editbox .addBtn {
-    width: 345px;
-    margin: 0 auto;
-    margin-top: 25px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.editbox .addBtn a {
-    width: 150px;
-    height: 55px;
-    background: #00A6DB;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    color: #fff;
-    font-size: 20px;
-}
-
-.editbox .addBtn a:nth-child(2) {
-    height: 53px;
-    background: #FFF;
-    color: #000;
-    border-radius: 15px;
-    border: 1px solid #000;
-}
-
-.editbox .editBtn {
-    width: 345px;
-    margin: 0 auto;
-    margin-top: 25px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.editbox .editBtn a {
-    width: 150px;
-    height: 55px;
-    background: #00A6DB;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    color: #fff;
-    font-size: 20px;
-}
-
-.editbox .editBtn a:nth-child(2) {
-    height: 53px;
-    background: #FFF;
-    color: #000;
-    border-radius: 15px;
-    border: 1px solid #000;
+    max-height: 100px;
+    overflow-y: auto;
 }
 
 
-.editbox .editBtn {
-    width: 345px;
-    margin: 0 auto;
-    margin-top: 25px;
-    display: flex;
-    justify-content: space-between;
+.task-view .close-btn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #F5F5F5;
+    background-color: #e87979;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-.editbox .editBtn a {
-    width: 150px;
-    height: 55px;
-    background: #97da80;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    color: #fff;
-    font-size: 20px;
-}
-
-.editbox .editBtn a:nth-child(2) {
-    height: 55px;
-    background: #e87979;
-    color: #FFF;
-    border-radius: 15px;
-    border: 0px;
+.task-view .close-btn:hover {
+    background-color: #d66868;
 }
 
 body {
@@ -480,6 +218,15 @@ table td {
     white-space: nowrap;
 }
 
+tbody tr {
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+tbody tr:hover {
+    background-color: #456986;
+}
+
 #data-des {
     text-align: left;
     padding-left: 16px;
@@ -492,7 +239,6 @@ table th {
 
 .table-header {
     box-shadow: 1px 1px 5px hsl(0, 0%, 25%);
-    /* height: 24px; */
 }
 
 #tbl-title,
