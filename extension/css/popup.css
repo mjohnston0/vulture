@@ -2,13 +2,6 @@ input:focus {
     outline: none;
 }
 
-body {
-    width: 400px;
-    margin: 0px;
-    padding: 0px;
-    white-space: nowrap
-}
-
 .page {
     margin: 0.2rem;
     background-color: #4682B4;
@@ -475,7 +468,7 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    color: #FFFF
+    color: #F5F5F5;
 }
 
 table td {
@@ -628,7 +621,7 @@ table th {
   .box {
     height: 100%;
     border-radius: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #FFFF;
     padding: 10px;
     background-color: #2C3E50;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -644,6 +637,7 @@ table th {
     background: #2E5EAA;
     border-radius: 20px;
     margin: 0;
+    border: 1px solid #ddd;
   }
   
   .tab-item {
@@ -679,11 +673,12 @@ table th {
 .custom-select {
     background-color: #456986;
     border-radius: 15px;
-    padding: 10px 15px;
+    padding: 8px 10px;
     border: 1px solid #ddd;
     width: 50%;
     cursor: pointer;
     line-height: 1.5;
     margin: auto;
-    color: #ffff;
+    color: #F5F5F5;
+    text-align: center;
   }
