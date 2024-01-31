@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Productivity Tool",
+    "name": "Vulture",
     "description": "Page Indexer and To do list",
     "version": "0.0.1",
     "content_scripts": [
@@ -13,6 +13,7 @@
             ]
         }
     ],
+	"omnibox": { "keyword" : "v" },
     "host_permissions": [
         "*://*/*"
     ],

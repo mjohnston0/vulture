@@ -15,7 +15,7 @@ chrome.runtime.onInstalled.addListener(function () {
     });
 
     chrome.storage.local.get(['tags'], function(result) {
-        if (!result.tag) {
+        if (!result.tags) {
             chrome.storage.local.set({tags: {'DEFAULT': '#ffff'}})
         }
     })
@@ -71,3 +71,38 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         }
     })
 })
+
+chrome.omnibox.onInputChanged.addListener(omnibarHandler);
+chrome.omnibox.onInputEntered.addListener( function(url){
+    chrome.tabs.update({url: url});
+    
+});
+
+
+function omnibarHandler(text, suggest) {
+    chrome.storage.local.get(["index"], function(result) {
+      let searchResult = [];
+      for (let key of Object.keys(result.index)) {
+        if(key.toString().startsWith(text.toString().toLowerCase()) || key.toString().includes(text.toString().toLowerCase())){
+            for (let url of result.index[key]) {
+                searchResult.push({
+                    content:  url,
+                    description: url + " - Found keyword \"" + text.toString() + "\""
+                });
+            }
+        }
+      }
+    if (searchResult.length > 0) {
+        chrome.omnibox.setDefaultSuggestion({description: "Select an option below"});
+    } else {
+        chrome.omnibox.setDefaultSuggestion({description: "No results found"})
+    }
+    suggest(searchResult);
+    }
+    );
+  }
+  
+
+
+  
+  
