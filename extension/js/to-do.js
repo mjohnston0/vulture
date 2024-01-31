@@ -362,3 +362,41 @@ document.getElementById("newTagbtn").addEventListener("click", async function ()
     updateTagBox();
 
 })
+
+async function populateData() {
+
+
+    for (i=0; i< 10; i++) {
+
+        await addTag(`tag${i}`);
+        updateTagList();
+        updateTagBox();
+
+    }
+
+
+    chrome.storage.local.get(['index'], function(result) {
+        let index = result.index;
+
+        index['activists'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
+        index['alerts'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
+        index['care'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
+        index['despite'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
+        index['editorial'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
+        index['food'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
+
+        chrome.storage.local.set({index: index});
+    })
+
+    chrome.storage.local.get(['todo'], function(result) {
+        let todo = result.todo;
+        for (x=0; x<90; x++) {
+            let z = x % 10;
+            todo.count++;
+            todo.tasks[x] = { ID: x, TITLE: `test${x}`, DESCRIPTION: `test${x}`, DUE: `2024-02-0${1+z}T0${z}:00`, TAG: `tag${z}`, STATUS: false };
+        }
+
+        chrome.storage.local.set({todo: todo});
+        renderTable(todo.tasks);
+    })   
+}

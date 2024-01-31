@@ -31,3 +31,14 @@ function displayNoUrlsMessage() {
     message.textContent = "No URLs found.";
     urlsContainer.appendChild(message);
 }
+
+
+document.getElementById('clear-urls').addEventListener('click', function() {
+    if (confirm('Are you sure you want to clear all indexed URLs?\nThis is permanent and cannot be undone.')) {
+        chrome.storage.local.get(['index'], function(result) {
+            let index = result.index;
+            index = {};
+            chrome.storage.local.set({index: index});
+        })
+    }
+});
