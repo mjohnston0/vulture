@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    chrome.storage.local.get(["todo"], function (result) {
+    chrome.storage.local.get(["todo", "tags"], function (result) {
         if (result.todo) {
-            renderTable(result.todo.tasks);
+            renderTable(result.todo.tasks, result.tags);
         } else {
             return;
         }
@@ -26,18 +26,18 @@ function updateTagBox() {
 }
 
 function drawTable() {
-    chrome.storage.local.get(["todo"], function (result) {
-        renderTable(result.todo.tasks);
+    chrome.storage.local.get(["todo", "tags"], function (result) {
+        renderTable(result.todo.tasks, result.tags);
     })
 }
 
 document.getElementById("showDone").addEventListener("change", function (e) {
-    chrome.storage.local.get(["todo"], function (result) {
-        renderTable(result.todo.tasks);
+    chrome.storage.local.get(["todo", "tags"], function (result) {
+        renderTable(result.todo.tasks, result.tags);
     })
 })
 
-function renderTable(tasksDict) {
+function renderTable(tasksDict, tags) {
     var table = document.getElementById("todo_table")
     table.innerHTML = '<tr class="table-header"><th id="tbl-title">Title</th><th id="tbl-description">Description</th><th id="tbl-due">Due time</th><th id="tbl-tag">Tag</th><th id="tbl-edit">Edit</th><th id="tbl-status">Status</th><th id="tbl-del">Delete</th></tr>'
     let tasks = sortTasks(tasksDict);
@@ -60,7 +60,11 @@ function renderTable(tasksDict) {
         dueCell.innerHTML = task.DUE.slice(-5) + " " + task.DUE.slice(8, 10) + "/" + task.DUE.slice(5, 7) + " " + task.DUE.slice(0, 4)
 
         var tagCell = row.insertCell()
-        tagCell.innerHTML = task.TAG
+        var tag = document.createElement("div");
+        tag.classList.add('task-tag')
+        tag.style.background = tags[task.TAG]
+        tag.innerHTML = task.TAG
+        tagCell.appendChild(tag);
 
         var editCell = row.insertCell();
         var editButton = document.createElement('button');
@@ -120,12 +124,12 @@ function sortTasks(taskDict) {
 }
 
 function deleteTask(id) {
-    chrome.storage.local.get(['todo'], function (result) {
+    chrome.storage.local.get(['todo', 'tags'], function (result) {
         let todo = result.todo;
         delete todo.tasks[id];
         todo.count--;
         chrome.storage.local.set({ todo: todo });
-        renderTable(todo.tasks);
+        renderTable(todo.tasks, result.tags);
     })
 }
 
@@ -238,12 +242,12 @@ edit.addEventListener("click", function () {
         alert("invalid input")
         return;
     }
-    chrome.storage.local.get(['todo'], function (result) {
+    chrome.storage.local.get(['todo', 'tags'], function (result) {
         let todo = result.todo;
         todo.tasks[currentTodoId] = { ID: currentTodoId, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
         chrome.storage.local.set({ todo: todo });
 
-        renderTable(todo.tasks);
+        renderTable(todo.tasks, result.tags);
 
         chrome.runtime.sendMessage({ todo: todo.tasks[currentTodoId] }).catch();
         addMenu.classList.toggle("on");
@@ -261,13 +265,13 @@ save.addEventListener("click", function () {
         alert("invalid input")
         return;
     }
-    chrome.storage.local.get(['todo'], function (result) {
+    chrome.storage.local.get(['todo', 'tags'], function (result) {
         let todo = result.todo;
         task_id = todo.count + 1;
         todo.count++;
         todo.tasks[task_id] = { ID: task_id, TITLE: title, DESCRIPTION: description, DUE: due, TAG: tag, STATUS: false };
         chrome.storage.local.set({ todo: todo });
-        renderTable(todo.tasks);
+        renderTable(todo.tasks, result.tags);
 
         chrome.runtime.sendMessage({ todo: todo.tasks[task_id] }).catch();
         addMenu.classList.remove("on");
@@ -296,7 +300,7 @@ document.getElementById("resetFilter").addEventListener("click", resetFilter)
 
 function resetTodo() {
     chrome.storage.local.set({ todo: { count: 0, tasks: {} } });
-    renderTable({});
+    renderTable({}, undefined);
 }
 
 document.getElementById("search").addEventListener("input", filter)
@@ -304,7 +308,7 @@ document.getElementById("selectDate").addEventListener("input", filter)
 document.getElementById("tags").addEventListener("change", filter)
 
 function filter() {
-    chrome.storage.local.get(["todo"], function (result) {
+    chrome.storage.local.get(["todo", "tags"], function (result) {
         let e = document.getElementById("search").value;
         let d = document.getElementById("selectDate").value;
         let tag = document.getElementById("tags").value;
@@ -328,24 +332,33 @@ function filter() {
         let msg = document.getElementById("search_error")
         if (Object.keys(filtered).length == 0) {
             msg.innerHTML = "NO MATCHES FOUND"
-            renderTable({})
+            renderTable({}, result.tags)
         } else {
             msg.innerHTML = ""
-            renderTable(filtered)
+            renderTable(filtered, result.tags)
         }
 
     })
-}
+} 
 
 function resetFilter() {
     location.reload();
+}
+
+function randomColor() {
+    colors = ['blueviolet', 'crimson', 'darkorchid', 'darkslateblue', 'darkmagenta', 'deeppink', 'tomato', 'teal', 'sienna', 
+    'rebeccapurple', 'peru', 'orangered', 'limegreen', 'lightslategrey', 'darkslategrey', 'dimgray', 'brown', 'darkred'];
+
+    return colors[Math.floor(Math.random() * colors.length)]
 }
 
 async function addTag(name) {
     const result = await chrome.storage.local.get(['tags']);
     let tags = result.tags;
 
-    tags[name] = "#F5F5DC"
+    if (!(name in tags)) {
+        tags[name] = randomColor();
+    }
 
     await chrome.storage.local.set({ tags: tags });
 
