@@ -79,7 +79,7 @@ chrome.omnibox.onInputEntered.addListener( function(url){
 });
 
 function checkCondition(key, text) {
-    if (key.toString().startsWith(text.toString().toLowerCase())) {
+    if (key.toString() === (text.toString().toLowerCase())) {
         return true;
     }
 
@@ -109,8 +109,8 @@ function omnibarHandler(text, suggest) {
             textList.forEach(function(keyword){
                 let tempList = []
                 for (let key of Object.keys(data.index)) {
-                    if (key.toString().startsWith(keyword.toString().toLowerCase())) {
-                        for (let url of data.index[key]) {
+                    if (key.toString() === (keyword.toString().toLowerCase())) {
+                        for (let url of data.index[key].reverse()) {
                             tempList.push(url)
                         }
                         nestedList.push(tempList)
@@ -122,7 +122,7 @@ function omnibarHandler(text, suggest) {
         } else {
             for (let key of Object.keys(data.index)) {
                 if (checkCondition(key, text.replace(/\s/g, ''))) {
-                    for (let url of data.index[key]) {
+                    for (let url of data.index[key].reverse()) {
                         urlList.push(url)
                     }
                 }
