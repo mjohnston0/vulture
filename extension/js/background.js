@@ -131,12 +131,18 @@ function omnibarHandler(text, suggest) {
         }
 
 
+
         urlList.forEach(function(url){
+            let suggestUrl = url
+            if(suggestUrl.includes("&")){
+                suggestUrl = suggestUrl.replace("&","&amp;")
+            }
             results.push({
-                content: url,
-                description: url + " - Found keyword \"" + text.toString() + "\""
+                content: suggestUrl,
+                description: suggestUrl + " - Found keyword \"" + text.toString() + "\""
             });
         })
+
 
         if (results.length > 0) {
             chrome.omnibox.setDefaultSuggestion({ description: "Select an option below" });
