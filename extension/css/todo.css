@@ -99,10 +99,12 @@ input:focus {
     background-color: #fff;
     overflow-y: scroll;
     opacity: 0;
+    visibility: hidden;
 }
 
 .dropdown-items.open {
     opacity: 1;
+    visibility: visible;
 }
 
 .item {

@@ -36,6 +36,10 @@ function updateTagList() {
         Object.keys(tags).forEach((key) => {
             let item = document.createElement('div');
             item.classList.add('item');
+            item.addEventListener('click', (e) => {
+                document.getElementById('selected-item').textContent = e.target.textContent;
+                document.getElementById('dropdown-items').classList.remove('open')
+            })
 
             let color = document.createElement('span');
             color.classList.add('item-color');
@@ -47,6 +51,18 @@ function updateTagList() {
 
             let itemBtn = document.createElement('button');
             itemBtn.classList.add('item-btn');
+            itemBtn.addEventListener('click', () => {
+                if (confirm("Are you sure you wish to delete this task?")) {
+                    chrome.storage.local.get(['tags'], function (result) {
+                        let t = result.tags;
+                        delete t[key];
+                        chrome.storage.local.set({'tags': t});
+                        updateTagList();
+                        updateTagBox();
+                        document.getElementById('dropdown-items').classList.add('open')
+                    })
+                }
+            })
 
             let deleteIcon = document.createElement('img');
             deleteIcon.classList.add('item-btn-img');
@@ -73,7 +89,6 @@ function updateTagList() {
         let itemBtn = document.createElement('button');
         itemBtn.id = 'add-tag-btn';
         itemBtn.classList.add('item-btn');
-
         itemBtn.addEventListener('click', insertAddTag);
 
         let addIcon = document.createElement('img');
@@ -203,7 +218,7 @@ function editTask(id) {
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         document.getElementById("title").value = todo.tasks[id].TITLE;
-        // document.getElementById("tag").value = todo.tasks[id].TAG;
+        document.getElementById("selected-item").textContent = todo.tasks[id].TAG;
         document.getElementById("description").value = todo.tasks[id].DESCRIPTION;
         currentTodoId = id
         document.getElementById("taskDueDate").value = todo.tasks[id].DUE
@@ -306,7 +321,7 @@ discard.addEventListener('click', toggleEditBox)
 
 edit.addEventListener("click", function () {
     var title = document.getElementById("title").value
-    // var tag = document.getElementById("tag").value
+    var tag = document.getElementById("selected-item").textContent
     var description = document.getElementById("description").value
     var due = document.getElementById("taskDueDate").value
 
@@ -329,7 +344,7 @@ edit.addEventListener("click", function () {
 
 save.addEventListener("click", function () {
     var title = document.getElementById("title").value
-    // var tag = document.getElementById("tag").value
+    var tag = document.getElementById("selected-item").textContent
     var description = document.getElementById("description").value
     var due = document.getElementById("taskDueDate").value
 
@@ -357,7 +372,7 @@ function toggleEditBox() {
 
 function clearText() {
     document.getElementById("title").value = "";
-    // document.getElementById("tag").value = "";
+    document.getElementById("selected-item").textContent = "Select Tag";
     document.getElementById("description").value = "";
     document.getElementById("taskDueDate").value = "";
 }
@@ -435,9 +450,12 @@ async function addTag() {
     const result = await chrome.storage.local.get(['tags']);
     let tags = result.tags;
 
-    if (!(name in tags)) {
-        tags[name] = randomColor();
+    if (name in tags) {
+        alert("Tag already exists.");
+        return;
     }
+
+    tags[name] = randomColor();
 
     await chrome.storage.local.set({ tags: tags });
 
