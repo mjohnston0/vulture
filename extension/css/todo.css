@@ -76,7 +76,7 @@ input:focus {
 }
 
 .dropdown-btn {
-    padding: 8px 10px;
+    padding: 13px 10px;
     border-radius: 3px;
     box-shadow: inset 0px 0px 0px 2px #e5e5e5;
     display: flex;
@@ -106,7 +106,7 @@ input:focus {
 }
 
 .item {
-    padding: 8px 16px;
+    padding: 13px 16px;
     display: flex;
     justify-content: space-between;
 }
@@ -118,10 +118,25 @@ input:focus {
     background-color: #00A6DB;
 }
 
-.item-delete-btn {
+.item-btn {
+    border: none;
+    padding: 0 0;
+    background-color: #fff;
+}
+
+.item-btn-img {
     width: 1em;
     height: 1em;
     cursor: pointer;
+}
+
+#add-tag {
+    cursor: pointer;
+    width: 100%;
+}
+
+#newtag-input {
+    border: none;
 }
 
 

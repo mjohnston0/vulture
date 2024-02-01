@@ -30,7 +30,7 @@ function updateTagList() {
     chrome.storage.local.get(["tags"], function (result) {
         let tags = result.tags;
         let dropdownItems = document.getElementById('dropdown-items');
-        
+
         dropdownItems.innerHTML = '<div class="dropdown-items" id="dropdown-items"></ div>'
 
         Object.keys(tags).forEach((key) => {
@@ -45,26 +45,48 @@ function updateTagList() {
             name.classList.add('item-name');
             name.textContent = key;
 
-            let itemDelete = document.createElement('span');
-            itemDelete.classList.add('item-delete');
+            let itemBtn = document.createElement('button');
+            itemBtn.classList.add('item-btn');
 
             let deleteIcon = document.createElement('img');
-            deleteIcon.classList.add('item-delete-btn');
+            deleteIcon.classList.add('item-btn-img');
             deleteIcon.src = chrome.runtime.getURL('./images/deleticon.png')
 
-            itemDelete.appendChild(deleteIcon);
+            itemBtn.appendChild(deleteIcon);
 
             item.appendChild(color);
             item.appendChild(name);
-            item.appendChild(itemDelete);
+            item.appendChild(itemBtn);
 
             dropdownItems.appendChild(item);
         })
-    })
-}
 
-function appendTagList(color, name) {
-    return 
+        let item = document.createElement('div');
+        item.classList.add('item');
+
+        let name = document.createElement('label');
+        name.classList.add('item-name');
+        name.id = 'add-tag';
+        name.htmlFor = 'add-tag-btn';
+        name.textContent = 'Create New Tag';
+
+        let itemBtn = document.createElement('button');
+        itemBtn.id = 'add-tag-btn';
+        itemBtn.classList.add('item-btn');
+
+        itemBtn.addEventListener('click', insertAddTag);
+
+        let addIcon = document.createElement('img');
+        addIcon.classList.add('item-btn-img');
+        addIcon.src = chrome.runtime.getURL('./images/addicon.png')
+
+        itemBtn.appendChild(addIcon);
+
+        item.appendChild(name);
+        item.appendChild(itemBtn);
+
+        dropdownItems.appendChild(item);
+    })
 }
 
 function drawTable() {
@@ -389,20 +411,27 @@ function filter() {
         }
 
     })
-} 
+}
 
 function resetFilter() {
     location.reload();
 }
 
 function randomColor() {
-    colors = ['blueviolet', 'crimson', 'darkorchid', 'darkslateblue', 'darkmagenta', 'deeppink', 'tomato', 'teal', 'sienna', 
-    'rebeccapurple', 'peru', 'orangered', 'limegreen', 'lightslategrey', 'darkslategrey', 'dimgray', 'brown', 'darkred'];
+    colors = ['blueviolet', 'crimson', 'darkorchid', 'darkslateblue', 'darkmagenta', 'deeppink', 'tomato', 'teal', 'sienna',
+        'rebeccapurple', 'peru', 'orangered', 'limegreen', 'lightslategrey', 'darkslategrey', 'dimgray', 'brown', 'darkred'];
 
     return colors[Math.floor(Math.random() * colors.length)]
 }
 
-async function addTag(name) {
+async function addTag() {
+    let name = document.getElementById('newtag-input').value;
+
+    if (name === '') {
+        alert("Tag name cannot be empty.");
+        return;
+    }
+        
     const result = await chrome.storage.local.get(['tags']);
     let tags = result.tags;
 
@@ -412,11 +441,70 @@ async function addTag(name) {
 
     await chrome.storage.local.set({ tags: tags });
 
+    updateTagBox();
+    updateTagList();
+
 }
 
 document.getElementById('dropdown-btn').addEventListener('click', () => {
-    document.getElementById('dropdown-items').classList.toggle('open')
+    document.getElementById('dropdown-items').classList.toggle('open');
+    updateTagList();
 })
+
+function insertAddTag() {
+    let name  = document.getElementById('add-tag');
+
+    let newTag = document.createElement('input');
+    newTag.type = 'text';
+    newTag.id = 'newtag-input';
+    newTag.placeholder = 'New Tag'
+
+    let confirmBtn = document.createElement('button');
+    confirmBtn.textContent = 'Confirm';
+    confirmBtn.addEventListener('click', addTag);
+    confirmBtn.id = 'add-tag-confirm';
+    
+    name.insertAdjacentElement("beforebegin", newTag);
+    name.insertAdjacentElement("beforebegin", confirmBtn);
+
+    name.remove();
+    document.getElementById('add-tag-btn').remove()
+}
+
+    // let name  = document.getElementById('add-tag');
+
+    // let newTag = document.createElement('input');
+    // newTag.type = 'text';
+    
+    // name.insertAdjacentElement("beforebegin", newTag);
+    // name.remove()
+
+
+
+    // let item = document.createElement('div');
+    // item.classList.add('item');
+
+    //     // let name = document.createElement('label');
+    //     name.classList.add('item-name');
+    //     name.id = 'add-tag';
+    //     name.htmlFor = 'add-tag-btn';
+    //     name.textContent = 'Create New Tag';
+
+    //     let itemBtn = document.createElement('span');
+    //     itemBtn.classList.add('item-btn');
+
+    //     let addIcon = document.createElement('img');
+    //     addIcon.classList.add('item-btn-img');
+    //     addIcon.id = 'add-tag-btn';
+    //     addIcon.src = chrome.runtime.getURL('./images/addicon.png')
+
+    //     itemBtn.appendChild(addIcon);
+
+    //     item.appendChild(name);
+    //     item.appendChild(itemBtn);
+
+    //     dropdownItems.appendChild(item);
+
 
 // document.getElementById("newTagbtn").addEventListener("click", async function () {
 //     tagName = document.getElementById("newTagName").value;
