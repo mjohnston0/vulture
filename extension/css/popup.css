@@ -220,7 +220,7 @@ table td {
 
 tbody tr {
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s;
 }
 
 tbody tr:hover {
@@ -401,7 +401,7 @@ table th {
     border-right: 1px solid #fff;
   }
   
-  .tab-link:hover {
+  .tab-item:hover {
     background: #2a4a8d;
   }
   
