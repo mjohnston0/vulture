@@ -1,0 +1,381 @@
+input:focus {
+    outline: none;
+}
+
+.page {
+    margin: 0.2rem;
+    background-color: #4682B4;
+    border: none ;
+    border-radius: 2em;
+    color:  #FFFF;
+    text-align: center;
+}
+
+a, .fakelink {
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    color: #000;
+    font-size: 15px;
+    outline: none;
+    padding: 8px;
+    display: block !important;
+}
+
+p.fakelink {
+    color: #999;
+    margin: 0;
+}
+
+
+a:hover {
+    background: #EEE;
+}
+
+hr {
+    margin: 0;
+}
+
+.disabled {
+  color: #000;
+  background-color: #9f9;
+  pointer-events: none;
+  cursor: default;
+}
+
+.task-view {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.task-view .box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 450px;
+    height: 360px;
+    background-color: #456986;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.task-view .box > div {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.task-view .task-detail {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.task-view .label {
+    font-weight: bold;
+    color: #F5F5F5;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.task-view p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #F5F5F5;
+}
+
+.task-view .info-box {
+    color: #F5F5F5;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+
+.task-view .close-btn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #F5F5F5;
+    background-color: #e87979;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.task-view .close-btn:hover {
+    background-color: #d66868;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.todo {
+    border: 3px inset;
+    margin: 2rem;
+    height: 90%;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    background-color: #F5F5F5;
+}
+
+.todo-head {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+}
+
+.todo-head h2 {
+    width: 10%;
+    text-align: center;
+}
+
+.todo-action {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.todo-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.todo-filter div {
+    display: flex;
+    margin: 8px;
+}
+
+.todo-filter div label {
+    margin-right: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #F5F5F5;
+}
+
+table td {
+    text-align: center;
+    height: 40px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+    background-color: #456986;
+}
+
+#data-des {
+    text-align: left;
+    padding-left: 16px;
+}
+
+table th {
+    border: 1px #B5B5B5 solid;
+    height: 32px;
+}
+
+.table-header {
+    box-shadow: 1px 1px 5px hsl(0, 0%, 25%);
+}
+
+#tbl-title,
+#tbl-due {
+    width: 15%;
+}
+
+#tbl-description {
+    width: 30%;
+}
+
+#tbl-tag,
+#tbl-edit,
+#tbl-status,
+#tbl-del {
+    width: 10%;
+}
+
+.toggle {
+    width: 48px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+    background-color: #00A6DB;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    background-color: #ccc;
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle span::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #fff;
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked+span {
+    background-color: #00A6DB;
+}
+
+.toggle input:checked+span::before {
+    transform: translateX(24px);
+}
+
+.status-toggle {
+    width: 48px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+    background-color: #00A6DB;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.status-toggle input {
+    display: none;
+}
+
+.status-toggle span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    background-color: #9DE267;
+    transition: all 0.4s ease-in-out;
+}
+
+.status-toggle span::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 27px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #fff;
+    transition: all 0.4s ease-in-out;
+}
+
+.status-toggle input:checked+span {
+    background-color: #ccc;
+}
+
+.status-toggle input:checked+span::before {
+    transform: translateX(-24px);
+}
+
+  .box {
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid #FFFF;
+    padding: 10px;
+    background-color: #2C3E50;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: auto;
+    overflow: auto;
+  }
+
+  .tab-menu {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    overflow: hidden;
+    background: #2E5EAA;
+    border-radius: 20px;
+    margin: 0;
+    border: 1px solid #ddd;
+  }
+  
+  .tab-item {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    background: #456986;
+    border-radius: 20px 20px 0 0;
+    margin: 0 5px;
+    transition: background-color 0.4s ease;
+    flex: 1;
+    text-align: center;
+    border-radius: 0;
+    margin: 0;
+    border-right: 1px solid #fff;
+  }
+  
+  .tab-item:hover {
+    background: #2a4a8d;
+  }
+  
+
+  .custom-select-wrapper {
+    width: 300px;
+    margin: auto;
+    justify-self: center;
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+  }
+
+  
+.custom-select {
+    background-color: #456986;
+    border-radius: 15px;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    width: 50%;
+    cursor: pointer;
+    line-height: 1.5;
+    margin: auto;
+    color: #F5F5F5;
+    text-align: center;
+  }
