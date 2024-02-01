@@ -68,7 +68,95 @@ input:focus {
     font-size: 16px;
 }
 
-.editbox .box .fitem .tagipt {
+.ipt-tag {
+    width: 250px;
+    height: 40px;
+    /* box-shadow: inset 0px 0px 0px 2px #e5e5e5; */
+    position: relative;
+}
+
+.dropdown-btn {
+    padding: 8px 10px;
+    border-radius: 3px;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+#dropdown-img {
+    width: 1em;
+    height: 1em;
+}
+
+.dropdown-items {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: fit-content;
+    max-height: 400%;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    background-color: #fff;
+    overflow-y: scroll;
+    opacity: 0;
+}
+
+.dropdown-items.open {
+    opacity: 1;
+}
+
+.item {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-color {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 100%;
+    background-color: #00A6DB;
+}
+
+.item-delete-btn {
+    width: 1em;
+    height: 1em;
+    cursor: pointer;
+}
+
+
+
+/* #tag {
+    border: #00A6DB;
+    width: 100%;
+    height: 100%;
+} */
+
+/* #edit-tag {
+    height: 24px;
+    margin-left: 10px;
+}
+
+.tag-popup {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tag-popup.open {
+    opacity: 1;
+    z-index: 9999;
+} */
+
+/* .editbox .box .fitem .tagipt {
     width: 190px !important;
     background: #fff;
     margin-left: 0;
@@ -85,21 +173,21 @@ input:focus {
     font-size: 13px;
     justify-content: space-between;
     position: relative;
-}
+} */
 
 .editbox .box .fitem .tagipt .ipt {
     display: flex;
     align-items: center;
 }
 
-.editbox .box .fitem .tagipt .ipt::after {
+/* .editbox .box .fitem .tagipt .ipt::after {
     content: '';
     width: 12px;
     height: 12px;
     background-size: 100%;
-}
+} */
 
-.editbox .box .fitem .tagipt .tags {
+/* .editbox .box .fitem .tagipt .tags {
     width: 100%;
     position: absolute;
     top: 37px;
@@ -140,8 +228,8 @@ input:focus {
     -ms-border-radius: 99px;
     -o-border-radius: 99px;
     margin-left: 8px;
-}
-
+} */
+/* 
 .editbox .box .fitem .tagipt .tags .tag2 span {
     background: #db8300;
 }
@@ -194,7 +282,7 @@ input:focus {
     background: url(../images/addicon.png);
     background-size: 100%;
     margin-left: 10px;
-}
+} */
 
 .editbox .box .fitem2 {
     height: auto;
@@ -236,13 +324,13 @@ input:focus {
     align-items: center;
 }
 
-.editbox .box .fitem3 .ipt::after {
+/* .editbox .box .fitem3 .ipt::after {
     content: '';
     width: 25px;
     height: 25px;
     background: url(../images/dataicon.png);
     background-size: 100%;
-}
+} */
 
 .editbox .addBtn {
     width: 345px;

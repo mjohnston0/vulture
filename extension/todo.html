@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 
-<meta charset="UTF-8">
-
-<title>To to List</title>
-<link rel="stylesheet" href="./css/todo.css">
-<link rel="stylesheet" href="./css/font_234130_nem7eskcrkpdgqfr.css">
-</head>
 <html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>To to List</title>
+    <link rel="stylesheet" href="./css/todo.css">
+    <link rel="stylesheet" href="./css/font_234130_nem7eskcrkpdgqfr.css">
+</head>
 
 <body>
     <h1>To Do List</h1>
@@ -91,15 +92,24 @@
         </div>
         <div class="fitem">
             <span class="name">Tag</span>
-            <div class="tagipt">
-                <div class="ipt">
-                    <select id="tag">
 
-                    </select>
+            <div class="ipt-tag">
+                <div class="dropdown-btn" id="dropdown-btn">
+                    <span id="selected-item">Select Tag</span>
+                    <span>
+                        <!-- <i class="fa-solid fa-caret-down"></i> -->
+                        <img id="dropdown-img" src="./images/sjxicon.png">
+                    </span>
                 </div>
+
+                <div class="dropdown-items" id="dropdown-items"></div>
             </div>
-            <input type="text" id="newTagName" placeholder="New Tag">
-            <button id="newTagbtn">Add New Tag</button>
+            <!-- <div class="ipt-tag">
+                <select id="tag" class="tag-list"></select>
+            </div> -->
+            <!-- <button id="openEditTag">Edit Tag</button> -->
+            <!-- <input type="text" id="newTagName" placeholder="New Tag">
+            <button id="newTagbtn">Add New Tag</button> -->
         </div>
         <div class="fitem fitem2">
             <span class="name">Description</span>
@@ -125,6 +135,29 @@
         </div>
     </div>
 </div>
+
+
+<!-- <div class="tag-popup" id="tagPopup">
+    <div class="tag-popup-inner">
+
+        <div>
+            <label for="addTag">Add Tag</label>
+            <div>
+                <input type="text" id="addTag" placeholder="New Tag">
+                <button>Confirm</button>
+            </div>
+        </div>
+
+        <div>
+            <label for="deleteTag">Delete Tag</label>
+            <div>
+                <select class="tag-list"></select>
+                <button>Delete</button>
+            </div>
+        </div>
+
+    </div>
+</div> -->
 
 <script src="js/to-do.js"></script>
 

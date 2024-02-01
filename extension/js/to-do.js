@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     updateTagBox();
+    updateTagList();
 
 });
 
@@ -15,7 +16,7 @@ function updateTagBox() {
     chrome.storage.local.get(["tags"], function (result) {
         let tags = result.tags;
         let tagFilterBox = document.getElementById("tags");
-        tagFilterBox.innerHTML = '<select id="tags"><option value=""></option></select>'
+        tagFilterBox.options.length = 1
         for (let key of Object.keys(tags)) {
             let newOption = document.createElement("option");
             newOption.value = key;
@@ -23,6 +24,47 @@ function updateTagBox() {
             tagFilterBox.appendChild(newOption);
         }
     })
+}
+
+function updateTagList() {
+    chrome.storage.local.get(["tags"], function (result) {
+        let tags = result.tags;
+        let dropdownItems = document.getElementById('dropdown-items');
+        
+        dropdownItems.innerHTML = '<div class="dropdown-items" id="dropdown-items"></ div>'
+
+        Object.keys(tags).forEach((key) => {
+            let item = document.createElement('div');
+            item.classList.add('item');
+
+            let color = document.createElement('span');
+            color.classList.add('item-color');
+            color.style.background = tags[key]
+
+            let name = document.createElement('span');
+            name.classList.add('item-name');
+            name.textContent = key;
+
+            let itemDelete = document.createElement('span');
+            itemDelete.classList.add('item-delete');
+
+            let deleteIcon = document.createElement('img');
+            deleteIcon.classList.add('item-delete-btn');
+            deleteIcon.src = chrome.runtime.getURL('./images/deleticon.png')
+
+            itemDelete.appendChild(deleteIcon);
+
+            item.appendChild(color);
+            item.appendChild(name);
+            item.appendChild(itemDelete);
+
+            dropdownItems.appendChild(item);
+        })
+    })
+}
+
+function appendTagList(color, name) {
+    return 
 }
 
 function drawTable() {
@@ -139,7 +181,7 @@ function editTask(id) {
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         document.getElementById("title").value = todo.tasks[id].TITLE;
-        document.getElementById("tag").value = todo.tasks[id].TAG;
+        // document.getElementById("tag").value = todo.tasks[id].TAG;
         document.getElementById("description").value = todo.tasks[id].DESCRIPTION;
         currentTodoId = id
         document.getElementById("taskDueDate").value = todo.tasks[id].DUE
@@ -209,19 +251,27 @@ function showAddBtn() {
     updateTagList();
 }
 
-function updateTagList() {
-    tagElement = document.getElementById('tag');
-    tagElement.innerHTML = '<select id="tag"></select>'
+// function updateTagList() {
+//     let tag = document.getElementById('tagDropdown');
 
-    chrome.storage.local.get(['tags'], function (result) {
-        tags = result.tags;
+// }
+// function updateTagList() {
+//     tagElements = document.getElementsByClassName('tag-list');
 
-        Object.keys(tags).forEach((key) => {
-            option = new Option(key, key);
-            tagElement.options.add(option);
-        })
-    })
-}
+//     chrome.storage.local.get(['tags'], function (result) {
+//         tags = result.tags;
+
+//         for (element of tagElements) {
+//             element.options.length = 0
+
+//             Object.keys(tags).forEach((key) => {
+//                 option = new Option(key, key);
+//                 element.options.add(option);
+//             })
+//         }
+
+//     })
+// }
 
 document.getElementById("addTask").addEventListener("click", function () {
     clearText();
@@ -234,7 +284,7 @@ discard.addEventListener('click', toggleEditBox)
 
 edit.addEventListener("click", function () {
     var title = document.getElementById("title").value
-    var tag = document.getElementById("tag").value
+    // var tag = document.getElementById("tag").value
     var description = document.getElementById("description").value
     var due = document.getElementById("taskDueDate").value
 
@@ -257,7 +307,7 @@ edit.addEventListener("click", function () {
 
 save.addEventListener("click", function () {
     var title = document.getElementById("title").value
-    var tag = document.getElementById("tag").value
+    // var tag = document.getElementById("tag").value
     var description = document.getElementById("description").value
     var due = document.getElementById("taskDueDate").value
 
@@ -285,7 +335,7 @@ function toggleEditBox() {
 
 function clearText() {
     document.getElementById("title").value = "";
-    document.getElementById("tag").value = "";
+    // document.getElementById("tag").value = "";
     document.getElementById("description").value = "";
     document.getElementById("taskDueDate").value = "";
 }
@@ -364,14 +414,23 @@ async function addTag(name) {
 
 }
 
-document.getElementById("newTagbtn").addEventListener("click", async function () {
-    tagName = document.getElementById("newTagName").value;
-    if (tagName == "") {
-        alert("Tag name cannot be empty.");
-        return;
-    }
-    await addTag(tagName);
-    updateTagList();
-    updateTagBox();
-
+document.getElementById('dropdown-btn').addEventListener('click', () => {
+    document.getElementById('dropdown-items').classList.toggle('open')
 })
+
+// document.getElementById("newTagbtn").addEventListener("click", async function () {
+//     tagName = document.getElementById("newTagName").value;
+//     if (tagName == "") {
+//         alert("Tag name cannot be empty.");
+//         return;
+//     }
+//     await addTag(tagName);
+//     updateTagList();
+//     updateTagBox();
+
+// })
+// classList.toggle("on")
+// document.getElementById("openEditTag").addEventListener("click", function() {
+//     console.log("LPLP");
+//     document.getElementById("tagPopup").classList.add("open")
+// })
