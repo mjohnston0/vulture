@@ -67,7 +67,6 @@ function drawTable() {
 
         var row = tbody.insertRow()
         row.addEventListener('click', function() {
-          console.log('click');
           openTaskView(task);
         })
         var titleCell = row.insertCell()
@@ -122,7 +121,6 @@ function sortTasks(taskDict) {
 }
 
 function openTaskView(task) {
-  console.log(task);
   document.getElementById('task-view-name').innerText = task.TITLE;
   document.getElementById('task-view-description').innerText = task.DESCRIPTION;
   document.getElementById('task-view-due').innerText = new Date(task.DUE).toLocaleString();

@@ -171,38 +171,6 @@ body {
     margin-right: 8px;
 }
 
-.todo-button {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.todo-button button {
-    margin: 8px;
-}
-
-#addTask {
-    border: none;
-    border-radius: 8px;
-    color: #F5F5F5;
-    background-color: #00A6DB;
-}
-
-#addTask:hover {
-    box-shadow: 3px 3px 5px #65828c8f;
-    cursor: pointer;
-}
-
-#clearTodo {
-    border: none;
-    border-radius: 8px;
-    color: #F5F5F5;
-    background-color: #db2500ca;
-}
-
-#clearTodo:hover {
-    box-shadow: 3px 3px 5px #80605a99;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -345,23 +313,6 @@ table th {
 
 .status-toggle input:checked+span::before {
     transform: translateX(-24px);
-}
-
-.table-button {
-    font-size: 2em;
-    padding: 0;
-    border: none;
-    outline: none;
-    background-color: #F5F5F5;
-    color : red;
-}
-
-.edit-button {
-    font-size: 2em;
-    padding: 0;
-    border: none;
-    outline: none;
-    background-color: #F5F5F5;
 }
 
   .box {
