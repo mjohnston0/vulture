@@ -14,9 +14,6 @@
         }
     ],
 	"omnibox": { "keyword" : "v" },
-    "host_permissions": [
-        "*://*/*"
-    ],
     "permissions": [
         "storage",
         "unlimitedStorage",
