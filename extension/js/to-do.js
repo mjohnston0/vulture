@@ -123,7 +123,8 @@ function renderTable(tasksDict, tags) {
     for (let entry of tasks) {
         let taskID = entry[0];
         let task = entry[1];
-        if (!showDone && task.STATUS) {
+        var isDone = isInPast(task.DUE);
+        if (!showDone && (task.STATUS|| isDone)) {
             continue;
         }
         var row = table.insertRow()
@@ -156,13 +157,23 @@ function renderTable(tasksDict, tags) {
         var toggle = document.createElement('label');
         toggle.classList.add('status-toggle')
         var span = document.createElement('span');
+        
+        var textSpan = document.createElement('span');
+        var textNode = document.createTextNode("null");
 
-        var statusCell = row.insertCell()
-        var statusBox = document.createElement('input')
+        var statusCell = row.insertCell();
+        var statusBox = document.createElement('input');
+        
         statusBox.type = "checkbox"
-        if (task.STATUS == true) {
+
+        if (task.STATUS) {
             statusBox.checked = true;
+            textNode.nodeValue = isDone ? "Finished" : "Inactive";
+        } else {
+            statusBox.checked = false ;
+            textNode.nodeValue = isDone ? "Finished" : "Active";
         }
+
         statusBox.addEventListener("change", function (e) {
             var check = this.checked;
             chrome.storage.local.get(["todo"], function (result) {
@@ -173,11 +184,15 @@ function renderTable(tasksDict, tags) {
             })
 
         })
+        textSpan.appendChild(textNode);
+        textSpan.classList.add('status-text');
+
         toggle.appendChild(statusBox);
         toggle.appendChild(span);
 
-        statusCell.appendChild(toggle)
 
+        statusCell.appendChild(toggle)
+        statusCell.appendChild(textSpan)
 
         var deleteCell = row.insertCell();
         var deleteButton = document.createElement('button');
@@ -190,6 +205,16 @@ function renderTable(tasksDict, tags) {
         });
         deleteCell.appendChild(deleteButton);
     }
+}
+
+function isInPast(otherDate){
+    try {
+        var providedDate = new Date(otherDate);
+        var currentDate = new Date();
+        return providedDate < currentDate
+      } catch (error) {
+        return -1;
+      }
 }
 
 function sortTasks(taskDict) {
