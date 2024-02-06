@@ -13,6 +13,14 @@ body {
     box-sizing: border-box;
 }
 
+select {
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
+}
+
 .todo {
     border: 3px inset;
     margin: 2rem;
@@ -51,6 +59,7 @@ body {
 }
 
 .todo-filter div label {
+    line-height: 24px;
     margin-right: 8px;
 }
 
@@ -141,6 +150,7 @@ body {
 
 #clearTodo:hover {
     box-shadow: 3px 3px 5px #80605a99;
+    cursor: pointer;
 }
 
 table {
@@ -235,6 +245,7 @@ table th {
     outline: none;
     background-color: rgba(0, 0, 0, 0);
     color: red;
+    cursor: pointer;
 }
 
 .edit-button {
@@ -243,6 +254,7 @@ table th {
     border: none;
     outline: none;
     background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
 }
 
 .task-tag {
