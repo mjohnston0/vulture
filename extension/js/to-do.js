@@ -279,7 +279,7 @@ function filter() {
     })
 }
 
-document.getElementById('resetFilter').onclick = resetFilter;
+document.getElementById('reset-filter-btn').onclick = resetFilter;
 
 function resetFilter() {
     location.reload();
