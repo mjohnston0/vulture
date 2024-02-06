@@ -292,7 +292,7 @@ table th {
 .editbox .box .fitem .ipt {
     width: 250px;
     height: 40px;
-    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border: #e5e5e5 2px solid;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -318,7 +318,7 @@ table th {
 .dropdown-btn {
     padding: 13px 10px;
     border-radius: 3px;
-    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border: #e5e5e5 2px solid;
     display: flex;
     justify-content: space-between;
     cursor: pointer;
@@ -335,7 +335,7 @@ table th {
     width: 100%;
     height: fit-content;
     max-height: 400%;
-    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border: #e5e5e5 2px solid;
     background-color: #fff;
     overflow-y: scroll;
     opacity: 0;
