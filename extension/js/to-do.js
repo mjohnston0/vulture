@@ -55,7 +55,7 @@ function updateTagList() {
                     chrome.storage.local.get(['tags'], function (result) {
                         let t = result.tags;
                         delete t[key];
-                        chrome.storage.local.set({'tags': t});
+                        chrome.storage.local.set({ 'tags': t });
                         updateTagList();
                         updateTagBox();
                         document.getElementById('dropdown-items').classList.add('open')
@@ -431,119 +431,70 @@ function resetFilter() {
     location.reload();
 }
 
-function randomColor() {
-    colors = ['blueviolet', 'crimson', 'darkorchid', 'darkslateblue', 'darkmagenta', 'deeppink', 'tomato', 'teal', 'sienna',
-        'rebeccapurple', 'peru', 'orangered', 'limegreen', 'lightslategrey', 'darkslategrey', 'dimgray', 'brown', 'darkred'];
-
-    return colors[Math.floor(Math.random() * colors.length)]
-}
-
-async function addTag() {
-    let name = document.getElementById('newtag-input').value;
-
-    if (name === '') {
-        alert("Tag name cannot be empty.");
-        return;
-    }
-        
-    const result = await chrome.storage.local.get(['tags']);
-    let tags = result.tags;
-
-    if (name in tags) {
-        alert("Tag already exists.");
-        return;
-    }
-
-    tags[name] = randomColor();
-
-    await chrome.storage.local.set({ tags: tags });
-
-    updateTagBox();
-    updateTagList();
-
-}
-
 document.getElementById('dropdown-btn').addEventListener('click', () => {
     document.getElementById('dropdown-items').classList.toggle('open');
     updateTagList();
 })
 
 function insertAddTag() {
-    let name  = document.getElementById('add-tag');
+    let addTag = document.getElementById('add-tag');
 
     let newTag = document.createElement('input');
     newTag.type = 'text';
     newTag.id = 'newtag-input';
     newTag.placeholder = 'New Tag'
 
-    let confirmBtn = document.createElement('button');
-    confirmBtn.textContent = 'Confirm';
-    confirmBtn.addEventListener('click', addTag);
-    confirmBtn.id = 'add-tag-confirm';
-    
-    name.insertAdjacentElement("beforebegin", newTag);
-    name.insertAdjacentElement("beforebegin", confirmBtn);
+    newTag.onkeydown = async (e) => {
+        if (e.code == 'Enter') {
+            let name = document.getElementById('newtag-input').value;
 
-    name.remove();
+            if (name === '') {
+                alert("Tag name cannot be empty.");
+                return;
+            }
+
+            const result = await chrome.storage.local.get(['tags']);
+            let tags = result.tags;
+
+            if (name in tags) {
+                alert("Tag already exists.");
+                return;
+            }
+
+            tags[name] = document.getElementById('color-picker').value;
+
+            await chrome.storage.local.set({ tags: tags });
+
+            updateTagBox();
+            updateTagList();
+        }
+    }
+
+    let colorPickerWrapper = document.createElement('div');
+    colorPickerWrapper.id = 'color-picker-wrapper';
+
+    let colorPicker = document.createElement('input');
+    colorPicker.type = 'color';
+    colorPicker.id = 'color-picker';
+    colorPicker.value = '#00A6DB';
+
+    colorPicker.onchange = () => {
+        colorPickerWrapper.style.backgroundColor = colorPicker.value;
+    }
+
+    colorPickerWrapper.appendChild(colorPicker);
+
+    addTag.insertAdjacentElement('beforebegin', newTag);
+    addTag.insertAdjacentElement("beforebegin", colorPickerWrapper);
+
+    addTag.remove();
     document.getElementById('add-tag-btn').remove()
 }
-
-    // let name  = document.getElementById('add-tag');
-
-    // let newTag = document.createElement('input');
-    // newTag.type = 'text';
-    
-    // name.insertAdjacentElement("beforebegin", newTag);
-    // name.remove()
-
-
-
-    // let item = document.createElement('div');
-    // item.classList.add('item');
-
-    //     // let name = document.createElement('label');
-    //     name.classList.add('item-name');
-    //     name.id = 'add-tag';
-    //     name.htmlFor = 'add-tag-btn';
-    //     name.textContent = 'Create New Tag';
-
-    //     let itemBtn = document.createElement('span');
-    //     itemBtn.classList.add('item-btn');
-
-    //     let addIcon = document.createElement('img');
-    //     addIcon.classList.add('item-btn-img');
-    //     addIcon.id = 'add-tag-btn';
-    //     addIcon.src = chrome.runtime.getURL('./images/addicon.png')
-
-    //     itemBtn.appendChild(addIcon);
-
-    //     item.appendChild(name);
-    //     item.appendChild(itemBtn);
-
-    //     dropdownItems.appendChild(item);
-
-
-// document.getElementById("newTagbtn").addEventListener("click", async function () {
-//     tagName = document.getElementById("newTagName").value;
-//     if (tagName == "") {
-//         alert("Tag name cannot be empty.");
-//         return;
-//     }
-//     await addTag(tagName);
-//     updateTagList();
-//     updateTagBox();
-
-// })
-// classList.toggle("on")
-// document.getElementById("openEditTag").addEventListener("click", function() {
-//     console.log("LPLP");
-//     document.getElementById("tagPopup").classList.add("open")
-// })
 
 async function populateData() {
 
 
-    for (i=0; i< 10; i++) {
+    for (i = 0; i < 10; i++) {
 
         await addTag(`tag${i}`);
         updateTagList();
@@ -552,7 +503,7 @@ async function populateData() {
     }
 
 
-    chrome.storage.local.get(['index'], function(result) {
+    chrome.storage.local.get(['index'], function (result) {
         let index = result.index;
 
         index['activists'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
@@ -562,18 +513,18 @@ async function populateData() {
         index['editorial'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
         index['food'] = ['https://www.bbc.co.uk/news/scotland', 'https://www.bbc.co.uk/news/world'];
 
-        chrome.storage.local.set({index: index});
+        chrome.storage.local.set({ index: index });
     })
 
-    chrome.storage.local.get(['todo'], function(result) {
+    chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
-        for (x=0; x<90; x++) {
+        for (x = 0; x < 90; x++) {
             let z = x % 10;
             todo.count++;
-            todo.tasks[x] = { ID: x, TITLE: `test${x}`, DESCRIPTION: `test${x}`, DUE: `2024-02-0${1+z}T0${z}:00`, TAG: `tag${z}`, STATUS: false };
+            todo.tasks[x] = { ID: x, TITLE: `test${x}`, DESCRIPTION: `test${x}`, DUE: `2024-02-0${1 + z}T0${z}:00`, TAG: `tag${z}`, STATUS: false };
         }
 
-        chrome.storage.local.set({todo: todo});
+        chrome.storage.local.set({ todo: todo });
         renderTable(todo.tasks);
-    })   
+    })
 }
