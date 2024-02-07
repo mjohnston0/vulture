@@ -54,6 +54,18 @@ function renderTable(allowlist) {
 
     descCell.appendChild(select);
 
+    
+    select.onchange = function (e){
+      chrome.storage.local.get(['allowlist'], function (result) {
+        let allowList = result.allowlist;
+        allowList.list[allowedItemID].TYPE = select.value;
+        chrome.storage.local.set({ allowlist: allowList });
+        renderTable(allowList.list);
+    })
+
+
+    }
+
     var checkCell = row.insertCell();
     var checkActive = document.createElement("input");
     
@@ -62,13 +74,13 @@ function renderTable(allowlist) {
     
 
     checkCell.appendChild(checkActive);
+    
 
     
     checkActive.onchange = function (e) {
       var check = this.checked;
       chrome.storage.local.get(['allowlist'], function (result) {
           let allowList = result.allowlist;
-          console.log(allowList.list)
           allowList.list[allowedItemID].IS_ACTIVE = check;
           chrome.storage.local.set({ allowlist: allowList });
           renderTable(allowList.list);
@@ -82,13 +94,21 @@ function renderTable(allowlist) {
     deleteButton.textContent = "DELETE";
 
     deleteButton.addEventListener("click", function () {
-      chrome.storage.local.get(["allowlist"], function (result) {
-        let allowList = result.allowlist;
-        delete allowList.list[allowedItemID];
-        allowList.count--;
-        chrome.storage.local.set({ allowlist: allowList });
-        renderTable(allowList.list);
-      });
+      if(  confirm(
+        `Are you sure you want to delete this allow list item?
+        \nThis is permanent and cannot be undone!`
+      )){
+        chrome.storage.local.get(["allowlist"], function (result) {
+          let allowList = result.allowlist;
+          delete allowList.list[allowedItemID];
+          allowList.count--;
+          chrome.storage.local.set({ allowlist: allowList });
+          renderTable(allowList.list);
+        });
+      }else{
+        location.reload();
+      }
+
     });
     deleteCell.appendChild(deleteButton);
   });
