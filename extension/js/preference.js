@@ -134,8 +134,11 @@ deleteAll.addEventListener("click", function () {
   let kw = document.getElementById("suggestions_dropdown").value;
 
   console.log("1");
+  if(kw == ""){
+    alert("Please input a valid keyword");
+  }
 
-  if (
+  else if (
     confirm(
       `Are you sure you want to delete all URLs associated with the keyword: "${kw}" ?
       \nThis is permanent and cannot be undone!`
