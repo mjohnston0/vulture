@@ -201,7 +201,16 @@ table th {
     background-color: #00A6DB;
     border-radius: 100px;
     cursor: pointer;
+    align-items: center;
+    font-weight: bold;
+    vertical-align: middle;
 }
+
+.status-text {
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
 
 .status-toggle input {
     display: none;
