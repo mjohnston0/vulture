@@ -51,7 +51,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         let todo = request.todo;
         let date = new Date(todo.DUE);
 
-        date.setDate(date.getDate() - 1)
         chrome.alarms.create(todo.ID.toString(), { when: new Date(date).getTime()});
     }
 })
