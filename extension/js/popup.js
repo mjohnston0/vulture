@@ -34,7 +34,6 @@ function drawTable() {
     let tasks = sortTasks(tasksDict);
 
     let filter_option = document.getElementById('task_filter').value;
-    let i = 0;
 
     let toShow = []
 
@@ -59,9 +58,6 @@ function drawTable() {
     }
 
     for (let entry of toShow) {
-      if (i>=5) {
-        return;
-      }
       let taskID = entry[0];
       let task = entry[1];
 
@@ -106,8 +102,6 @@ function drawTable() {
         toggle.appendChild(span);
 
         statusCell.appendChild(toggle)
-
-        i++;
     }
   }
 
