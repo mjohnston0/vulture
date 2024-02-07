@@ -57,8 +57,12 @@ async function isValid() {
 
             if (element.TYPE === 'PAGE' && element.VALUE.localeCompare(url) === 0) return true;
 
-            if (element.TYPE === 'REGEX' && element.VALUE.match(url)) return true;
-
+            if (element.TYPE === 'REGEX'){
+                let reg = new RegExp(element.VALUE);
+                if(reg.exec(url) != null){
+                    return true;
+                }
+            }
         }
     }
 
