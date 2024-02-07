@@ -77,7 +77,7 @@ function drawTable() {
         descCell.innerHTML = task.DESCRIPTION
 
         var dueCell = row.insertCell()
-        dueCell.innerHTML = task.DUE.slice(-5) + " " + task.DUE.slice(8, 10) + "/" + task.DUE.slice(5, 7) + " " + task.DUE.slice(0, 4)
+        dueCell.innerHTML = task.DUE.slice(-5) + " " + task.DUE.slice(8, 10) + "/" + task.DUE.slice(5, 7)
 
         var tagCell = row.insertCell()
         tagCell.innerHTML = task.TAG
