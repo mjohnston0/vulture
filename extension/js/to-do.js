@@ -129,6 +129,8 @@ function editTask(id) {
         document.getElementById('description').value = todo.tasks[id].DESCRIPTION;
         currentTodoId = id;
         document.getElementById('taskDueDate').value = todo.tasks[id].DUE;
+
+        displayTag(todo.tasks[id].TAG);
     })
 
 }
@@ -301,6 +303,26 @@ function updateTagBox() {
     })
 }
 
+function displayTag(name) {
+    chrome.storage.local.get(['tags'], function (result) {
+        let tags = result.tags;
+        let selectedItem = document.getElementById('selected-item');
+
+        selectedItem.innerHTML = '<span id="selected-item"></span>';
+
+        let tag = document.createElement('div');
+        tag.classList.add('task-tag');
+        tag.style.background = tags[name];
+        tag.innerHTML = name;
+
+        selectedItem.appendChild(tag);
+
+        document.getElementById('dropdown-btn').style.padding = '10px';
+
+        document.getElementById('dropdown-items').classList.remove('open');
+    })
+}
+
 function updateTagList() {
     chrome.storage.local.get(['tags'], function (result) {
         let tags = result.tags;
@@ -314,20 +336,7 @@ function updateTagList() {
             item.value = key;
             item.onclick = function (e) {
                 if (e.target.value) {
-                    let selectedItem = document.getElementById('selected-item');
-
-                    selectedItem.innerHTML = '<span id="selected-item"></span>'
-
-                    let tag = document.createElement('div');
-                    tag.classList.add('task-tag');
-                    tag.style.background = tags[e.target.value];
-                    tag.innerHTML = e.target.value;
-
-                    selectedItem.appendChild(tag);
-
-                    document.getElementById('dropdown-btn').style.padding = '10px';
-
-                    document.getElementById('dropdown-items').classList.remove('open');
+                    displayTag(e.target.value);
                 }
             }
 
@@ -352,7 +361,7 @@ function updateTagList() {
                         let selectedItem = document.getElementById('selected-item');
 
                         if (key === selectedItem.textContent) {
-                            selectedItem.innerHTML = '<span id="selected-item">Select Tag</span>';
+                            selectedItem.textContent = 'Select Tag'
                             document.getElementById('dropdown-btn').style.padding = '13px 10px';
                         }
 
