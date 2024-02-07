@@ -26,7 +26,7 @@ chrome.runtime.onInstalled.addListener(function () {
             let count = 0;
 
             DEFAULT_ALLOWLIST_SITE.forEach(((element) => {
-                list[count] = {ID: count, VALUE: element, TYPE: 'SITE', IS_ACTIVE: true};
+                list[count] = {ID: count, VALUE: element, TYPE: 'DOMAIN', IS_ACTIVE: true};
                 count++;
             }))
 

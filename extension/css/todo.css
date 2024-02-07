@@ -161,6 +161,8 @@ table {
 table td {
     text-align: center;
     height: 40px;
+    word-break: break-word;
+    white-space: normal;
 }
 
 #data-des {

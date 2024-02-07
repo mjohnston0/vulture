@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function renderTable(allowlist) {
-  console.log(allowlist);
   var table = document.getElementById("allowlist_tbl");
   table.innerHTML =
     '<tr class="table-header"><th id="tbl-value">Value</th><th id="tbl-type">Type</th><th id="tbl-enable">Enable</th><th id="tbl-delete">Delete</th>';
@@ -19,12 +18,33 @@ function renderTable(allowlist) {
   Object.values(allowlist).forEach((element) => {
     var row = table.insertRow();
     var titleCell = row.insertCell();
+    var allowedItemID = element.ID;
     titleCell.innerHTML = element.VALUE;
+    titleCell.setAttribute("contenteditable", "true");
+    titleCell.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+          event.preventDefault();
 
+          chrome.storage.local.get(['allowlist'], function (result) {
+            let allowList = result.allowlist;
+            if(  confirm(
+              `Are you sure you want to change item value from"${allowList.list[allowedItemID].VALUE}"  to "${titleCell.innerHTML}"?`
+            )){
+              allowList.list[allowedItemID].VALUE = titleCell.innerHTML
+              console.log(titleCell.innerHTML);
+              chrome.storage.local.set({ allowlist: allowList });
+              renderTable(allowList.list);
+            }else{
+              location.reload();
+            }
+
+        })
+      }
+  });
     var descCell = row.insertCell();
     descCell.id = "data-des";
     let select = document.createElement("select");
-    let options = ["SITE", "PAGE", "REGEX"];
+    let options = ["DOMAIN", "PAGE", "REGEX"];
 
     options.forEach((element) => {
       select.options.add(new Option(element, element));
@@ -34,25 +54,61 @@ function renderTable(allowlist) {
 
     descCell.appendChild(select);
 
-    var radioCell = row.insertCell();
-    var radio = document.createElement("input");
-    radio.type = "radio";
-    radio.checked = element.IS_ACTIVE;
+    
+    select.onchange = function (e){
+      chrome.storage.local.get(['allowlist'], function (result) {
+        let allowList = result.allowlist;
+        allowList.list[allowedItemID].TYPE = select.value;
+        chrome.storage.local.set({ allowlist: allowList });
+        renderTable(allowList.list);
+    })
 
-    radioCell.appendChild(radio);
+
+    }
+
+    var checkCell = row.insertCell();
+    var checkActive = document.createElement("input");
+    
+    checkActive.type = "checkbox";
+    checkActive.checked = element.IS_ACTIVE;
+    
+
+    checkCell.appendChild(checkActive);
+    
+
+    
+    checkActive.onchange = function (e) {
+      var check = this.checked;
+      chrome.storage.local.get(['allowlist'], function (result) {
+          let allowList = result.allowlist;
+          allowList.list[allowedItemID].IS_ACTIVE = check;
+          chrome.storage.local.set({ allowlist: allowList });
+          renderTable(allowList.list);
+      })
+
+  }
+
 
     var deleteCell = row.insertCell();
     var deleteButton = document.createElement("button");
     deleteButton.textContent = "DELETE";
-    var deleteID = element.ID;
+
     deleteButton.addEventListener("click", function () {
-      chrome.storage.local.get(["allowlist"], function (result) {
-        let allowList = result.allowlist;
-        delete allowList.list[deleteID];
-        allowList.count--;
-        chrome.storage.local.set({ allowlist: allowList });
-        renderTable(allowList.list);
-      });
+      if(  confirm(
+        `Are you sure you want to delete this allow list item?
+        \nThis is permanent and cannot be undone!`
+      )){
+        chrome.storage.local.get(["allowlist"], function (result) {
+          let allowList = result.allowlist;
+          delete allowList.list[allowedItemID];
+          allowList.count--;
+          chrome.storage.local.set({ allowlist: allowList });
+          renderTable(allowList.list);
+        });
+      }else{
+        location.reload();
+      }
+
     });
     deleteCell.appendChild(deleteButton);
   });
@@ -69,7 +125,7 @@ document.getElementById("add_entry_btn").addEventListener("click", function () {
     list = result.allowlist.list;
     console.log(list);
     count = result.allowlist.count;
-    list[count] = { ID: count, VALUE: value, TYPE: type, IS_ACTIVE: true };
+    list[count] = { ID: count, IS_ACTIVE: true , TYPE: type,  VALUE: value};
     count++;
     chrome.storage.local.set({ allowlist: { count: count, list: list } });
     renderTable(list);
@@ -118,8 +174,10 @@ deleteAll.addEventListener("click", function () {
   let kw = document.getElementById("suggestions_dropdown").value;
 
   console.log("1");
-
-  if (
+  if(kw == ""){
+    alert("Please input a valid keyword");
+  }
+  else if (
     confirm(
       `Are you sure you want to delete all URLs associated with the keyword: "${kw}" ?
       \nThis is permanent and cannot be undone!`

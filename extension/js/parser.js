@@ -53,7 +53,7 @@ async function isValid() {
 
         if (element.IS_ACTIVE) {
 
-            if (element.TYPE === 'SITE' && element.VALUE.localeCompare(domain) === 0) return true;
+            if (element.TYPE === 'DOMAIN' && element.VALUE.localeCompare(domain) === 0) return true;
 
             if (element.TYPE === 'PAGE' && element.VALUE.localeCompare(url) === 0) return true;
 
