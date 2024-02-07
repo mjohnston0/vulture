@@ -327,7 +327,6 @@ table th {
   }
 
   .tab-menu {
-    /* display: flex; */
     flex: 0 1 auto;
     justify-content: center;
     margin-top: 20px;
@@ -336,7 +335,7 @@ table th {
     border-radius: 20px;
     margin: auto;
     border: 1px solid #ddd;
-    width:70%;
+    width:50%;
     height:40px;
     justify-self: center;
 
