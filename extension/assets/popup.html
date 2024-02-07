@@ -18,11 +18,16 @@
     </head>
     <body>
         <div class="box">
-            <div class="tab-menu">
-                <a class="tab-item" href="../todo.html">To Do List</a>
-                <a class="tab-item" href = "../preference.html">Allow List</a>
+
+            <div class="button-container">            
+                <div class="tab-menu">
+                    <a class="tab-item" href="../todo.html">To Do List</a>
+                </div>
+
+                <a title="Preferences" href = "../preference.html" id="pref-icon-wrapper">
+                    <img src="../images/gearicon.png"  id="pref-icon"/>
+                </a>
             </div>
-            
             <div class="custom-select-wrapper">
                 <select class="custom-select" id="task_filter">
                     <option value="today">Today</option>
