@@ -20,7 +20,27 @@ function renderTable(allowlist) {
     var titleCell = row.insertCell();
     var allowedItemID = element.ID;
     titleCell.innerHTML = element.VALUE;
+    titleCell.setAttribute("contenteditable", "true");
+    titleCell.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+          event.preventDefault();
 
+          chrome.storage.local.get(['allowlist'], function (result) {
+            let allowList = result.allowlist;
+            if(  confirm(
+              `Are you sure you want to change item value from"${allowList.list[allowedItemID].VALUE}"  to "${titleCell.innerHTML}"?`
+            )){
+              allowList.list[allowedItemID].VALUE = titleCell.innerHTML
+              console.log(titleCell.innerHTML);
+              chrome.storage.local.set({ allowlist: allowList });
+              renderTable(allowList.list);
+            }else{
+              location.reload();
+            }
+
+        })
+      }
+  });
     var descCell = row.insertCell();
     descCell.id = "data-des";
     let select = document.createElement("select");
@@ -137,7 +157,6 @@ deleteAll.addEventListener("click", function () {
   if(kw == ""){
     alert("Please input a valid keyword");
   }
-
   else if (
     confirm(
       `Are you sure you want to delete all URLs associated with the keyword: "${kw}" ?
