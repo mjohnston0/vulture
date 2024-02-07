@@ -311,32 +311,35 @@ function updateTagList() {
         Object.keys(tags).forEach(function(key) {
             let item = document.createElement('div');
             item.classList.add('item');
+            item.value = key;
             item.onclick = function(e) {
-                document.getElementById('selected-item').textContent = e.target.textContent;
+                document.getElementById('selected-item').textContent = e.target.value;
                 document.getElementById('dropdown-items').classList.remove('open');
             }
 
             let color = document.createElement('span');
             color.classList.add('item-color');
             color.style.background = tags[key]
+            color.value = key;
 
             let name = document.createElement('span');
             name.classList.add('item-name');
             name.textContent = key;
+            name.value = key;
 
             let itemBtn = document.createElement('button');
             itemBtn.classList.add('item-btn');
             itemBtn.onclick = function() {
-                if (confirm('Are you sure you wish to delete this tag?')) {
-                    chrome.storage.local.get(['tags'], function (result) {
+                chrome.storage.local.get(['tags'], function (result) {
+                    if (confirm('Are you sure you wish to delete this tag?')) {
                         let t = result.tags;
                         delete t[key];
                         chrome.storage.local.set({ 'tags' : t });
                         updateTagList();
                         updateTagBox();
-                        document.getElementById('dropdown-items').classList.add('open');
-                    })
-                }
+                    }
+                    document.getElementById('dropdown-items').classList.add('open');
+                })   
             }
 
             let deleteIcon = document.createElement('img');
@@ -384,13 +387,19 @@ document.getElementById('dropdown-btn').onclick = function() {
     updateTagList();
 }
 
+document.onclick = function(e) {
+    if (!(e.target.closest('.ipt-tag') || e.target.closest('.item-btn'))) {
+        document.getElementById('dropdown-items').classList.remove('open');
+    }
+}
+
 function insertAddTag() {
     let addTag = document.getElementById('add-tag');
 
     let newTag = document.createElement('input');
     newTag.type = 'text';
     newTag.id = 'newtag-input';
-    newTag.placeholder = 'New Tag'
+    newTag.placeholder = 'New Tag';
 
     newTag.onkeydown = async function(e) {
         if (e.code == 'Enter') {
@@ -398,7 +407,6 @@ function insertAddTag() {
 
             if (name === '') {
                 alert('Tag name cannot be empty.');
-                return;
             }
 
             const result = await chrome.storage.local.get(['tags']);
@@ -406,7 +414,6 @@ function insertAddTag() {
 
             if (name in tags) {
                 alert('Tag already exists.');
-                return;
             }
 
             tags[name] = document.getElementById('color-picker').value;
@@ -435,8 +442,10 @@ function insertAddTag() {
     addTag.insertAdjacentElement('beforebegin', newTag);
     addTag.insertAdjacentElement('beforebegin', colorPickerWrapper);
 
+    newTag.focus();
+    
     addTag.remove();
-    document.getElementById('add-tag-btn').remove()
+    document.getElementById('add-tag-btn').remove();
 }
 
 async function populateData() {

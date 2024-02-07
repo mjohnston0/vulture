@@ -375,6 +375,7 @@ table th {
     padding: 13px 16px;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .item-color {
@@ -410,6 +411,7 @@ table th {
     opacity: 0;
     width: 1.5em;
     height: 1.5em;
+    cursor: pointer;
 }
 
 #color-picker-wrapper {
