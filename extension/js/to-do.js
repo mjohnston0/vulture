@@ -17,7 +17,7 @@ function drawTable() {
     })
 }
 
-document.getElementById('showDone').onchange = function() {
+document.getElementById('showDone').onchange = function () {
     chrome.storage.local.get(['todo', 'tags'], function (result) {
         renderTable(result.todo.tasks, result.tags);
     })
@@ -289,7 +289,7 @@ function updateTagBox() {
     chrome.storage.local.get(['tags'], function (result) {
         let tags = result.tags;
         let tagFilterBox = document.getElementById('tags');
-        
+
         tagFilterBox.options.length = 1;
 
         for (let key of Object.keys(tags)) {
@@ -308,13 +308,27 @@ function updateTagList() {
 
         dropdownItems.innerHTML = '<div class="dropdown-items" id="dropdown-items"></ div>'
 
-        Object.keys(tags).forEach(function(key) {
+        Object.keys(tags).forEach(function (key) {
             let item = document.createElement('div');
             item.classList.add('item');
             item.value = key;
-            item.onclick = function(e) {
-                document.getElementById('selected-item').textContent = e.target.value;
-                document.getElementById('dropdown-items').classList.remove('open');
+            item.onclick = function (e) {
+                if (e.target.value) {
+                    let selectedItem = document.getElementById('selected-item');
+
+                    selectedItem.innerHTML = '<span id="selected-item"></span>'
+
+                    let tag = document.createElement('div');
+                    tag.classList.add('task-tag');
+                    tag.style.background = tags[e.target.value];
+                    tag.innerHTML = e.target.value;
+
+                    selectedItem.appendChild(tag);
+
+                    document.getElementById('dropdown-btn').style.padding = '10px';
+
+                    document.getElementById('dropdown-items').classList.remove('open');
+                }
             }
 
             let color = document.createElement('span');
@@ -329,17 +343,25 @@ function updateTagList() {
 
             let itemBtn = document.createElement('button');
             itemBtn.classList.add('item-btn');
-            itemBtn.onclick = function() {
+            itemBtn.onclick = function () {
                 chrome.storage.local.get(['tags'], function (result) {
                     if (confirm('Are you sure you wish to delete this tag?')) {
                         let t = result.tags;
                         delete t[key];
-                        chrome.storage.local.set({ 'tags' : t });
+
+                        let selectedItem = document.getElementById('selected-item');
+
+                        if (key === selectedItem.textContent) {
+                            selectedItem.innerHTML = '<span id="selected-item">Select Tag</span>';
+                            document.getElementById('dropdown-btn').style.padding = '13px 10px';
+                        }
+
+                        chrome.storage.local.set({ 'tags': t });
                         updateTagList();
                         updateTagBox();
                     }
                     document.getElementById('dropdown-items').classList.add('open');
-                })   
+                })
             }
 
             let deleteIcon = document.createElement('img');
@@ -382,12 +404,12 @@ function updateTagList() {
     })
 }
 
-document.getElementById('dropdown-btn').onclick = function() {
+document.getElementById('dropdown-btn').onclick = function () {
     document.getElementById('dropdown-items').classList.toggle('open');
     updateTagList();
 }
 
-document.onclick = function(e) {
+document.onclick = function (e) {
     if (!(e.target.closest('.ipt-tag') || e.target.closest('.item-btn'))) {
         document.getElementById('dropdown-items').classList.remove('open');
     }
@@ -401,7 +423,7 @@ function insertAddTag() {
     newTag.id = 'newtag-input';
     newTag.placeholder = 'New Tag';
 
-    newTag.onkeydown = async function(e) {
+    newTag.onkeydown = async function (e) {
         if (e.code == 'Enter') {
             let name = document.getElementById('newtag-input').value;
 
@@ -433,7 +455,7 @@ function insertAddTag() {
     colorPicker.id = 'color-picker';
     colorPicker.value = '#00A6DB';
 
-    colorPicker.onchange = function() {
+    colorPicker.onchange = function () {
         colorPickerWrapper.style.backgroundColor = colorPicker.value;
     }
 
@@ -443,7 +465,7 @@ function insertAddTag() {
     addTag.insertAdjacentElement('beforebegin', colorPickerWrapper);
 
     newTag.focus();
-    
+
     addTag.remove();
     document.getElementById('add-tag-btn').remove();
 }
