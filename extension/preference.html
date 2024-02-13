@@ -23,23 +23,24 @@
                         <option value="PAGE">PAGE</option>
                         <option value="REGEX">REGEX</option>
                     </select>
-                    <button id="add_entry_btn" >Add To Allow List</button>
-                    
+                    <button id="add_entry_btn">Add To Allow List</button>
+
                     <div>
                         <input type="text" id="delete_value" placeholder="Search for a keyword...">
                         <select id="suggestions_dropdown">
                             <option value="" disabled selected>Select keyword to delete</option>
                         </select>
-                        <button id="delete_all" >Delete Related Entries</button>
+                        <button id="delete_all">Delete Related Entries</button>
                     </div>
                 </div>
-                <div class="listbox" >
+                <div class="listbox">
                     <div class="content" id="table-container">
                         <table id="allowlist_tbl">
-                            <th>Value</th>
-                            <th>Type</th>
-                            <th>Enable</th>
-                            <th>Delete</th>
+                            <tr class="table-header">
+                                <th id="tbl-value">Value</th>
+                                <th id="tbl-type">Type</th>
+                                <th id="tbl-enable">Enable</th>
+                                <th id="tbl-delete">Delete</th>
                         </table>
                     </div>
                 </div>
@@ -49,4 +50,5 @@
 </body>
 
 <script src="js/preference.js"></script>
+
 </html>
