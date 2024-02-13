@@ -43,14 +43,14 @@ function renderTable(allowlist) {
       }
     });
 
+    let typeColor = {'DOMAIN': '#00A6DB', 'PAGE': '#A0D019', 'REGEX': '#DB8300'} 
 
-    var descCell = row.insertCell();
-    descCell.id = "data-des";
-    let select = document.createElement("span");
-
-    select.innerHTML = element.TYPE;
-
-    descCell.appendChild(select);
+    var typeCell = row.insertCell();
+    var type = document.createElement('div');
+    type.classList.add('type-tag');
+    type.style.background = typeColor[element.TYPE];
+    type.innerHTML = element.TYPE;
+    typeCell.appendChild(type);
 
     var checkCell = row.insertCell();
     var checkActive = document.createElement("input");
