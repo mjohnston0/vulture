@@ -10,42 +10,64 @@
 </head>
 
 <body>
-    <div class="main">
-        <div class="con con2">
-            <div class="nbox">
-                <div id="controls">
-                    <p id="title2">Allow list</p>
-                    <lable>Enter domain, page or regex</lable>
-                    <input type="text" id="new_value">
-                    <label>Choose value type</label>
-                    <select id="new_type">
-                        <option value="DOMAIN">DOMAIN</option>
-                        <option value="PAGE">PAGE</option>
-                        <option value="REGEX">REGEX</option>
-                    </select>
-                    <button id="add_entry_btn">Add To Allow List</button>
 
-                    <div>
+    <div class="main">
+
+        <div class="allowlist-head">
+            <h2>Allow list</h2>
+
+            <div class="controls">
+
+                <div class="add-entry">
+                    <h3>Add Allow Value</h3>
+
+                    <div class="add-entry-input">
+                        <label for="new_value">Enter domain, page or regex</label>
+                        <input type="text" id="new_value">
+
+                        <label>Choose value type</label>
+
+                        <select id="new_type">
+                            <option value="DOMAIN">DOMAIN</option>
+                            <option value="PAGE">PAGE</option>
+                            <option value="REGEX">REGEX</option>
+                        </select>
+
+                        <button id="add_entry_btn">Add To Allow List</button>
+                    </div>
+
+                </div>
+
+                <div class="delete-entry">
+                    <h3>Delete Entry</h3>
+
+                    <div class="delete-entry-input">
                         <input type="text" id="delete_value" placeholder="Search for a keyword...">
+
                         <select id="suggestions_dropdown">
                             <option value="" disabled selected>Select keyword to delete</option>
                         </select>
+
                         <button id="delete_all">Delete Related Entries</button>
                     </div>
+
                 </div>
-                <div class="listbox">
-                    <div class="content" id="table-container">
-                        <table id="allowlist_tbl">
-                            <tr class="table-header">
-                                <th id="tbl-value">Value</th>
-                                <th id="tbl-type">Type</th>
-                                <th id="tbl-enable">Enable</th>
-                                <th id="tbl-delete">Delete</th>
-                        </table>
-                    </div>
-                </div>
+
             </div>
+
         </div>
+
+        <table id="allowlist_tbl">
+
+            <tr class="table-header">
+                <th id="tbl-value">Value</th>
+                <th id="tbl-type">Type</th>
+                <th id="tbl-enable">Enable</th>
+                <th id="tbl-delete">Delete</th>
+            </tr>
+
+        </table>
+
     </div>
 </body>
 

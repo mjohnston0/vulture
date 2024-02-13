@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderTable(allowlist) {
   var table = document.getElementById("allowlist_tbl");
   table.innerHTML =
-    '<tr class="table-header"><th id="tbl-value">Value</th><th id="tbl-type">Type</th><th id="tbl-enable">Enable</th><th id="tbl-delete">Delete</th>';
+    '<tr class="table-header"><th id="tbl-value">Value</th><th id="tbl-type">Type</th><th id="tbl-enable">Enable</th><th id="tbl-delete">Delete</th></tr>';
 
   Object.values(allowlist).forEach((element) => {
     var row = table.insertRow();
