@@ -32,13 +32,31 @@ function renderTable(tasksDict, tags) {
     for (let entry of tasks) {
         let taskID = entry[0];
         let task = entry[1];
-        var isDone = isInPast(task.DUE);
-        if (!showDone && (task.STATUS|| isDone)) {
+
+        if (!showDone && task.STATUS) {
             continue;
         }
+
         var row = table.insertRow();
         var titleCell = row.insertCell();
-        titleCell.innerHTML = task.TITLE;
+        if (isInPast(task.DUE)) {
+            var exclamationSpan = document.createElement('span');
+
+            var exclamationNode = document.createTextNode('null');
+            exclamationNode.nodeValue = '!';
+
+            exclamationSpan.appendChild(exclamationNode);
+            exclamationSpan.classList.add('exclamation-text');
+
+            var titleSpan = document.createElement('span');
+            titleSpan.textContent = task.TITLE;
+            titleSpan.classList.add('title-span');
+
+            titleCell.appendChild(exclamationSpan);
+            titleCell.appendChild(titleSpan);
+        } else {
+            titleCell.innerHTML = task.TITLE;
+        }
 
         var descCell = row.insertCell();
         descCell.id = 'data-des';
@@ -77,10 +95,10 @@ function renderTable(tasksDict, tags) {
 
         if (task.STATUS) {
             statusBox.checked = true;
-            textNode.nodeValue = isDone ? "Finished" : "Inactive";
+            textNode.nodeValue = "Inactive";
         } else {
             statusBox.checked = false ;
-            textNode.nodeValue = isDone ? "Finished" : "Active";
+            textNode.nodeValue = "Active";
         }
 
         statusBox.onchange = function (e) {

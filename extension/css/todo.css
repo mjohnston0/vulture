@@ -159,10 +159,12 @@ table {
 }
 
 table td {
+    vertical-align: middle;
     text-align: center;
     height: 40px;
     word-break: break-word;
     white-space: normal;
+    padding: 8px 16px;
 }
 
 #data-des {
@@ -195,6 +197,12 @@ table th {
     width: 10%;
 }
 
+.exclamation-text {
+    font-size: 1.5em;
+    color: red;
+    margin-right: 8px;
+}
+
 .status-toggle {
     width: 48px;
     height: 24px;
@@ -211,7 +219,7 @@ table th {
 .status-text {
     font-weight: bold;
     margin-left: 5px;
-  }
+}
 
 
 .status-toggle input {
