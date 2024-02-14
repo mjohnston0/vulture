@@ -58,6 +58,8 @@ function renderTable(tasksDict, tags) {
             titleCell.innerHTML = task.TITLE;
         }
 
+        titleCell.style.fontWeight = "bold";
+
         var descCell = row.insertCell();
         descCell.id = 'data-des';
         descCell.innerHTML = task.DESCRIPTION;

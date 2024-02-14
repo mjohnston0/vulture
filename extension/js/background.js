@@ -57,7 +57,7 @@ chrome.runtime.onInstalled.addListener(function () {
         let words = selectedText.split(" ").splice(0,5);
         let title = words.join(" ");
         let tabTitle = tab.title;
-        let taskUrl = `<a href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
+        let taskUrl = `<a id="task-url" href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
 
         chrome.storage.local.get(['todo', 'tags'], function (result) {
             let todo = result.todo;
