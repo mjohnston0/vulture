@@ -145,6 +145,7 @@ label {
 .todo-button {
     display: flex;
     justify-content: flex-end;
+    vertical-align: middle;
 }
 
 .todo-button button {
@@ -153,9 +154,14 @@ label {
 
 #addTask {
     border: none;
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
     border-radius: 8px;
+    margin: 10px 10px;
     color: #F5F5F5;
     background-color: #00A6DB;
+    position: relative;
 }
 
 #addTask:hover {
