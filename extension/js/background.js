@@ -54,10 +54,10 @@ chrome.runtime.onInstalled.addListener(function () {
         
     chrome.contextMenus.onClicked.addListener((info, tab) => {
         let selectedText = info.selectionText;
-        let words = selectedText.split(" ").splice(0,4);
+        let words = selectedText.split(" ").splice(0,5);
         let title = words.join(" ");
         let tabTitle = tab.title;
-        let taskUrl = `<a href="${info.pageUrl}" target"_blank">${tabTitle}</a>`;
+        let taskUrl = `<a href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
 
         chrome.storage.local.get(['todo', 'tags'], function (result) {
             let todo = result.todo;
@@ -66,7 +66,7 @@ chrome.runtime.onInstalled.addListener(function () {
             let today = new Date();
             today = today.setDate(today.getDate() + 1);
             let due = new Date(today);
-            todo.tasks[task_id] = { ID: task_id, TITLE: title, DESCRIPTION: selectedText + "\n\n" + taskUrl, DUE: due.toISOString().slice(0,-5), TAG: "DEFAULT", STATUS: false };
+            todo.tasks[task_id] = { ID: task_id, TITLE: title, DESCRIPTION: selectedText + "<br>" + taskUrl, DUE: due.toISOString().slice(0,-8), TAG: "DEFAULT", STATUS: false };
             chrome.storage.local.set({ todo: todo });
         })
     });
