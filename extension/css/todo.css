@@ -21,6 +21,11 @@ a {
     cursor: pointer;
 }
 
+label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .todo {
     border: 3px inset;
     margin: 2rem;
@@ -61,6 +66,23 @@ a {
 .todo-filter div label {
     line-height: 24px;
     margin-right: 8px;
+}
+#tags {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+#search {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+#selectDate {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
 }
 
 .toggle {
@@ -156,13 +178,21 @@ a {
 table {
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 10px 8px;
 }
 
 table td {
+    font-size: 15px;
     text-align: center;
     height: 40px;
     word-break: break-word;
     white-space: normal;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+table tr {
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.3);
 }
 
 #data-des {
@@ -176,6 +206,7 @@ table th {
 }
 
 .table-header {
+    font-size: 16px;
     box-shadow: 1px 1px 5px hsl(0, 0%, 25%);
 }
 
