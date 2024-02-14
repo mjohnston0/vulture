@@ -44,6 +44,34 @@ chrome.runtime.onInstalled.addListener(function () {
             console.log("create allowlist");
         }
     })
+
+    chrome.contextMenus.create({
+        id: "1",
+        title: "Vulture",
+        contexts: ["selection"],
+    });    
+
+        
+    chrome.contextMenus.onClicked.addListener((info, tab) => {
+        let selectedText = info.selectionText;
+        let words = selectedText.split(" ").splice(0,5);
+        let title = words.join(" ");
+        let tabTitle = tab.title;
+        let taskUrl = `<a href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
+
+        chrome.storage.local.get(['todo', 'tags'], function (result) {
+            let todo = result.todo;
+            let task_id = todo.count + 1;
+            todo.count++;
+            let today = new Date();
+            today = today.setDate(today.getDate() + 1);
+            let due = new Date(today);
+            todo.tasks[task_id] = { ID: task_id, TITLE: title, DESCRIPTION: selectedText + "<br>" + taskUrl, DUE: due.toISOString().slice(0,-8), TAG: "DEFAULT", STATUS: false };
+            chrome.storage.local.set({ todo: todo });
+        })
+    });
+    
+
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -153,8 +181,4 @@ function omnibarHandler(text, suggest) {
     });
 }
 
-  
-
-
-  
   
