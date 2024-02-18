@@ -62,10 +62,11 @@ function drawTable() {
 
         var row = tbody.insertRow()
         row.addEventListener('click', function(e) {
-          if (e.target.tagName.toLowerCase() === 'a') {
-            return;
+          console.log(e.target);
+          if (e.target.tagName.toLowerCase() === 'td') {
+            openTaskView(task);;
           } else {
-            openTaskView(task);
+            return;
           }
         })
         var titleCell = row.insertCell()
