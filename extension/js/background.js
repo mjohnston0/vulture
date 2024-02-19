@@ -153,7 +153,22 @@ function omnibarHandler(text, suggest) {
     });
 }
 
-  
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.action === "downloadJSON") {
+      var url = 'data:application/json;base64,' + btoa(message.data);
+      chrome.downloads.download({
+        url: url,
+        filename: 'chrome_local_storage_backup.json'
+      });
+    } else if (message.action === "importJSON") {
+        var importedData = message.data;
+        chrome.storage.local.clear(function() {
+          chrome.storage.local.set(importedData, function() {
+            console.log("Local storage overwritten with imported data.");
+          });
+        });
+      }
+    });
 
 
   

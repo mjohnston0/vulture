@@ -208,3 +208,28 @@ deleteAll.addEventListener("click", function () {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  var exportButton = document.getElementById('exportButton');
+  var importInput = document.getElementById('importInput');
+  
+  exportButton.addEventListener('click', function() {
+    chrome.storage.local.get(null, function(data) {
+      var jsonData = JSON.stringify(data);
+      chrome.runtime.sendMessage({ action: "downloadJSON", data: jsonData });
+    });
+  });
+
+  importInput.addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      var importedData = JSON.parse(event.target.result);
+      chrome.runtime.sendMessage({ action: "importJSON", data: importedData });
+    };
+    reader.readAsText(file);
+  });
+});
+
+
+
