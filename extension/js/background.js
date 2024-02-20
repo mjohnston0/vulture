@@ -164,6 +164,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         url: url,
         filename: fileNameWithDate
       });
+      console.log("Local storage saved to downloads folder.")
     } else if (message.action === "importJSON") {
       var importedData = message.data;
       chrome.storage.local.clear(function() {
