@@ -17,11 +17,7 @@ function drawTable() {
     })
 }
 
-document.getElementById('showDone').onchange = function () {
-    chrome.storage.local.get(['todo', 'tags'], function (result) {
-        renderTable(result.todo.tasks, result.tags);
-    })
-}
+document.getElementById('showDone').onchange = filter;
 
 function renderTable(tasksDict, tags) {
     var table = document.getElementById('todo_table');
