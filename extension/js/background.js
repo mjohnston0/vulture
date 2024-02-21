@@ -47,7 +47,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
     chrome.contextMenus.create({
         id: "1",
-        title: "Vulture",
+        title: "Vulture - Add to todo list",
         contexts: ["selection"],
     });    
 
@@ -57,18 +57,10 @@ chrome.runtime.onInstalled.addListener(function () {
         let words = selectedText.split(" ").splice(0,5);
         let title = words.join(" ");
         let tabTitle = tab.title;
-        let taskUrl = `<a href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
+        let taskUrl = `<a class="task-url" href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
 
-        chrome.storage.local.get(['todo', 'tags'], function (result) {
-            let todo = result.todo;
-            let task_id = todo.count + 1;
-            todo.count++;
-            let today = new Date();
-            today = today.setDate(today.getDate() + 1);
-            let due = new Date(today);
-            todo.tasks[task_id] = { ID: task_id, TITLE: title, DESCRIPTION: selectedText + "<br>" + taskUrl, DUE: due.toISOString().slice(0,-8), TAG: "DEFAULT", STATUS: false };
-            chrome.storage.local.set({ todo: todo });
-        })
+        chrome.tabs.sendMessage(tab.id, { action: 'confirmTask', selectedText: selectedText,
+         title: title, taskUrl: taskUrl });
     });
     
 
@@ -181,4 +173,29 @@ function omnibarHandler(text, suggest) {
     });
 }
 
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.action === "downloadJSON") {
+      var url = 'data:application/json;base64,' + btoa(message.data);
+      var currentDate = new Date();
+      var dateString = currentDate.toISOString().split('T')[0]; 
+      var fileNameWithDate = 'chrome_local_storage_backup_' + dateString + '.json';
+  
+      chrome.downloads.download({
+        url: url,
+        filename: fileNameWithDate
+      });
+      console.log("Local storage saved to downloads folder.")
+    } else if (message.action === "importJSON") {
+      var importedData = message.data;
+      chrome.storage.local.clear(function() {
+        chrome.storage.local.set(importedData, function() {
+          console.log("Local storage overwritten with imported data.");
+        });
+      });
+    }
+  });
+  
+
+
+  
   

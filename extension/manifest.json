@@ -19,6 +19,7 @@
         "unlimitedStorage",
         "notifications",
         "alarms",
+        "downloads",
         "contextMenus"
     ],
     "icons": {

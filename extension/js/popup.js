@@ -1,12 +1,10 @@
 let taskView;
-window.addEventListener('click',function(e){
-    if(e.target.href!==undefined && e.target.href.length > 0){
-      chrome.tabs.create({url:e.target.href})
-    }
-  });
+document.addEventListener("DOMContentLoaded", function() {
+  let todoButton = document.querySelector(".tab-item");
+  let preferencesButton = document.getElementById('pref-icon-wrapper');
 
-  document.addEventListener("DOMContentLoaded", function () {
-    taskView = document.querySelector(".task-view");
+
+  taskView = document.querySelector(".task-view");
     chrome.storage.local.get(["todo"], function (result) {
         if (result.todo) {
             renderTable(result.todo.tasks);
@@ -18,7 +16,8 @@ window.addEventListener('click',function(e){
   document.getElementById('task_filter').addEventListener('change', function() {
     drawTable();
   });
-});
+  
+})
 
 function drawTable() {
   chrome.storage.local.get(["todo"], function (result) {
@@ -62,8 +61,13 @@ function drawTable() {
       let task = entry[1];
 
         var row = tbody.insertRow()
-        row.addEventListener('click', function() {
-          openTaskView(task);
+        row.addEventListener('click', function(e) {
+          console.log(e.target);
+          if (e.target.tagName.toLowerCase() === 'td') {
+            openTaskView(task);;
+          } else {
+            return;
+          }
         })
         var titleCell = row.insertCell()
         titleCell.innerHTML = task.TITLE
