@@ -14,7 +14,7 @@ async function parse_page() {
     
         for (element of Object.values(list)) {
     
-            console.log(element);
+            // console.log(element);
     
             if (element.IS_ACTIVE) {
     
@@ -54,7 +54,7 @@ function parse(keywordSet, url) {
             }
         }
 
-        console.log(index);
+        // console.log(index);
         chrome.storage.local.set({ "index": index });
     })
 }
