@@ -1,16 +1,16 @@
-navigation.addEventListener("navigate", async function() {
+async function parse_page() {
 
     let url = window.location.href;
     let text = document.body.innerText.toLowerCase();
 
-    console.log(url);
+    // console.log(url);
 
     let keywords = text.split(/\s+/);
 
     let keywordSet = new Set(keywords);
 
     if (await isValid()) {
-        console.log("TRUE");
+        // console.log("TRUE");
 
         chrome.storage.local.get(['index'], function (result) {
             let index = result.index;
@@ -30,14 +30,14 @@ navigation.addEventListener("navigate", async function() {
                 }
             }
 
-            console.log(index);
+            // console.log(index);
             chrome.storage.local.set({ "index": index });
         })
     }
     else {
-        console.log("FALSE");
+        // console.log("FALSE");
     }
-})
+}
 
 async function isValid() {
     const result = await chrome.storage.local.get(['allowlist']);
@@ -49,7 +49,7 @@ async function isValid() {
 
     for (element of Object.values(list)) {
 
-        console.log(element);
+        // console.log(element);
 
         if (element.IS_ACTIVE) {
 
@@ -69,3 +69,6 @@ async function isValid() {
     return false
 
 }
+
+navigation.addEventListener("navigate", parse_page());
+document.addEventListener("DOMContentLoaded", parse_page())
