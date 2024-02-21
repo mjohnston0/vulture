@@ -39,6 +39,9 @@ function parse(keywordSet, url) {
     chrome.storage.local.get(['index'], function (result) {
         let index = result.index;
         for (let kw of keywordSet.keys()) {
+            if (!kw){
+                continue;
+            }
             kw = kw.replace(/[^a-z']/g, '');
             kw = kw.replace(/^'|'$/g, '');
             if (kw != '') {
