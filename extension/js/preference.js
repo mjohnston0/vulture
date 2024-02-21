@@ -226,10 +226,8 @@ document.addEventListener('DOMContentLoaded', function() {
     reader.onload = function(event) {
       var importedData = JSON.parse(event.target.result);
       chrome.runtime.sendMessage({ action: "importJSON", data: importedData });
+      importInput.value = null;
     };
     reader.readAsText(file);
   });
 });
-
-
-
