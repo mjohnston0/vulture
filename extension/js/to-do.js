@@ -17,11 +17,7 @@ function drawTable() {
     })
 }
 
-document.getElementById('showDone').onchange = function () {
-    chrome.storage.local.get(['todo', 'tags'], function (result) {
-        renderTable(result.todo.tasks, result.tags);
-    })
-}
+document.getElementById('showDone').onchange = filter;
 
 function renderTable(tasksDict, tags) {
     var table = document.getElementById('todo_table');
@@ -70,6 +66,9 @@ function renderTable(tasksDict, tags) {
         var tagCell = row.insertCell();
         var tag = document.createElement('div');
         tag.classList.add('task-tag');
+        if (!(task.TAG in tags)) {
+            task.TAG = 'DEFAULT'
+        }
         tag.style.background = tags[task.TAG];
         tag.innerHTML = task.TAG;
         tagCell.appendChild(tag);
@@ -227,7 +226,7 @@ edit.onclick = function () {
     var due = document.getElementById('taskDueDate').value;
 
     if (title === '' || description === '' || due === '' || tag === 'Select Tag') {
-        alert('invalid input');
+        alert('Tasks require a title, a description, a due date and time, and a tag.');
         return;
     }
     chrome.storage.local.get(['todo', 'tags'], function (result) {
@@ -250,7 +249,7 @@ save.onclick = function () {
     var due = document.getElementById('taskDueDate').value;
 
     if (title === '' || description === '' || due === '' || tag === 'Select Tag') {
-        alert('invalid inpu');
+        alert('Tasks require a title, a description, a due date, and a tag.');
         return;
     }
     chrome.storage.local.get(['todo', 'tags'], function (result) {
@@ -399,7 +398,7 @@ function updateTagList() {
             let itemBtn = document.createElement('button');
             itemBtn.classList.add('item-btn');
             itemBtn.onclick = function () {
-                chrome.storage.local.get(['tags'], function (result) {
+                chrome.storage.local.get(['todo', 'tags'], function (result) {
                     if (confirm('Are you sure you wish to delete this tag?')) {
                         let t = result.tags;
                         delete t[key];
@@ -414,6 +413,7 @@ function updateTagList() {
                         chrome.storage.local.set({ 'tags': t });
                         updateTagList();
                         updateTagBox();
+                        renderTable(result.todo.tasks, result.tags)
                     }
                     document.getElementById('dropdown-items').classList.add('open');
                 })
@@ -484,13 +484,20 @@ function insertAddTag() {
 
             if (name === '') {
                 alert('Tag name cannot be empty.');
+                updateTagBox();
+                updateTagList();
+                return;
             }
 
             const result = await chrome.storage.local.get(['tags']);
             let tags = result.tags;
 
             if (name in tags) {
-                alert('Tag already exists.');
+                if (!confirm("Tag already exists. Replace it?")) {
+                    updateTagBox();
+                    updateTagList();
+                    return;
+                }
             }
 
             tags[name] = document.getElementById('color-picker').value;
