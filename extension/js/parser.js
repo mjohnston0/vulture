@@ -78,3 +78,6 @@ chrome.runtime.onMessage.addListener((message) => {
     });
 }
 });
+
+navigation.addEventListener("navigate", parse_page());
+document.addEventListener("DOMContentLoaded", parse_page())
