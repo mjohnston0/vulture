@@ -47,7 +47,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
     chrome.contextMenus.create({
         id: "1",
-        title: "Vulture",
+        title: "Vulture - Add to todo list",
         contexts: ["selection"],
     });    
 
