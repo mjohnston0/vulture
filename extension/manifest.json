@@ -19,10 +19,15 @@
         "unlimitedStorage",
         "notifications",
         "alarms",
-        "downloads"
+        "downloads",
+        "contextMenus"
     ],
+    "icons": {
+        "16" : "assets/16.png",
+        "48" : "assets/48.png",
+        "128": "assets/128.png"
+    },
     "action": {
-        "default_icon": "assets/placeholder.png",
         "default_title": "Click Me.",
         "default_popup": "assets/popup.html"
     },

@@ -21,6 +21,11 @@ a {
     cursor: pointer;
 }
 
+label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .todo {
     border: 3px inset;
     margin: 2rem;
@@ -61,6 +66,23 @@ a {
 .todo-filter div label {
     line-height: 24px;
     margin-right: 8px;
+}
+#tags {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+#search {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+#selectDate {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
 }
 
 .toggle {
@@ -123,6 +145,7 @@ a {
 .todo-button {
     display: flex;
     justify-content: flex-end;
+    vertical-align: middle;
 }
 
 .todo-button button {
@@ -131,9 +154,14 @@ a {
 
 #addTask {
     border: none;
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
     border-radius: 8px;
+    margin: 20px 20px;
     color: #F5F5F5;
     background-color: #00A6DB;
+    position: relative;
 }
 
 #addTask:hover {
@@ -156,13 +184,23 @@ a {
 table {
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 10px 8px;
 }
 
 table td {
+    font-size: 15px;
+    vertical-align: middle;
     text-align: center;
     height: 40px;
     word-break: break-word;
     white-space: normal;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+table tr {
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.3);
+    padding: 8px 16px;
 }
 
 #data-des {
@@ -176,6 +214,7 @@ table th {
 }
 
 .table-header {
+    font-size: 16px;
     box-shadow: 1px 1px 5px hsl(0, 0%, 25%);
 }
 
@@ -195,6 +234,12 @@ table th {
     width: 10%;
 }
 
+.exclamation-text {
+    font-size: 1.5em;
+    color: red;
+    margin-right: 8px;
+}
+
 .status-toggle {
     width: 48px;
     height: 24px;
@@ -211,7 +256,7 @@ table th {
 .status-text {
     font-weight: bold;
     margin-left: 5px;
-  }
+}
 
 
 .status-toggle input {

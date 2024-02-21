@@ -44,6 +44,26 @@ chrome.runtime.onInstalled.addListener(function () {
             console.log("create allowlist");
         }
     })
+
+    chrome.contextMenus.create({
+        id: "1",
+        title: "Vulture - Add to todo list",
+        contexts: ["selection"],
+    });    
+
+        
+    chrome.contextMenus.onClicked.addListener((info, tab) => {
+        let selectedText = info.selectionText;
+        let words = selectedText.split(" ").splice(0,5);
+        let title = words.join(" ");
+        let tabTitle = tab.title;
+        let taskUrl = `<a class="task-url" href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
+
+        chrome.tabs.sendMessage(tab.id, { action: 'confirmTask', selectedText: selectedText,
+         title: title, taskUrl: taskUrl });
+    });
+    
+
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
