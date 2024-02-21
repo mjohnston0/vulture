@@ -64,6 +64,9 @@ function renderTable(tasksDict, tags) {
         var tagCell = row.insertCell();
         var tag = document.createElement('div');
         tag.classList.add('task-tag');
+        if (!(task.TAG in tags)) {
+            task.TAG = 'DEFAULT'
+        }
         tag.style.background = tags[task.TAG];
         tag.innerHTML = task.TAG;
         tagCell.appendChild(tag);
@@ -393,7 +396,7 @@ function updateTagList() {
             let itemBtn = document.createElement('button');
             itemBtn.classList.add('item-btn');
             itemBtn.onclick = function () {
-                chrome.storage.local.get(['tags'], function (result) {
+                chrome.storage.local.get(['todo', 'tags'], function (result) {
                     if (confirm('Are you sure you wish to delete this tag?')) {
                         let t = result.tags;
                         delete t[key];
@@ -408,6 +411,7 @@ function updateTagList() {
                         chrome.storage.local.set({ 'tags': t });
                         updateTagList();
                         updateTagBox();
+                        renderTable(result.todo.tasks, result.tags)
                     }
                     document.getElementById('dropdown-items').classList.add('open');
                 })
