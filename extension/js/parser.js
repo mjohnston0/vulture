@@ -35,31 +35,35 @@ async function parse_page() {
 
 }
 
-function parse(keywordSet, url) {
-    chrome.storage.local.get(['index'], function (result) {
-        let index = result.index;
-        for (let kw of keywordSet.keys()) {
-            if (!kw){
-                continue;
-            }
-            kw = kw.replace(/[^a-z']/g, '');
-            kw = kw.replace(/^'|'$/g, '');
-            if (kw != '') {
-                if (index[kw]) {
-                    if (!index[kw].includes(url)) {
-                        index[kw].push(url);
-                    } else {
-                        index[kw].push(index[kw].splice(index[kw].indexOf(url), 1)[0]);
-                    }
+async function getIndex(){
+    return chrome.storage.local.get(['index'])
+}
+
+async function parse(keywordSet, url) {
+    let result = await getIndex();
+    let index = result.index;
+    for (let kw of keywordSet.keys()) {
+        if (!kw){
+            continue;
+        }
+        kw = kw.replace(/[^a-z']/g, '');
+        kw = kw.replace(/^'|'$/g, '');
+        if (kw != '') {
+            if (index[kw]) {
+                if (!index[kw].includes(url)) {
+                    index[kw].push(url);
                 } else {
-                    index[kw] = [url];
+                    index[kw].push(index[kw].splice(index[kw].indexOf(url), 1)[0]);
                 }
+            } else {
+                index[kw] = [url];
             }
         }
+    }
 
-        // console.log(index);
-        chrome.storage.local.set({ "index": index });
-    })
+    // console.log(index);
+    chrome.storage.local.set({ "index": index });
+
 }
 
 chrome.runtime.onMessage.addListener((message) => {
