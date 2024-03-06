@@ -673,6 +673,15 @@ table th {
     color: #FFF;
     margin-right: 10px;
     border-radius: 15px;
-    border: 1px solid grey;
+    border: none;
     cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+
+#cancel {
+    background: #e87979;
+}
+
+#cancel:hover, #add-task:hover {
+    opacity: 0.85;
 }
