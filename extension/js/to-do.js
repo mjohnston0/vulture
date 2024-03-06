@@ -66,9 +66,6 @@ function renderTable(tasksDict, tags) {
         var tagCell = row.insertCell();
         var tag = document.createElement('div');
         tag.classList.add('task-tag');
-        if (!(task.TAG in tags)) {
-            task.TAG = 'DEFAULT'
-        }
         tag.style.background = tags[task.TAG];
         tag.innerHTML = task.TAG;
         tagCell.appendChild(tag);
@@ -410,7 +407,16 @@ function updateTagList() {
                             document.getElementById('dropdown-btn').style.padding = '13px 10px';
                         }
 
+                        let todo = result.todo;
+
+                        for (task in todo.tasks) {
+                            if (todo.tasks[task].TAG === key) {
+                                todo.tasks[task].TAG = 'DEFAULT';
+                            }
+                        }
+
                         chrome.storage.local.set({ 'tags': t });
+                        chrome.storage.local.set({ 'todo': todo });
                         updateTagList();
                         updateTagBox();
                         renderTable(result.todo.tasks, result.tags)
