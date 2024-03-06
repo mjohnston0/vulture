@@ -66,6 +66,14 @@ body {
     padding: 8px 10px;
 }
 
+.backup-import {
+    gap: 20px;
+    padding: 8px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 
 #delete_value,
 #suggestions_dropdown {
