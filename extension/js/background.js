@@ -58,9 +58,19 @@ chrome.runtime.onInstalled.addListener(function () {
         let title = words.join(" ");
         let tabTitle = tab.title;
         let taskUrl = `<a class="task-url" href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
+        chrome.storage.local.get(['todo'], function (result) {
+            let todo = result.todo;
+            let task_id = todo.count + 1;
+            todo.count++;
+            let today = new Date();
+            today = today.setDate(today.getDate() + 1);
+            let due = new Date(today);
+            todo.tasks[task_id] = { ID: task_id, TITLE: title, DESCRIPTION: selectedText + "<br>" + taskUrl, DUE: due.toISOString().slice(0,-8), TAG: "DEFAULT", STATUS: false };
+            chrome.storage.local.set({ todo: todo });
+            chrome.tabs.sendMessage(tab.id, { action: 'taskAdded', selectedText: selectedText});
+        });
 
-        chrome.tabs.sendMessage(tab.id, { action: 'confirmTask', selectedText: selectedText,
-         title: title, taskUrl: taskUrl });
+        
     });
     
 

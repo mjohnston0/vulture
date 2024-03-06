@@ -16,8 +16,18 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById('task_filter').addEventListener('change', function() {
     drawTable();
   });
-  
+
+  document.getElementById('add-task-btn').addEventListener('click', function() {
+    showAddBtn();
+    toggleEditBox();
+  });
 })
+
+const addMenu = document.querySelector('.editbox');
+
+function toggleEditBox() {
+  addMenu.classList.toggle('on');
+}
 
 function drawTable() {
   chrome.storage.local.get(["todo"], function (result) {
