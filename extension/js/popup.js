@@ -36,22 +36,23 @@ function drawTable() {
 
     let toShow = []
 
-    let targetDate = new Date();
+    const beignTargetDate = new Date().setHours(0, 0, 0, 0);
+    let endTargetDate = new Date();
     switch (filter_option) {
       case 'today':
         break;
       case '7days':
-        targetDate.setDate(targetDate.getDate() + 7);
+        endTargetDate.setDate(endTargetDate.getDate() + 6);
         break;
       case '30days':
-        targetDate.setDate(targetDate.getDate() + 30);
+        endTargetDate.setDate(endTargetDate.getDate() + 29);
         break;
     }
 
     for (let entry of tasks) {
       let task = entry[1];
-      let taskDate = new Date(task.DUE);
-      if (taskDate <= targetDate && !task.STATUS) {
+      let taskDate = new Date(task.DUE).setHours(0, 0, 0, 0);
+      if (beignTargetDate <= taskDate && taskDate <= endTargetDate.setHours(0, 0, 0, 0) && !task.STATUS) {
         toShow.push(entry);
       }
     }
