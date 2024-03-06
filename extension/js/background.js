@@ -1,5 +1,3 @@
-import { DEFAULT_ALLOWLIST_SITE, DEFAULT_ALLOWLIST_PAGE, DEFAULT_ALLOWLIST_REGEX } from "./allowlist.js";
-
 chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.local.get(['todo'], function(result) {
         if (!result.todo) {
@@ -22,25 +20,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
     chrome.storage.local.get(['allowlist'], function(result) {
         if (!result.allowlist) {
-            let list = {};
-            let count = 0;
-
-            DEFAULT_ALLOWLIST_SITE.forEach(((element) => {
-                list[count] = {ID: count, VALUE: element, TYPE: 'DOMAIN', IS_ACTIVE: true};
-                count++;
-            }))
-
-            DEFAULT_ALLOWLIST_PAGE.forEach(((element) => {
-                list[count] = {ID: count, VALUE: element, TYPE: 'PAGE', IS_ACTIVE: true};
-                count++;
-            }))
-
-            DEFAULT_ALLOWLIST_REGEX.forEach(((element) => {
-                list[count] = {ID: count, VALUE: element, TYPE: 'REGEX', IS_ACTIVE: true};
-                count++;
-            }))
-
-            chrome.storage.local.set({allowlist: {'count': count, 'list': list}})
+            chrome.storage.local.set({allowlist: {'count': 0, 'list': {}}})
             console.log("create allowlist");
         }
     })
