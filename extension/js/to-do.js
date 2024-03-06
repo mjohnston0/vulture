@@ -88,14 +88,14 @@ function renderTable(tasksDict, tags) {
 
         var statusCell = row.insertCell();
         var statusBox = document.createElement('input');
-        
+
         statusBox.type = "checkbox"
 
         if (task.STATUS) {
             statusBox.checked = true;
             textNode.nodeValue = "Inactive";
         } else {
-            statusBox.checked = false ;
+            statusBox.checked = false;
             textNode.nodeValue = "Active";
         }
 
@@ -132,14 +132,14 @@ function renderTable(tasksDict, tags) {
     }
 }
 
-function isInPast(otherDate){
+function isInPast(otherDate) {
     try {
         var providedDate = new Date(otherDate);
         var currentDate = new Date();
         return providedDate < currentDate
-      } catch (error) {
+    } catch (error) {
         return -1;
-      }
+    }
 }
 
 function sortTasks(taskDict) {
@@ -392,48 +392,54 @@ function updateTagList() {
             name.textContent = key;
             name.value = key;
 
-            let itemBtn = document.createElement('button');
-            itemBtn.classList.add('item-btn');
-            itemBtn.onclick = function () {
-                chrome.storage.local.get(['todo', 'tags'], function (result) {
-                    if (confirm('Are you sure you wish to delete this tag?')) {
-                        let t = result.tags;
-                        delete t[key];
-
-                        let selectedItem = document.getElementById('selected-item');
-
-                        if (key === selectedItem.textContent) {
-                            selectedItem.textContent = 'Select Tag'
-                            document.getElementById('dropdown-btn').style.padding = '13px 10px';
-                        }
-
-                        let todo = result.todo;
-
-                        for (task in todo.tasks) {
-                            if (todo.tasks[task].TAG === key) {
-                                todo.tasks[task].TAG = 'DEFAULT';
-                            }
-                        }
-
-                        chrome.storage.local.set({ 'tags': t });
-                        chrome.storage.local.set({ 'todo': todo });
-                        updateTagList();
-                        updateTagBox();
-                        renderTable(result.todo.tasks, result.tags)
-                    }
-                    document.getElementById('dropdown-items').classList.add('open');
-                })
-            }
-
-            let deleteIcon = document.createElement('img');
-            deleteIcon.classList.add('item-btn-img');
-            deleteIcon.src = chrome.runtime.getURL('./images/deleticon.png')
-
-            itemBtn.appendChild(deleteIcon);
-
             item.appendChild(color);
             item.appendChild(name);
-            item.appendChild(itemBtn);
+
+            if (key !== 'DEFAULT') {
+                let itemBtn = document.createElement('button');
+                itemBtn.classList.add('item-btn');
+
+                itemBtn.onclick = function () {
+                    chrome.storage.local.get(['todo', 'tags'], function (result) {
+                        if (confirm('Are you sure you wish to delete this tag?')) {
+                            let t = result.tags;
+                            delete t[key];
+
+                            let selectedItem = document.getElementById('selected-item');
+
+                            if (key === selectedItem.textContent) {
+                                selectedItem.textContent = 'Select Tag'
+                                document.getElementById('dropdown-btn').style.padding = '13px 10px';
+                            }
+
+                            let todo = result.todo;
+
+                            for (task in todo.tasks) {
+                                if (todo.tasks[task].TAG === key) {
+                                    todo.tasks[task].TAG = 'DEFAULT';
+                                }
+                            }
+
+                            chrome.storage.local.set({ 'tags': t });
+                            chrome.storage.local.set({ 'todo': todo });
+                            updateTagList();
+                            updateTagBox();
+                            renderTable(result.todo.tasks, result.tags)
+                        }
+                        document.getElementById('dropdown-items').classList.add('open');
+                    })
+                }
+
+                let deleteIcon = document.createElement('img');
+                deleteIcon.classList.add('item-btn-img');
+                deleteIcon.src = chrome.runtime.getURL('./images/deleticon.png')
+
+                itemBtn.appendChild(deleteIcon);
+                item.appendChild(itemBtn);
+
+            } else {
+                item.appendChild(document.createElement('span'));
+            }
 
             dropdownItems.appendChild(item);
         })
