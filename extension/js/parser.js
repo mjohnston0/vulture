@@ -70,20 +70,9 @@ async function parse(keywordSet, url) {
 }
 
 chrome.runtime.onMessage.addListener((message) => {
-    if (message.action === 'confirmTask') {
-        chrome.storage.local.get(['todo'], function (result) {
-        let todo = result.todo;
-        let task_id = todo.count + 1;
-        todo.count++;
-        let today = new Date();
-        today = today.setDate(today.getDate() + 1);
-        let due = new Date(today);
-        todo.tasks[task_id] = { ID: task_id, TITLE: message.title, DESCRIPTION: message.selectedText + "<br>" + message.taskUrl, DUE: due.toISOString().slice(0,-8), TAG: "DEFAULT", STATUS: false };
-        chrome.storage.local.set({ todo: todo });
-        
-        alert(`Task added for: \n ${message.selectedText}?`);
-    });
-}
+    if (message.action === 'taskAdded') {
+        alert(`Task added for: \n ${message.selectedText}`);
+    }
 });
 
 navigation.addEventListener("navigate", parse_page());
