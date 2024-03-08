@@ -1,15 +1,38 @@
 {
     "manifest_version": 3,
-    "name": "Productivity Tool",
+    "name": "Vulture",
     "description": "Page Indexer and To do list",
     "version": "0.0.1",
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "js/parser.js"
+            ]
+        }
+    ],
+	"omnibox": { "keyword" : "v" },
     "permissions": [
         "storage",
-        "unlimitedStorage"
+        "unlimitedStorage",
+        "notifications",
+        "alarms",
+        "downloads",
+        "contextMenus"
     ],
+    "icons": {
+        "16" : "assets/16.png",
+        "48" : "assets/48.png",
+        "128": "assets/128.png"
+    },
     "action": {
-        "default_icon": "assets/placeholder.png",
         "default_title": "Click Me.",
         "default_popup": "assets/popup.html"
+    },
+    "background": {
+        "service_worker": "js/background.js",
+        "type": "module"
     }
-  }
+}

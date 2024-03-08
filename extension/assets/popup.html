@@ -1,48 +1,74 @@
 <html>
     <head>
+        <link rel="stylesheet" href="../css/popup.css">
+        <link rel="stylesheet" href="../css/font_234130_nem7eskcrkpdgqfr.css">
         <style>
             body {
-                margin: 0px;
-                padding: 0px;
-                white-space: nowrap
-            }
-            
-            a, .fakelink {
-                font-family: 'Lato', sans-serif;
-                text-decoration: none;
-                color: #000;
-                font-size: 15px;
-                outline: none;
-                padding: 8px;
-                display: block !important;
-            }
-
-            p.fakelink {
-                color: #999;
-                margin: 0;
-            }
-
-
-            a:hover {
-                background: #EEE;
-            }
-
-            hr {
-                margin: 0;
-            }
-
-            .disabled {
-              color: #000;
-              background-color: #9f9;
-              pointer-events: none;
-              cursor: default;
-            }
+            width: 500px;
+            height: 375px;
+            margin: 0px;
+            padding: 0px;
+            white-space: nowrap;
+            align-items: center;
+            background-color: #456986;
+        }
         </style>
+
+        <script type="text/javascript" src="../js/popup.js"></script>
     </head>
     <body>
-        <hr style="color: #999;" />
-        <a href="../index.html">To Do List</a>
-        <!--<a href="../preferences.html">Preferences</a>-->
+        <div class="box">
+
+            <div class="button-container">            
+                <div class="tab-menu">
+                    <a class="tab-item" href="../todo.html" target="_blank">To Do List</a>
+                </div>
+
+                <a title="Preferences" href = "../preference.html" id="pref-icon-wrapper" target="_blank">
+                    <img href="../preference.html" src="../images/gearicon.png"  id="pref-icon"/>
+                </a>
+            </div>
+            <div class="custom-select-wrapper">
+                <select class="custom-select" id="task_filter">
+                    <option value="today">Today</option>
+                    <option value="7days">7 Days</option>
+                    <option value="30days">30 Days</option>
+                </select>
+            </div>
+            
+            <table id="todo_table">
+                <tr class="table-header">
+                    <th id="tbl-title">Title</th>
+                    <th id="tbl-description">Description</th>
+                    <th id="tbl-due">Due time</th>
+                    <th id="tbl-tag">Tag</th>
+                    <th id="tbl-edit">Edit</th>
+                    <th id="tbl-status">Status</th>
+                    <th id="tbl-del">Delete</th>
+                </tr>
+            </table>
+        </div>
+        <div class="task-view">
+            <div class="box">
+                <div class="task-detail">
+                    <span class="label">Task</span>
+                    <p id="task-view-name"></p>
+                </div>
+                <div id="task-detail">
+                    <span class="label">Description</span>
+                    <div class="info-box" id="task-view-description"></div>
+                </div>
+                <div id="task-detail">
+                    <span class="label">Due Date</span>
+                    <p id="task-view-due"></p>
+                </div>
+                <div id="task-detail">
+                    <span class="label">Tag</span>
+                    <p id="task-view-tag"></p>
+                </div>
+
+                <button class="close-btn" id="close-task">Close</button>
+            </div>
+        </div>
     </body>
-    <script type="text/javascript" src="../js/popup.js"></script>
 </html>

@@ -1,0 +1,614 @@
+input:focus {
+    outline: none;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+select {
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.todo {
+    border: 3px inset;
+    margin: 2rem;
+    height: 90%;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    background-color: #F5F5F5;
+}
+
+.todo-head {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+}
+
+.todo-head h2 {
+    width: 10%;
+    text-align: center;
+}
+
+.todo-action {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.todo-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.todo-filter div {
+    display: flex;
+    margin: 8px;
+}
+
+.todo-filter div label {
+    line-height: 24px;
+    margin-right: 8px;
+}
+#tags {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+#search {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+#selectDate {
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+.toggle {
+    width: 48px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+    background-color: #00A6DB;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    background-color: #ccc;
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle span::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #fff;
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked+span {
+    background-color: #00A6DB;
+}
+
+.toggle input:checked+span::before {
+    transform: translateX(24px);
+}
+
+#reset-filter-btn {
+    border: none;
+    padding: 0 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#reset-filter-btn-img {
+    width: 1.75em;
+    height: 1.75em;
+    cursor: pointer;
+}
+
+.todo-button {
+    display: flex;
+    justify-content: flex-end;
+    vertical-align: middle;
+}
+
+.todo-button button {
+    margin: 8px;
+}
+
+#addTask {
+    border: none;
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 8px;
+    margin: 20px 20px;
+    color: #F5F5F5;
+    background-color: #00A6DB;
+    position: relative;
+}
+
+#addTask:hover {
+    box-shadow: 3px 3px 5px #65828c8f;
+    cursor: pointer;
+}
+
+#clearTodo {
+    border: none;
+    border-radius: 8px;
+    color: #F5F5F5;
+    background-color: #db2500ca;
+}
+
+#clearTodo:hover {
+    box-shadow: 3px 3px 5px #80605a99;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 10px 8px;
+}
+
+table td {
+    font-size: 15px;
+    vertical-align: middle;
+    text-align: center;
+    height: 40px;
+    word-break: break-word;
+    white-space: normal;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+table tr {
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.3);
+    padding: 8px 16px;
+}
+
+#data-des {
+    text-align: left;
+    padding-left: 16px;
+}
+
+table th {
+    border: 1px #B5B5B5 solid;
+    height: 32px;
+}
+
+.table-header {
+    font-size: 16px;
+    box-shadow: 1px 1px 5px hsl(0, 0%, 25%);
+}
+
+#tbl-title,
+#tbl-due {
+    width: 15%;
+}
+
+#tbl-description {
+    width: 30%;
+}
+
+#tbl-tag,
+#tbl-edit,
+#tbl-status,
+#tbl-del {
+    width: 10%;
+}
+
+.exclamation-text {
+    font-size: 1.5em;
+    color: red;
+    margin-right: 8px;
+}
+
+.status-toggle {
+    width: 48px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+    background-color: #00A6DB;
+    border-radius: 100px;
+    cursor: pointer;
+    align-items: center;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.status-text {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+
+.status-toggle input {
+    display: none;
+}
+
+.status-toggle span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    background-color: #9DE267;
+    transition: all 0.4s ease-in-out;
+}
+
+.status-toggle span::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 27px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #fff;
+    transition: all 0.4s ease-in-out;
+}
+
+.status-toggle input:checked+span {
+    background-color: #ccc;
+}
+
+.status-toggle input:checked+span::before {
+    transform: translateX(-24px);
+}
+
+.table-button {
+    font-size: 2em;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: red;
+    cursor: pointer;
+}
+
+.edit-button {
+    font-size: 2em;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+}
+
+.task-tag {
+    border-radius: 10px;
+    color: #F5F5F5;
+    padding: 4px;
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+    box-shadow: 3px 3px 5px #65828c8f;
+}
+
+.editbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: none;
+}
+
+.editbox.on {
+    display: flex;
+}
+
+.editbox .box {
+    width: 650px;
+    background: #fff;
+    box-shadow: 1px 5px 5px 4px #aba9a9;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    box-sizing: border-box;
+    padding: 25px 55px;
+}
+
+.editbox .box p.tit {
+    text-align: center;
+    font-size: 24px;
+}
+
+.editbox .box .fitem {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.editbox .box .fitem .name {
+    width: 100px;
+}
+
+.editbox .box .fitem .ipt {
+    width: 250px;
+    height: 40px;
+    border: #e5e5e5 2px solid;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    padding: 0 10px;
+}
+
+.editbox .box .fitem .ipt input {
+    border: none;
+    background: none;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+}
+
+.ipt-tag {
+    width: 250px;
+    height: 40px;
+    position: relative;
+}
+
+.dropdown-btn {
+    padding: 13px 10px;
+    border-radius: 3px;
+    border: #e5e5e5 2px solid;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+#dropdown-img {
+    width: 1em;
+    height: 1em;
+}
+
+.dropdown-items {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: fit-content;
+    max-height: 400%;
+    border: #e5e5e5 2px solid;
+    background-color: #fff;
+    overflow-y: scroll;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dropdown-items.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.item {
+    padding: 13px 16px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.item-color {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 100%;
+    background-color: #00A6DB;
+}
+
+.item-btn {
+    border: none;
+    padding: 0 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.item-btn-img {
+    width: 1em;
+    height: 1em;
+    cursor: pointer;
+}
+
+#add-tag {
+    cursor: pointer;
+    width: 100%;
+}
+
+#newtag-input {
+    border: none;
+    width: 90%;
+}
+
+#color-picker {
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+}
+
+#color-picker-wrapper {
+    border-radius: 100%;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: #00A6DB;
+}
+
+.editbox .box .fitem2 {
+    height: auto;
+    display: flex;
+    align-items: flex-start;
+}
+
+.editbox .box .fitem .textbox {
+    width: 350px;
+    height: 150px;
+    box-shadow: inset 0px 0px 0px 2px #e5e5e5;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.editbox .box .fitem .textbox textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    font-size: 16px;
+    resize: none;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.editbox .box .fitem3 {
+    position: relative;
+}
+
+.editbox .box .fitem3 .ipt {
+    width: 350px;
+    display: flex;
+    align-items: center;
+}
+
+.editbox .addBtn {
+    width: 345px;
+    margin: 0 auto;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.editbox .addBtn a {
+    width: 150px;
+    height: 55px;
+    background: #00A6DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.editbox .addBtn a:nth-child(2) {
+    height: 53px;
+    background: #FFF;
+    color: #000;
+    border-radius: 15px;
+    border: 1px solid #000;
+}
+
+.editbox .editBtn {
+    width: 345px;
+    margin: 0 auto;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.editbox .editBtn a {
+    width: 150px;
+    height: 55px;
+    background: #00A6DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.editbox .editBtn a:nth-child(2) {
+    height: 53px;
+    background: #FFF;
+    color: #000;
+    border-radius: 15px;
+    border: 1px solid #000;
+}
+
+.editbox .editBtn {
+    width: 345px;
+    margin: 0 auto;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.editbox .editBtn a {
+    width: 150px;
+    height: 55px;
+    background: #97da80;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.editbox .editBtn a:nth-child(2) {
+    height: 55px;
+    background: #e87979;
+    color: #FFF;
+    border-radius: 15px;
+    border: 0px;
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>To to List</title>
+    <link rel="stylesheet" href="./css/todo.css">
+    <link rel="stylesheet" href="./css/font_234130_nem7eskcrkpdgqfr.css">
+</head>
+
+<body>
+
+    <div class="todo">
+
+        <section class="todo-head">
+
+            <button type="button" id="addTask">Add Task</button>
+
+            <div class="todo-action">
+
+                <section class="todo-filter">
+
+                    <div id="tag-filter">
+                        <label for="tags">Filter By Tag</label>
+                        <select id="tags">
+                            <option value="">All tags</option>
+                        </select>
+                    </div>
+
+                    <div id="search-filter">
+                        <label for="search">Search Tasks By Keyword</label>
+                        <input type="text" id="search" placeholder="Search By Keyword">
+                        <div id="search_error"></div>
+                    </div>
+
+                    <div id="date-filter">
+                        <label for="selectDate">Filter By Date</label>
+                        <input type="date" id="selectDate">
+                    </div>
+
+                    <div id="done-filter">
+                        <label>Show Finished Tasks</label>
+                        <label class="toggle">
+                            <input type="checkbox" id="showDone">
+                            <span></span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label for="reset-filter-btn">Reset Filters</label>
+                        <button type="button" id="reset-filter-btn">
+                            <img id="reset-filter-btn-img" src="./images/sx.png">
+                        </button>
+                    </div>
+
+                    <div class="todo-button">
+                        <button type="button" id="clearTodo">Clear Tasks</button>
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+        <table id="todo_table">
+
+            <tr class="table-header">
+                <th id="tbl-title">Title</th>
+                <th id="tbl-description">Description</th>
+                <th id="tbl-due">Due time</th>
+                <th id="tbl-tag">Tag</th>
+                <th id="tbl-edit">Edit</th>
+                <th id="tbl-status">Status</th>
+                <th id="tbl-del">Delete</th>
+            </tr>
+
+        </table>
+
+    </div>
+    
+</body>
+
+<div class="editbox">
+
+    <div class="box">
+
+        <p class="tit" id="menuTitle">Add Task</p>
+
+        <div class="fitem">
+            <span class="name">Title</span>
+            <div class="ipt">
+                <input id="title" type="text" placeholder="Task Name">
+            </div>
+        </div>
+
+        <div class="fitem">
+            <span class="name">Tag</span>
+            <div class="ipt-tag">
+                <div class="dropdown-btn" id="dropdown-btn">
+                    <span id="selected-item">Select Tag</span>
+                    <span>
+                        <img id="dropdown-img" src="./images/sjxicon.png">
+                    </span>
+                </div>
+                <div class="dropdown-items" id="dropdown-items"></div>
+            </div>
+        </div>
+
+        <div class="fitem fitem2">
+            <span class="name">Description</span>
+            <div class="textbox">
+                <textarea name="" id="description" placeholder="Enter description here..."></textarea>
+            </div>
+        </div>
+
+        <div class="fitem fitem3">
+            <span class="name">Due Date and Time</span>
+            <div class="ipt">
+                <input type="datetime-local" id="taskDueDate" placeholder="06/24/2023">
+            </div>
+            <div id='schedule-box2' class="boxshaw schedule-box">
+            </div>
+        </div>
+
+        <div class="editBtn" id="addGroup">
+            <a class="edit" id="edit">Edit Task</a>
+            <a class="discard" id="discard">Discard Changes</a>
+        </div>
+
+        <div class="addBtn" id="editGroup">
+            <a class="save" id="save">Add Task</a>
+            <a class="cancel" id="cancel">Cancel</a>
+        </div>
+        
+    </div>
+
+</div>
+
+<script src="js/to-do.js"></script>
+
+</html>
