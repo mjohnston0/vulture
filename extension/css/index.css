@@ -157,3 +157,27 @@ table th {
     display: none;
   }
 
+#exportButton {
+    border: none;
+    width: 80px;
+    height: 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    color: #F5F5F5;
+    background-color: #00A6DB;
+    position: relative;
+    cursor: pointer;
+}
+
+#importLabel {
+    order: none;
+    width: 80px;
+    height: 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    color: #F5F5F5;
+    background-color: #00A6DB;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+}
