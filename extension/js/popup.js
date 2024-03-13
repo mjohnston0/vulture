@@ -30,6 +30,13 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleAddBox();
   });
 
+  function clearText() {
+    document.getElementById('title').value = '';
+    document.getElementById('selected-item').textContent = 'Select Tag';
+    document.getElementById('description').value = '';
+    document.getElementById('taskDueDate').value = '';
+}
+
   save.addEventListener('click', function() {
     let title = document.getElementById('title').value;
     let tag = document.getElementById('selected-item').textContent;
@@ -55,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     addMenu.style.display = 'none';
     document.getElementById('layout').style.display = 'block';
+    clearText();
   });
 
   cancel.addEventListener('click', function() {
