@@ -272,7 +272,16 @@ function updateTagList() {
                           document.getElementById('dropdown-btn').style.padding = '13px 10px';
                       }
 
+                      let todo = result.todo;
+
+                      for (task in todo.tasks) {
+                        if (todo.tasks[task].TAG === key) {
+                          todo.tasks[task].TAG = 'DEFAULT';
+                        }
+                      }
+
                       chrome.storage.local.set({ 'tags': t });
+                      chrome.storage.local.set({ 'todo': todo });
                       updateTagList();
                       renderTable(result.todo.tasks, result.tags)
                   }
