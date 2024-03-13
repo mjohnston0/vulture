@@ -41,7 +41,7 @@ function renderTable(allowlist) {
       }
     });
 
-    let typeColor = {'DOMAIN': '#00A6DB', 'PAGE': '#A0D019', 'REGEX': '#DB8300'} 
+    let typeColor = { 'DOMAIN': '#00A6DB', 'PAGE': '#A0D019', 'REGEX': '#DB8300' }
 
     var typeCell = row.insertCell();
     var type = document.createElement('div');
@@ -92,30 +92,6 @@ function renderTable(allowlist) {
     }
     deleteCell.appendChild(deleteButton);
 
-
-    // var deleteCell = row.insertCell();
-    // var deleteButton = document.createElement("button");
-    // deleteButton.textContent = "DELETE";
-
-    // deleteButton.onclick = function () {
-    //   if (confirm(
-    //     `Are you sure you want to delete this allow list item?
-    //     \nThis is permanent and cannot be undone!`
-    //   )) {
-    //     chrome.storage.local.get(["allowlist"], function (result) {
-    //       let allowList = result.allowlist;
-    //       delete allowList.list[allowedItemID];
-    //       allowList.count--;
-    //       chrome.storage.local.set({ allowlist: allowList });
-    //       renderTable(allowList.list);
-    //     });
-    //   } else {
-    //     location.reload();
-    //   }
-
-    // };
-
-    // deleteCell.appendChild(deleteButton);
   });
 }
 
@@ -126,7 +102,7 @@ document.getElementById("add_entry_btn").addEventListener("click", function () {
   let value = textbox.value;
   let type = typeSelect.value;
 
-  if (value.startsWith("https://")){
+  if (value.startsWith("https://")) {
     value = value.slice(8);
   }
 
@@ -208,21 +184,21 @@ deleteAll.addEventListener("click", function () {
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   var exportButton = document.getElementById('exportButton');
   var importInput = document.getElementById('importInput');
-  
-  exportButton.addEventListener('click', function() {
-    chrome.storage.local.get(null, function(data) {
+
+  exportButton.addEventListener('click', function () {
+    chrome.storage.local.get(null, function (data) {
       var jsonData = JSON.stringify(data);
       chrome.runtime.sendMessage({ action: "downloadJSON", data: jsonData });
     });
   });
 
-  importInput.addEventListener('change', function(event) {
+  importInput.addEventListener('change', function (event) {
     var file = event.target.files[0];
     var reader = new FileReader();
-    reader.onload = function(event) {
+    reader.onload = function (event) {
       var importedData = JSON.parse(event.target.result);
       chrome.runtime.sendMessage({ action: "importJSON", data: importedData });
       importInput.value = null;
