@@ -24,7 +24,7 @@ async function parse_page() {
     
                 if (element.TYPE === 'REGEX'){
                     let reg = new RegExp(element.VALUE);
-                    if(reg.exec(url) != null){
+                    if(url.match(reg) != null){
                         
                         parse(keywordSet, url)
                     }
