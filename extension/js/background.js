@@ -71,7 +71,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                 type: 'basic',
                 title: todo.TITLE,
                 message: 'DUE ON: ' + todo.DUE,
-                iconUrl: chrome.runtime.getURL('./assets/placeholder.png')
+                iconUrl: chrome.runtime.getURL('./assets/48.png')
             })
         }
     })
