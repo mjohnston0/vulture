@@ -46,7 +46,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         let due = new Date(today);
         todo.tasks[task_id] = { ID: task_id, TITLE: title, DESCRIPTION: selectedText + "<br>" + taskUrl, DUE: due.toISOString().slice(0, -8), TAG: "DEFAULT", STATUS: false };
         chrome.storage.local.set({ todo: todo });
-        chrome.tabs.sendMessage(tab.id, { action: 'taskAdded', selectedText: selectedText });
+        if(tab.id>0){
+            chrome.tabs.sendMessage(tab.id, { action: 'taskAdded', selectedText: selectedText });
+        }
     });
 });
 
