@@ -245,6 +245,10 @@ function updateTagList() {
           name.textContent = key;
           name.value = key;
 
+          item.appendChild(color);
+          item.appendChild(name);
+
+          if (key !== "DEFAULT"){
           let itemBtn = document.createElement('button');
           itemBtn.classList.add('item-btn');
           itemBtn.onclick = function () {
@@ -273,10 +277,11 @@ function updateTagList() {
           deleteIcon.src = chrome.runtime.getURL('./images/deleticon.png')
 
           itemBtn.appendChild(deleteIcon);
-
-          item.appendChild(color);
-          item.appendChild(name);
           item.appendChild(itemBtn);
+          
+        } else{
+          item.appendChild(document.createElement('span'));
+        }
 
           dropdownItems.appendChild(item);
       })
