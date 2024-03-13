@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 
     addMenu.style.display = 'none';
+    document.getElementById('layout').style.display = 'block';
   });
 
   cancel.addEventListener('click', function() {
