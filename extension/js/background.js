@@ -36,7 +36,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     let words = selectedText.split(" ").splice(0, 5);
     let title = words.join(" ");
     let tabTitle = tab.title;
-    let taskUrl = `<a class="task-url" href="${info.pageUrl}" target="_blank">${tabTitle}</a>`;
+    let taskUrl = `<a class="task-url" href="${info.frameUrl}" target="_blank">${tabTitle}</a>`;
     chrome.storage.local.get(['todo'], function (result) {
         let todo = result.todo;
         let task_id = todo.count + 1;
