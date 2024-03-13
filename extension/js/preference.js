@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   chrome.storage.local.get(["allowlist"], function (result) {
     if (result.allowlist) {
-      // console.log(result.allowlist);
       renderTable(result.allowlist.list);
     } else {
-      //console.error("No todoList found.");
       return;
     }
   });
@@ -128,9 +126,12 @@ document.getElementById("add_entry_btn").addEventListener("click", function () {
   let value = textbox.value;
   let type = typeSelect.value;
 
+  if (value.startsWith("https://")){
+    value = value.slice(8);
+  }
+
   chrome.storage.local.get(["allowlist"], function (result) {
     list = result.allowlist.list;
-    console.log(list);
     count = result.allowlist.count;
     list[count] = { ID: count, IS_ACTIVE: true, TYPE: type, VALUE: value };
     count++;
@@ -180,7 +181,6 @@ function showAssociatedKeywords() {
 deleteAll.addEventListener("click", function () {
   let kw = document.getElementById("suggestions_dropdown").value;
 
-  console.log("1");
   if (kw == "") {
     alert("Please input a valid keyword");
   }
@@ -204,7 +204,6 @@ deleteAll.addEventListener("click", function () {
         '<option value="" disabled selected>Select keyword to delete</option>';
       document.getElementById("delete_value").value = "";
 
-      console.log("deleted");
     });
   }
 });
