@@ -102,10 +102,6 @@ document.getElementById("add_entry_btn").addEventListener("click", function () {
   let value = textbox.value;
   let type = typeSelect.value;
 
-  if (value.startsWith("https://")) {
-    value = value.slice(8);
-  }
-
   chrome.storage.local.get(["allowlist"], function (result) {
     list = result.allowlist.list;
     count = result.allowlist.count;
