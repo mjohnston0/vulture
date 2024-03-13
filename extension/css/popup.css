@@ -543,6 +543,21 @@ table th {
     height: 1em;
 }
 
+#selected-item {
+    font-size: 14px;
+    padding: 0;
+}
+
+.task-tag {
+    border-radius: 10px;
+    color: #F5F5F5;
+    padding: 1px;
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+    box-shadow: 3px 3px 5px #65828c8f;
+}
+
 .dropdown-items {
     position: absolute;
     right: 0;
