@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
   cancel.addEventListener('click', function () {
     addMenu.style.display = 'none';
     document.getElementById('layout').style.display = 'block';
+    clearText();
   });
 
 
@@ -219,8 +220,6 @@ function displayTag(name) {
     tag.innerHTML = name;
 
     selectedItem.appendChild(tag);
-
-    document.getElementById('dropdown-btn').style.padding = '10px';
 
     document.getElementById('dropdown-items').classList.remove('open');
   })
