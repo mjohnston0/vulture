@@ -1,6 +1,6 @@
 # Vulture - Productivity Chrome Extension
 
-## Project Status: Development frozen after 13/3/24
+## Project Status: Development frozen after 15/3/24
 
 Vulture is a chrome extension that allows for full text search for webpages that are allowed through the allow list.
 It is recommended that vulture is pinned as an extension to the top bar.  
